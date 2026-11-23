@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Noah Berry Farm — Electrical Engineering Portfolio</title>
+  <title>Noah Berry Central — Electrical Engineering Portfolio</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts: Inter & JetBrains Mono for technical precision -->
@@ -74,20 +74,40 @@
     .dropdown-menu {
       transition: opacity 0.18s ease, transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.18s ease;
     }
+
+    /* Hero Banner Styling for Google Drive Photo */
+    .hero-banner {
+      width: 100%;
+      max-height: 360px;
+      object-fit: cover;
+      object-position: center 25%;
+      border-radius: 12px;
+      border: 1px solid #e7e5e4;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+    .dark .hero-banner {
+      border-color: #292524;
+    }
+    @media (max-width: 650px) {
+      .hero-banner {
+        max-height: 220px;
+      }
+    }
   </style>
 </head>
 <body class="bg-stone-50 text-stone-900 dark:bg-stone-950 dark:text-stone-100 font-sans antialiased selection:bg-sky-500/20 selection:text-sky-700 dark:selection:text-sky-300 transition-colors duration-200">
 
-  <!-- Minimalist Sticky Top Navigation (oliverhansen.club inspired) -->
+  <!-- Minimalist Sticky Top Navigation -->
   <header class="sticky top-0 z-40 bg-stone-50/90 dark:bg-stone-950/90 backdrop-blur-md border-b border-stone-200/70 dark:border-stone-800/70">
     <div class="max-w-[840px] mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-2">
       <!-- Brand Name -->
       <a href="#" class="font-semibold tracking-tight text-sm sm:text-base flex items-center gap-2.5 group shrink-0">
-        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block group-hover:scale-110 transition-transform"></span>
-        <span>Noah Berry Farm</span>
+        <span class="w-2.5 h-2.5 rounded-full bg-[#3b82f6] shadow-[0_0_0_3px_rgba(59,130,246,0.2)] inline-block group-hover:scale-110 transition-transform"></span>
+        <span>Noah Berry Central</span>
       </a>
 
-      <!-- 4 Main Categories: Background (Dropdown) | Projects (Dropdown) | Skills | Resume -->
+      <!-- 4 Main Categories: Background (Dropdown) | Projects (Dropdown) | Skills | Contacts -->
       <nav class="flex items-center gap-3 sm:gap-6 text-xs sm:text-sm text-stone-600 dark:text-stone-400">
         <!-- Background Single-Level Dropdown -->
         <div class="relative" id="backgroundDropdownContainer">
@@ -109,11 +129,11 @@
             class="dropdown-menu invisible opacity-0 translate-y-1 absolute left-0 mt-2 w-64 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-xl py-1.5 z-50"
           >
             <div class="px-3.5 py-1.5 border-b border-stone-100 dark:border-stone-800/80 flex items-center justify-between">
-              <span class="font-mono text-[10px] uppercase tracking-wider text-stone-400">Background 1–6</span>
+              <span class="font-mono text-[10px] uppercase tracking-wider text-stone-400">Education &amp; Experience</span>
               <a href="#background" onclick="closeAllNavDropdowns()" class="font-mono text-[10px] text-emerald-600 dark:text-emerald-400 hover:underline">View All</a>
             </div>
-            <div id="bgNavDropdownItems" class="py-1">
-              <!-- Populated dynamically with Background 1 - 6 -->
+            <div id="bgNavDropdownItems" class="py-1 max-h-72 overflow-y-auto">
+              <!-- Populated dynamically with Background entries -->
             </div>
           </div>
         </div>
@@ -133,23 +153,23 @@
             </svg>
           </button>
 
-          <!-- Dropdown List for Project 1 through Project 6 -->
+          <!-- Scrollable Dropdown List for Project 1 through Project 8+ -->
           <div
             id="projectsDropdownMenu"
             class="dropdown-menu invisible opacity-0 translate-y-1 absolute right-0 sm:left-0 sm:right-auto mt-2 w-64 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-xl py-1.5 z-50"
           >
             <div class="px-3.5 py-1.5 border-b border-stone-100 dark:border-stone-800/80 flex items-center justify-between">
-              <span class="font-mono text-[10px] uppercase tracking-wider text-stone-400">Projects 1–6</span>
+              <span class="font-mono text-[10px] uppercase tracking-wider text-stone-400">Engineering Applications</span>
               <a href="#projects" onclick="closeAllNavDropdowns()" class="font-mono text-[10px] text-sky-600 dark:text-sky-400 hover:underline">View All</a>
             </div>
-            <div id="navDropdownItems" class="py-1">
-              <!-- Populated dynamically for Project 1 - Project 6 -->
+            <div id="navDropdownItems" class="py-1 max-h-72 overflow-y-auto">
+              <!-- Populated dynamically for all Projects -->
             </div>
           </div>
         </div>
 
         <a href="#skills" class="hover:text-stone-900 dark:hover:text-stone-100 transition-colors">Skills</a>
-        <a href="resume.pdf" target="_blank" rel="noopener noreferrer" class="hover:text-stone-900 dark:hover:text-stone-100 transition-colors">Resume</a>
+        <a href="#contacts" class="hover:text-stone-900 dark:hover:text-stone-100 transition-colors">Contacts</a>
 
         <!-- Theme Toggle Button -->
         <button id="themeToggle" aria-label="Toggle dark mode" class="p-2 rounded-lg border border-stone-200 dark:border-stone-800 hover:bg-stone-100 dark:hover:bg-stone-900 text-stone-600 dark:text-stone-400 transition-colors cursor-pointer">
@@ -168,22 +188,33 @@
   <!-- Main Single-Column Editorial Container -->
   <main class="max-w-[840px] mx-auto px-5 sm:px-8 pt-12 sm:pt-16 pb-24">
 
-    <!-- Hero Section -->
+    <!-- Hero Section: Image -> Title -> Bachelor's Bubble -> Description -> Buttons -->
     <section class="pb-14 border-b border-stone-200 dark:border-stone-800">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 font-mono text-xs text-stone-600 dark:text-stone-400 mb-6">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+      <!-- 1. Hero Photo from Google Drive with Automatic Fallback -->
+      <img
+        src="https://drive.google.com/thumbnail?id=1-EGqxZxSLFpPNmEYiFVdClKJUNyXEnri&sz=w1600"
+        onerror="if(!this.dataset.triedFallback){this.dataset.triedFallback='1';this.src='https://lh3.googleusercontent.com/d/1-EGqxZxSLFpPNmEYiFVdClKJUNyXEnri=w1600';}else{this.onerror=null;this.src='https://placehold.co/1200x480/1c1917/a8a29e?text=Noah+Berry+Engineering+Banner';}"
+        alt="Noah Berry operating a FANUC LR Mate 200iD industrial robot arm"
+        class="hero-banner"
+      />
+
+      <!-- 2. Main Title -->
+      <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight leading-[1.18] text-stone-900 dark:text-stone-100 mb-4">
+        Noah Berry - Electrical Engineering Professional Portfolio
+      </h1>
+
+      <!-- 3. Bachelor's Status Bubble Badge -->
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 font-mono text-xs sm:text-sm text-stone-600 dark:text-stone-400 mb-8">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#3b82f6] shadow-[0_0_0_3px_rgba(59,130,246,0.2)] animate-pulse"></span>
         <span>B.S. Electrical Engineering • George Fox University (May 2027)</span>
       </div>
 
-      <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight leading-[1.18] text-stone-900 dark:text-stone-100 mb-4">
-        Noah Berry Farm
-      </h1>
-
+      <!-- 4. Description Paragraph -->
       <p class="text-base sm:text-lg text-stone-600 dark:text-stone-400 leading-relaxed max-w-2xl mb-8">
-        I am a senior Electrical Engineering student at George Fox University in Newberg, Oregon, focused on power systems, hardware design, industrial controls, and biomedical instrumentation.
+        Electrical Engineering senior at George Fox University with a Mathematics minor, currently leading the Analog Devices Inc. automated silicon wafer box opener senior capstone project. Experienced in industrial controls, robotics, custom PCB design, and power systems, and open to relocation across the US.
       </p>
 
-      <!-- Hero Shortcut Buttons: Copy Email & Download Resume (Solid Black #000000 with White Text #ffffff) -->
+      <!-- 5. Action Buttons: Copy Email & Download Resume (Solid Black #000000 with White Text #ffffff) -->
       <div class="flex flex-wrap items-center gap-3 text-sm font-medium">
         <button
           onclick="copyEmail()"
@@ -199,11 +230,11 @@
         </button>
 
         <a
-          href="resume.pdf"
-          download="resume.pdf"
+          href="https://drive.google.com/uc?export=download&id=13YTadMBRpRYcOG3dZXyIFhOtypg3lSnw"
+          download="Noah_Berry_Resume_2026-27.pdf"
           class="px-4 py-2.5 rounded-lg bg-[#000000] text-[#ffffff] border border-stone-800 hover:bg-stone-800 transition-colors inline-flex items-center gap-2"
         >
-          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
             <polyline points="7 10 12 15 17 10"></polyline>
             <line x1="12" y1="15" x2="12" y2="3"></line>
@@ -213,30 +244,46 @@
       </div>
     </section>
 
-    <!-- 1. BACKGROUND SECTION (Expandable Cards: Background 1 – 6) -->
+    <!-- 1. BACKGROUND SECTION (Expandable Cards) -->
     <section id="background" class="pt-14 pb-16 border-b border-stone-200 dark:border-stone-800 scroll-mt-20">
       <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-3">
         <h2 class="text-xl font-semibold tracking-tight">Background</h2>
-        <span class="font-mono text-xs text-stone-400">01 / EDUCATION &amp; EXPERIENCE</span>
+        <div class="flex items-center gap-3">
+          <span class="font-mono text-xs text-stone-400">01 / EDUCATION &amp; EXPERIENCE</span>
+          <button
+            type="button"
+            id="toggleAllBgBtn"
+            onclick="toggleAllGroup('background')"
+            class="px-2.5 py-1 rounded-md bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 font-mono text-[11px] text-stone-700 dark:text-stone-300 transition-colors cursor-pointer"
+          >
+            Expand All
+          </button>
+        </div>
       </div>
-      <p class="text-sm text-stone-500 dark:text-stone-400 mb-8">
-        Select <span class="font-mono text-stone-700 dark:text-stone-300">Background 1 – 6</span> from the top navigation dropdown or click any card below to view full details.
-      </p>
+      <p class="text-sm text-stone-500 dark:text-stone-400 mb-8"></p>
 
       <div id="backgroundAccordionList" class="space-y-4">
         <!-- Injected cleanly via JS -->
       </div>
     </section>
 
-    <!-- 2. PROJECTS SECTION (Expandable Cards: Project 1 – Project 6) -->
+    <!-- 2. PROJECTS SECTION (Expandable Cards: Project 1 – Project 8+) -->
     <section id="projects" class="pt-14 pb-16 border-b border-stone-200 dark:border-stone-800 scroll-mt-20">
       <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-3">
         <h2 class="text-xl font-semibold tracking-tight">Projects</h2>
-        <span class="font-mono text-xs text-stone-400">02 / CLICK ANY CARD TO EXPAND</span>
+        <div class="flex items-center gap-3">
+          <span class="font-mono text-xs text-stone-400">02 / ENGINEERING APPLICATION</span>
+          <button
+            type="button"
+            id="toggleAllProjBtn"
+            onclick="toggleAllGroup('projects')"
+            class="px-2.5 py-1 rounded-md bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 font-mono text-[11px] text-stone-700 dark:text-stone-300 transition-colors cursor-pointer"
+          >
+            Expand All
+          </button>
+        </div>
       </div>
-      <p class="text-sm text-stone-500 dark:text-stone-400 mb-8">
-        Select <span class="font-mono text-stone-700 dark:text-stone-300">Project 1 – Project 6</span> from the top navigation dropdown or click any card below to view its specifications, schematic diagram, and bench troubleshooting log.
-      </p>
+      <p class="text-sm text-stone-500 dark:text-stone-400 mb-8"></p>
 
       <!-- Stacked Accordion Project Cards Container -->
       <div id="projectsAccordionList" class="space-y-4">
@@ -284,52 +331,75 @@
       </div>
     </section>
 
-    <!-- 4. RESUME SECTION -->
-    <section id="resume" class="pt-14 scroll-mt-20">
+    <!-- 4. CONTACTS SECTION -->
+    <section id="contacts" class="pt-14 scroll-mt-20">
       <div class="flex items-baseline justify-between mb-8">
-        <h2 class="text-xl font-semibold tracking-tight">Resume</h2>
+        <h2 class="text-xl font-semibold tracking-tight">Contacts</h2>
         <span class="font-mono text-xs text-stone-400">04 / CREDENTIALS &amp; CONTACT</span>
       </div>
 
       <div class="p-6 sm:p-8 rounded-2xl bg-white dark:bg-stone-900/70 border border-stone-200 dark:border-stone-800 space-y-6">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-stone-200 dark:border-stone-800 pb-6">
-          <div>
-            <h3 class="text-lg font-semibold text-stone-900 dark:text-stone-100">Noah Berry Farm</h3>
-            <p class="font-mono text-xs text-stone-500 dark:text-stone-400 mt-1">
-              B.S. Electrical Engineering Candidate • George Fox University (Graduating May 2027)
-            </p>
-          </div>
-
-          <div class="flex flex-wrap items-center gap-2.5">
-            <!-- Place your official 1-page PDF named resume.pdf in the same GitHub folder -->
-            <a href="resume.pdf" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-lg bg-stone-900 text-stone-50 dark:bg-stone-100 dark:text-stone-950 text-xs font-mono font-medium hover:opacity-90 transition-opacity inline-flex items-center gap-2">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-              Download resume.pdf
-            </a>
-            <button onclick="window.print()" class="px-3.5 py-2.5 rounded-lg bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 text-xs font-mono hover:bg-stone-200 dark:hover:bg-stone-700 transition-colors cursor-pointer">
-              Print Page
-            </button>
-          </div>
+        <div class="border-b border-stone-200 dark:border-stone-800 pb-6">
+          <h3 class="text-lg font-semibold text-stone-900 dark:text-stone-100">Noah Berry Central</h3>
+          <p class="font-mono text-xs text-stone-500 dark:text-stone-400 mt-1">
+            B.S. Electrical Engineering Candidate • George Fox University (Graduating May 2027)
+          </p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
           <div>
-            <div class="font-mono text-xs uppercase tracking-wider text-stone-400 mb-2">Target Roles</div>
+            <div class="font-mono text-xs uppercase tracking-wider text-stone-400 mb-2">Contact &amp; Relocation</div>
             <p class="text-stone-600 dark:text-stone-400 leading-relaxed">
-              Electrical Hardware Engineer, Power Systems / Grid Engineer, Controls &amp; Automation Engineer, and Biomedical Device Hardware Engineer.
+              Newberg, OR (Open to relocation across the US)<br/>
+              Phone: 360-631-6788<br/>
+              Academic: nberry23@georgefox.edu<br/>
+              Personal: reachnoahberry@gmail.com
             </p>
           </div>
           <div>
             <div class="font-mono text-xs uppercase tracking-wider text-stone-400 mb-2">Direct Links</div>
-            <div class="flex flex-wrap gap-2 font-mono text-xs">
-              <button onclick="copyEmail()" class="px-3 py-1.5 rounded-md bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:text-sky-600 dark:hover:text-sky-400 cursor-pointer">
-                Email
+            <div class="flex flex-wrap gap-2.5 text-xs font-medium">
+              <button
+                type="button"
+                onclick="copyEmail()"
+                class="px-3.5 py-2 rounded-lg bg-[#000000] text-[#ffffff] border border-stone-800 hover:bg-stone-800 transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+              >
+                <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Email</span>
               </button>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-md bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:text-sky-600 dark:hover:text-sky-400">
-                LinkedIn ↗
+              <a
+                href="https://drive.google.com/uc?export=download&id=13YTadMBRpRYcOG3dZXyIFhOtypg3lSnw"
+                download="Noah_Berry_Resume_2026-27.pdf"
+                class="px-3.5 py-2 rounded-lg bg-[#000000] text-[#ffffff] border border-stone-800 hover:bg-stone-800 transition-colors inline-flex items-center gap-1.5"
+              >
+                <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span>Download Resume</span>
               </a>
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-md bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:text-sky-600 dark:hover:text-sky-400">
-                GitHub ↗
+              <a
+                href="https://www.linkedin.com/in/noah-berry-electeng"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-3.5 py-2 rounded-lg bg-[#000000] text-[#ffffff] border border-stone-800 hover:bg-stone-800 transition-colors inline-flex items-center gap-1.5"
+              >
+                <span>LinkedIn ↗</span>
+              </a>
+              <a
+                href="https://github.com/noahberry-EE"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-3.5 py-2 rounded-lg bg-[#000000] text-[#ffffff] border border-stone-800 hover:bg-stone-800 transition-colors inline-flex items-center gap-1.5"
+              >
+                <svg class="w-3.5 h-3.5 shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+                </svg>
+                <span>GitHub ↗</span>
               </a>
             </div>
           </div>
@@ -342,8 +412,12 @@
   <!-- Minimal Footer -->
   <footer id="siteFooter" class="border-t border-stone-200 dark:border-stone-800 py-8 text-center font-mono text-xs text-stone-500 dark:text-stone-400">
     <div class="max-w-[840px] mx-auto px-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-      <span>© 2026 Noah Berry Farm • Newberg, OR</span>
-      <span id="exportWrapper">GitHub Pages Ready • <button onclick="downloadSourceHTML()" class="underline hover:text-stone-900 dark:hover:text-stone-200 cursor-pointer">Export index.html</button></span>
+      <span>© 2026 Noah Berry Central • Newberg, OR</span>
+      <span class="flex items-center gap-3">
+        <a href="https://drive.google.com/uc?export=download&id=13YTadMBRpRYcOG3dZXyIFhOtypg3lSnw" download="Noah_Berry_Resume_2026-27.pdf" class="underline hover:text-stone-900 dark:hover:text-stone-200">Resume PDF</a>
+        <span>•</span>
+        <span id="exportWrapper"><button onclick="downloadSourceHTML()" class="underline hover:text-stone-900 dark:hover:text-stone-200 cursor-pointer">Export index.html</button></span>
+      </span>
     </div>
   </footer>
 
@@ -354,99 +428,97 @@
 
   <script>
     /* ==========================================================================
-       BACKGROUND DATA (Background 1 through Background 6)
+       BACKGROUND DATA (Background 1 through Background n)
        ========================================================================== */
     const backgrounds = [
       {
         id: 'bg-1',
-        label: 'Background 1',
-        tag: 'Education • B.S. Electrical Engineering',
-        year: 'Expected May 2027',
-        summary: 'Pursuing a Bachelor of Science in Electrical Engineering at George Fox University (Newberg, OR), graduating May 2027. Coursework emphasizes power systems, analog/digital circuit design, control systems, and biomedical instrumentation.',
+        label: 'B.S. Electrical Engineering',
+        tag: '• George Fox University',
+        year: 'Aug. 2023 — May 2027',
+        summary: 'Pursuing a Bachelor of Science in Electrical Engineering with a Minor in Mathematics at George Fox University (Newberg, OR; expected graduation May 1, 2027). Graduated from Monroe High School in Monroe, WA (June 2023).',
         highlights: [
-          'Leading electrical hardware architecture, power budgeting, and bench testing for Senior Design Capstone.',
-          'Completed core laboratory sequences in power electronics, signals & systems, microcontrollers, and active analog filtering.',
-          'Collaborating in multidisciplinary engineering teams to deliver functional hardware prototypes from schematic to verification.'
+          'Core coursework in PCB design, circuit analysis & design, active filter design, power & control systems, and signal analysis.',
+          'Hands-on laboratory proficiency with oscilloscopes, function generators, power supplies, DMMs, MATLAB, Multisim, and Altium PCB Designer.',
+          'Committed to pursuing advanced technical excellence and community-driven engineering collaboration.'
         ],
-        tools: ['George Fox University', 'LTspice', 'MATLAB / Simulink', 'KiCad 8', 'Oscilloscopes & DMMs']
+        tools: ['George Fox University', 'B.S. Electrical Engineering', 'Mathematics Minor', 'Altium Designer', 'MATLAB & Multisim']
       },
       {
         id: 'bg-2',
-        label: 'Background 2',
-        tag: 'Electrical Assembly & Control Panel Wiring',
-        year: 'Hands-On Tech',
-        summary: 'Industrial electrical assembly and control cabinet build experience in the Newberg / Portland metro corridor, bridging physical shop-floor manufacturing with multi-page engineering schematics.',
+        label: 'Capstone & Project Manager',
+        tag: '• Analog Devices Inc. (GFU)',
+        year: 'Aug. 2026 — May 2027',
+        summary: 'Leading a 5-engineer senior design team at George Fox University to design and build a stand-alone, fully automated silicon wafer box opener for Analog Devices Inc.\'s semiconductor manufacturing line.',
         highlights: [
-          'Executed point-to-point control panel wiring, DIN-rail component layout, ferrule crimping, and terminal block termination.',
-          'Interpreted complex industrial electrical schematics, wire run lists, and BOMs to assemble sub-panels accurately.',
-          'Performed continuity, insulation/hi-pot, and 24V DC / 3-phase power-up diagnostics prior to final shipment.'
+          'Coordinate directly with Analog Devices Inc. representatives on technical specifications, safety interlocks, and milestone reviews.',
+          'Manage project schedules, task allocation, and system integration across a 5-person multidisciplinary engineering team.',
+          'Architect, design, and fabricate the electrical control, power distribution, and sensor subsystems of the automated opener.'
         ],
-        tools: ['UL 508A Practices', 'NEC Wiring Codes', 'Schematic Diagnostics', 'Ferrule & Harness Prep', 'Fluke DMM']
+        tools: ['Analog Devices Inc.', 'Team Lead (5 Engineers)', 'Automation & Controls', 'Electrical Hardware Design', 'System Integration']
       },
       {
         id: 'bg-3',
-        label: 'Background 3',
-        tag: 'Power Systems & Grid Engineering Focus',
-        year: '2025 — 2026',
-        summary: 'Focused academic and laboratory training in utility power distribution, 3-phase balanced/unbalanced analysis, transformer modeling, protection coordination, and switching power conversion.',
+        label: 'Lab Assistant & Tutoring',
+        tag: '• George Fox College of Engineering',
+        year: 'Jan. 2025 — May 2027',
+        summary: 'Serving as an Electrical Engineering and Mathematics Teaching Assistant and tutor at George Fox University, guiding students through lab procedures, bench equipment, and theoretical coursework.',
         highlights: [
-          'Modeled per-unit power flow, short-circuit fault currents, and voltage regulation across distribution feeders.',
-          'Designed, simulated, and bench-tested buck/boost DC-DC converters and AC-DC rectifier stages under dynamic load steps.',
-          'Analyzed protective relay coordination curves, overcurrent protection, and power factor correction strategies.'
+          'Regularly instructed entire laboratory and recitation sections solo across core Electrical Engineering courses.',
+          'Mentored students one-on-one and in group sessions on circuit troubleshooting, bench test equipment, and Mathematics.',
+          'Reinforced safe laboratory practices and systematic debugging habits on oscilloscopes, breadboards, and simulation tools.'
         ],
-        tools: ['3-Phase Power', 'Protection & Relays', 'MATLAB / Simulink', 'LTspice', 'Power Analyzers']
+        tools: ['Solo Lab Instruction', 'Circuit Troubleshooting', 'Bench Test Equipment', 'EE & Math Tutoring', 'Technical Mentorship']
       },
       {
         id: 'bg-4',
-        label: 'Background 4',
-        tag: 'Hardware Design & PCB Prototyping Labs',
-        year: '2024 — 2026',
-        summary: 'End-to-end custom printed circuit board design and embedded hardware prototyping across academic labs and independent engineering builds.',
+        label: 'Medication Technician',
+        tag: '• Arbor Oaks Terrace Memory Care',
+        year: 'Apr. 2025 — Oct. 2026',
+        summary: 'Managed shift care operations, resident medication administration, and strict regulatory compliance in Newberg, OR with zero-error attention to detail.',
         highlights: [
-          'Captured hierarchical schematics and routed multi-layer PCBs with dedicated ground planes and local decoupling networks.',
-          'Assembled fine-pitch SMD and through-hole prototype boards using hot-air rework and precision soldering stations.',
-          'Executed structured board bring-up protocols, verifying rail sequencing, ripple tolerances, and SPI/I2C/UART bus integrity.'
+          'Supervised shift care staff and coordinated daily resident medication passes in a high-accountability clinical environment.',
+          'Maintained accurate regulatory compliance paperwork, dosage logs, and audit-ready care documentation.',
+          'Coordinated external care communications with healthcare providers, pharmacies, and families.'
         ],
-        tools: ['KiCad 8', 'Altium Designer', 'SMD Soldering & Rework', 'Logic Analyzers', 'Embedded C/C++']
+        tools: ['Shift Staff Management', 'Regulatory Documentation', 'Medication Administration', 'External Care Coordination', 'Newberg, OR']
       },
       {
         id: 'bg-5',
-        label: 'Background 5',
-        tag: 'Industrial Automation & Controls Integration',
-        year: '2025 — 2026',
-        summary: 'Practical troubleshooting and commissioning readiness across industrial automation systems, sensor loops, dual-channel safety relays, and variable frequency drives (VFDs).',
+        label: 'Electrician Assistant',
+        tag: '• Scotts Electrical Service LLC',
+        year: 'May 2022 — Aug. 2022',
+        summary: 'Worked alongside licensed electricians in Seattle, WA on residential and commercial electrical installations, legacy system removal, and conduit routing.',
         highlights: [
-          'Programmed and simulated PLC ladder logic routines for discrete machine sequencing, timers, and fault interlocks.',
-          'Configured VFD motor control parameters (accel/decel ramps, current limits, and analog speed references).',
-          'Diagnosed 24V DC control loop faults and calibrated 4–20 mA / 0–10 V industrial pressure and position transducers.'
+          'Shadowed master and journeyman electricians during equipment setup, panel upgrades, and legacy wiring demolition.',
+          'Routed new electrical wiring and conduit runs in compliance with electrical safety and NEC code practices.',
+          'Developed foundational field knowledge of AC power distribution, grounding, and job-site electrical safety.'
         ],
-        tools: ['PLC Ladder Logic', 'VFDs & Motor Control', 'Safety Relays', '4–20 mA Sensor I/O', 'Loop Calibration']
+        tools: ['Conduit & Wiring Routing', 'Electrical Safety', 'System Upgrades', 'Field Diagnostics', 'Seattle, WA']
       },
       {
         id: 'bg-6',
-        label: 'Background 6',
-        tag: 'Engineering Leadership & Career Readiness',
-        year: '2023 — Present',
-        summary: 'Preparing for the NCEES Fundamentals of Engineering (FE Electrical & Computer) exam while maintaining rigorous technical documentation and safety standards across team projects.',
+        label: 'Pharmacy Assistant',
+        tag: '• Pharm-A-Save Pharmacy',
+        year: 'Aug. 2020 — Aug. 2023',
+        summary: 'Served as a licensed Pharmacy Assistant in Monroe, WA managing prescriptions, patient accounts, front-counter operations, and regulatory compliance.',
         highlights: [
-          'Serving as electrical subsystem lead on Senior Design Capstone, managing milestones, BOM procurement, and design reviews.',
-          'Actively preparing for the FE Electrical & Computer examination covering circuit analysis, power, electronics, and controls.',
-          'Authored formal test plans, root-cause lab logs, and GitHub-hosted hardware documentation for recruiter review.'
+          'Obtained Washington State Pharmacy Assistant license and managed prescription intake, filling workflows, and inventory.',
+          'Handled patient accounts, insurance coordination, and front-counter customer operations in a fast-paced retail pharmacy.',
+          'Upheld strict HIPAA privacy and pharmacy compliance standards with zero-error attention to detail.'
         ],
-        tools: ['Senior Design Lead', 'FE Exam Track', 'Technical Documentation', 'Git / GitHub', 'Design Reviews']
+        tools: ['Licensed Pharmacy Assistant', 'Prescription Operations', 'Patient Accounts', 'Regulatory Compliance', 'Monroe, WA']
       }
     ];
 
     /* ==========================================================================
-       PROJECTS DATA (Project 1 through Project 6)
-       Edit the title, tag, summary, specs, architecture, and troubleshooting
-       fields below whenever you are ready to swap in your real project details.
+       PROJECTS DATA (Project 1 through Project 8 — add more objects anytime)
        ========================================================================== */
     const projects = [
       {
         id: 'project-1',
-        label: 'Project 1',
-        tag: 'Senior Capstone • Power & Hardware',
+        label: 'Stand-alone Box Opener',
+        tag: '• ADI Capstone',
         year: '2026 — 2027',
         summary: 'End-to-end electrical subsystem design for Senior Design Capstone, integrating isolated DC-DC power regulation, sensor acquisition, and fault protection on a custom PCB.',
         specs: [
@@ -477,8 +549,8 @@
       },
       {
         id: 'project-2',
-        label: 'Project 2',
-        tag: 'Power Systems & Grid',
+        label: '4-Stage Audio Amplifier',
+        tag: '• Electronic Devices',
         year: '2026',
         summary: 'Synchronous DC-DC power converter and 3-phase feeder voltage regulation study modeled in MATLAB/Simulink and validated on the hardware bench under step-load transients.',
         specs: [
@@ -499,9 +571,9 @@
       },
       {
         id: 'project-3',
-        label: 'Project 3',
-        tag: 'Industrial Controls & Panel Wiring',
-        year: '2026',
+        label: 'Semi-Autonomous Wheelchair',
+        tag: '• Servant Engineering',
+        year: '2025 - 2026',
         summary: '24V DC industrial control panel and 3-phase motor starter assembly featuring dual-channel E-stop safety relay interlocks, VFD speed control, and DIN-rail terminal distribution.',
         specs: [
           { label: 'Control Bus', value: '24V DC Class 2 / 480V 3-Phase' },
@@ -511,6 +583,13 @@
         ],
         architecture: 'Separated 480V AC power conductors from 24V DC control and analog 4–20 mA sensor wiring using dedicated panduit raceways, color-coded ferrules, and clear schematic wire tags.',
         troubleshooting: 'Traced an intermittent safety relay reset fault during commissioning to a loose auxiliary contact jumper; verified dual-channel redundancy across all E-stop states.',
+        embedDocument: {
+          title: 'Semi-Autonomous Wheelchair — Project Documentation',
+          previewUrl: 'https://drive.google.com/file/d/1tKC5HgVgVH2NWXvlSwokGDS8npGwgg-Z/preview',
+          downloadUrl: 'https://drive.google.com/uc?export=download&id=1tKC5HgVgVH2NWXvlSwokGDS8npGwgg-Z',
+          externalUrl: 'https://drive.google.com/file/d/1tKC5HgVgVH2NWXvlSwokGDS8npGwgg-Z/view?usp=drive_link',
+          filename: 'Noah_Berry_Semi_Autonomous_Wheelchair.pdf'
+        },
         diagram: `
           <svg viewBox="0 0 640 130" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
             <line x1="50" y1="22" x2="50" y2="108" class="stroke-stone-400 dark:stroke-stone-600" stroke-width="2"/>
@@ -527,9 +606,9 @@
       },
       {
         id: 'project-4',
-        label: 'Project 4',
-        tag: 'Biomedical Instrumentation',
-        year: '2025',
+        label: 'Automated Sorting Machine',
+        tag: '• Embedded Systems',
+        year: '2026',
         summary: 'Low-noise ECG/EMG biopotential acquisition front-end combining an instrumentation amplifier, Driven-Right-Leg (DRL) common-mode cancellation, and active Sallen-Key bandpass filtering.',
         specs: [
           { label: 'Gain & Band', value: '60 dB Gain | 0.5 Hz – 150 Hz' },
@@ -549,8 +628,8 @@
       },
       {
         id: 'project-5',
-        label: 'Project 5',
-        tag: 'Hardware & Custom PCB Design',
+        label: 'Breakout! (C Program)',
+        tag: '• Microprocessor Architecture',
         year: '2025',
         summary: 'Custom 2-layer FR-4 mixed-signal sensor and actuator interface board designed in KiCad 8, featuring reverse-polarity protection, ESD clamping, and modular terminal headers.',
         specs: [
@@ -575,9 +654,9 @@
       },
       {
         id: 'project-6',
-        label: 'Project 6',
-        tag: 'Embedded Systems & Firmware',
-        year: '2024',
+        label: 'Finger Pulse Oximeter',
+        tag: '• Circuit Analysis & Design',
+        year: '2025',
         summary: 'Deterministic embedded data acquisition and closed-loop PWM motor speed controller written in C/C++ on STM32/ESP32 with real-time UART telemetry streaming.',
         specs: [
           { label: 'Controller', value: 'STM32 / ESP32 (C / C++)' },
@@ -587,11 +666,77 @@
         ],
         architecture: 'Implemented hardware timer interrupts at 1 kHz to trigger DMA-backed 12-bit ADC conversions, compute discrete PI control updates, and modulate 20 kHz complementary PWM outputs.',
         troubleshooting: 'Eliminated ADC jitter caused by asynchronous serial print blocking by moving telemetry transmission to a non-blocking ring buffer verified on a logic analyzer.',
+        embedDocument: {
+          title: 'Finger Pulse Oximeter — Project Documentation',
+          previewUrl: 'https://drive.google.com/file/d/1mDb3DbMFjd6eJIdeZlDtc9lbmfnmOTW0/preview',
+          downloadUrl: 'https://drive.google.com/uc?export=download&id=1mDb3DbMFjd6eJIdeZlDtc9lbmfnmOTW0',
+          externalUrl: 'https://drive.google.com/file/d/1mDb3DbMFjd6eJIdeZlDtc9lbmfnmOTW0/view?usp=sharing',
+          filename: 'Noah_Berry_Finger_Pulse_Oximeter.pdf'
+        },
         diagram: `
           <svg viewBox="0 0 640 130" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="20" y="20" width="600" height="90" rx="8" class="fill-white dark:fill-stone-900 stroke-stone-300 dark:stroke-stone-700" stroke-width="1.2"/>
             <text x="36" y="38" class="fill-amber-600 dark:fill-amber-400 font-mono text-[9px]">LOGIC ANALYZER: PWM &amp; SPI BUS TIMING</text>
             <path d="M36 85 L36 55 L96 55 L96 85 L156 85 L156 55 L216 55 L216 85 L276 85 L276 55 L336 55 L336 85 L396 85 L396 55 L456 55 L456 85 L516 85 L516 55 L576 55 L576 85 L604 85" stroke="#d97706" stroke-width="1.8" fill="none"/>
+          </svg>
+        `
+      },
+      {
+        id: 'project-7',
+        label: 'Oscillating Air Engine',
+        tag: '• Mechanical Applications',
+        year: '2024',
+        summary: 'Precision-machined single-cylinder oscillating pneumatic engine built from CAD drawings, integrating CNC milling, lathe turning, tolerance verification, and compressed-air testing.',
+        specs: [
+          { label: 'Fabrication', value: 'Manual Lathe & CNC Mill' },
+          { label: 'Materials', value: '6061 Aluminum & Brass' },
+          { label: 'Tolerances', value: '±0.001 in Piston/Cylinder Fit' },
+          { label: 'Validation', value: 'Pneumatic Bench Run-In' }
+        ],
+        architecture: 'Designed crank-throw geometry, port timing alignment, and balanced flywheel inertia to minimize dead-center stalling and sustain smooth low-pressure rotation.',
+        troubleshooting: 'Reduced cylinder-to-port air leakage during initial compressed-air trials by lapping the mating valve face flat and refining spring tension on the pivot axle.',
+        embedPresentation: {
+          title: 'Oscillating Air Engine — Project Presentation',
+          previewUrl: 'https://docs.google.com/presentation/d/19nC6Lmy8Lt10XdAD2Oa5EDXSNkCV8u0UIYEF5Rc-qCw/preview',
+          externalUrl: 'https://docs.google.com/presentation/d/19nC6Lmy8Lt10XdAD2Oa5EDXSNkCV8u0UIYEF5Rc-qCw/edit?usp=drive_link'
+        },
+        diagram: `
+          <svg viewBox="0 0 640 130" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="20" y="20" width="600" height="90" rx="8" class="fill-white dark:fill-stone-900 stroke-stone-300 dark:stroke-stone-700" stroke-width="1.2"/>
+            <circle cx="200" cy="65" r="28" stroke="#0284c7" stroke-width="1.8"/>
+            <circle cx="200" cy="65" r="4" fill="#0284c7"/>
+            <line x1="200" y1="45" x2="380" y2="65" stroke="#10b981" stroke-width="2.5"/>
+            <rect x="370" y="47" width="110" height="36" rx="6" class="fill-emerald-500/10 stroke-emerald-500" stroke-width="1.5"/>
+            <text x="425" y="69" text-anchor="middle" class="fill-emerald-700 dark:fill-emerald-300 font-mono text-[10px] font-semibold">CYLINDER</text>
+          </svg>
+        `
+      },
+      {
+        id: 'project-8',
+        label: 'Simon Memory Game',
+        tag: '• Verilog & C Programming',
+        year: '2024 - 2025',
+        summary: 'Hardware-software state-machine implementation of the classic Simon sequence memory game written in Verilog HDL and embedded C with debounced pushbuttons, LEDs, and audio tones.',
+        specs: [
+          { label: 'Languages', value: 'Verilog HDL & Embedded C' },
+          { label: 'Architecture', value: 'Finite State Machine (FSM)' },
+          { label: 'Peripherals', value: 'Debounced I/O, LEDs, PWM Buzzer' },
+          { label: 'Verification', value: 'Testbench Sim & Board Demo' }
+        ],
+        architecture: 'Structured a deterministic multi-state FSM (Idle, Generate Sequence, Playback, Player Input, Verify, Win/Loss) driven by a hardware LFSR pseudo-random generator and millisecond timer counters.',
+        troubleshooting: 'Resolved double-registered button presses during fast player input sequences by implementing a synchronous 20 ms shift-register debouncer and edge-detection pulse generator.',
+        diagram: `
+          <svg viewBox="0 0 640 130" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="40" y="38" width="115" height="54" rx="8" class="fill-white dark:fill-stone-900 stroke-stone-300 dark:stroke-stone-700" stroke-width="1.5"/>
+            <text x="97" y="69" text-anchor="middle" class="fill-stone-900 dark:fill-stone-100 font-mono text-[10px] font-semibold">LFSR SEED</text>
+            <path d="M155 65 H255" stroke="#0284c7" stroke-width="1.5"/>
+            <polygon points="255,61 263,65 255,69" fill="#0284c7"/>
+            <rect x="265" y="38" width="125" height="54" rx="8" class="fill-sky-500/10 stroke-sky-500" stroke-width="1.5"/>
+            <text x="327" y="69" text-anchor="middle" class="fill-sky-700 dark:fill-sky-300 font-mono text-[10px] font-semibold">FSM ENGINE</text>
+            <path d="M390 65 H485" stroke="#10b981" stroke-width="1.5"/>
+            <polygon points="485,61 493,65 485,69" fill="#10b981"/>
+            <rect x="495" y="38" width="105" height="54" rx="8" class="fill-emerald-500/10 stroke-emerald-500" stroke-width="1.5"/>
+            <text x="547" y="69" text-anchor="middle" class="fill-emerald-700 dark:fill-emerald-300 font-mono text-[10px] font-semibold">LED / AUDIO</text>
           </svg>
         `
       }
@@ -603,34 +748,76 @@
     const bgNavDropdownItems = document.getElementById('bgNavDropdownItems');
 
     let openCardState = { background: null, projects: null };
+    let allExpandedState = { background: false, projects: false };
     let activeMainDropdown = null; // 'background' | 'projects' | null
 
-    // 1. Render Clean Single-Level Navbar Dropdown Menus (Background 1-6 & Project 1-6)
+    // 1. Render Top Navbar Dropdowns (All Backgrounds & All Projects)
     function renderAllDropdownMenus() {
-      bgNavDropdownItems.innerHTML = backgrounds.map(b => `
-        <button
-          type="button"
-          onclick="selectCardFromNav('background', '${b.id}')"
-          class="w-full text-left px-3.5 py-2 text-xs hover:bg-stone-100 dark:hover:bg-stone-800/80 transition-colors flex items-center justify-between gap-2 cursor-pointer"
-        >
-          <span class="font-medium text-stone-800 dark:text-stone-200 shrink-0">${b.label}</span>
-          <span class="font-mono text-[10px] text-stone-400 truncate">${b.tag}</span>
-        </button>
-      `).join('');
+      if (bgNavDropdownItems) {
+        bgNavDropdownItems.innerHTML = backgrounds.map(b => `
+          <button
+            type="button"
+            onclick="selectCardFromNav('background', '${b.id}')"
+            class="w-full text-left px-3.5 py-2 text-xs hover:bg-stone-100 dark:hover:bg-stone-800/80 transition-colors flex items-center justify-between gap-2 cursor-pointer"
+          >
+            <span class="font-medium text-stone-800 dark:text-stone-200 truncate">${b.label}</span>
+            <span class="font-mono text-[10px] text-stone-400 truncate max-w-[110px]">${b.tag.replace('•', '').trim()}</span>
+          </button>
+        `).join('');
+      }
 
-      navDropdownItems.innerHTML = projects.map(p => `
-        <button
-          type="button"
-          onclick="selectCardFromNav('projects', '${p.id}')"
-          class="w-full text-left px-3.5 py-2 text-xs hover:bg-stone-100 dark:hover:bg-stone-800/80 transition-colors flex items-center justify-between gap-2 cursor-pointer"
-        >
-          <span class="font-medium text-stone-800 dark:text-stone-200 shrink-0">${p.label}</span>
-          <span class="font-mono text-[10px] text-stone-400 truncate">${p.tag}</span>
-        </button>
-      `).join('');
+      if (navDropdownItems) {
+        navDropdownItems.innerHTML = projects.map(p => `
+          <button
+            type="button"
+            onclick="selectCardFromNav('projects', '${p.id}')"
+            class="w-full text-left px-3.5 py-2 text-xs hover:bg-stone-100 dark:hover:bg-stone-800/80 transition-colors flex items-center justify-between gap-2 cursor-pointer"
+          >
+            <span class="font-medium text-stone-800 dark:text-stone-200 truncate">${p.label}</span>
+            <span class="font-mono text-[10px] text-stone-400 truncate max-w-[110px]">${p.tag.replace('•', '').trim()}</span>
+          </button>
+        `).join('');
+      }
     }
 
-    // 2A. Render Background Accordion Cards (Background 1 - 6: Direct, Flat Content Inside)
+    function toggleMainCard(group, id) {
+      if (openCardState[group] === id) {
+        setCardState(id, false);
+        openCardState[group] = null;
+      } else {
+        if (openCardState[group] && !allExpandedState[group]) {
+          setCardState(openCardState[group], false);
+        }
+        setCardState(id, true);
+        openCardState[group] = id;
+      }
+      syncExpandAllButton(group);
+    }
+
+    // Expand All or Collapse All cards in Background or Projects
+    function toggleAllGroup(group) {
+      const items = group === 'background' ? backgrounds : projects;
+      const nextState = !allExpandedState[group];
+      allExpandedState[group] = nextState;
+      items.forEach(item => setCardState(item.id, nextState));
+      openCardState[group] = nextState ? items[0].id : null;
+      syncExpandAllButton(group);
+    }
+
+    function syncExpandAllButton(group) {
+      const items = group === 'background' ? backgrounds : projects;
+      const btnId = group === 'background' ? 'toggleAllBgBtn' : 'toggleAllProjBtn';
+      const btn = document.getElementById(btnId);
+      if (!btn) return;
+      const anyClosed = items.some(item => {
+        const drawer = document.getElementById(`drawer-${item.id}`);
+        return drawer && !drawer.classList.contains('is-open');
+      });
+      allExpandedState[group] = !anyClosed;
+      btn.textContent = allExpandedState[group] ? 'Collapse All' : 'Expand All';
+    }
+
+    // 2A. Render Background Accordion Cards (Direct, Flat Content Inside)
     function renderBackgroundCards() {
       bgAccordionList.innerHTML = backgrounds.map(b => `
         <div id="card-${b.id}" class="rounded-2xl bg-white dark:bg-stone-900/70 border border-stone-200 dark:border-stone-800 transition-colors duration-200 overflow-hidden">
@@ -656,7 +843,7 @@
             </div>
           </button>
 
-          <!-- Direct Full Content Drawer (No nested dropdowns) -->
+          <!-- Direct Full Content Drawer -->
           <div id="drawer-${b.id}" class="accordion-content">
             <div class="accordion-inner">
               <div class="px-5 sm:px-6 pb-6 pt-4 border-t border-stone-100 dark:border-stone-800/80 space-y-5">
@@ -686,7 +873,7 @@
       `).join('');
     }
 
-    // 2B. Render Stacked Expandable Project Cards (Project 1 - 6: Direct, Flat Content Inside)
+    // 2B. Render Stacked Expandable Project Cards (Project 1 - Project 8+)
     function renderAccordionCards() {
       accordionList.innerHTML = projects.map(p => `
         <div id="card-${p.id}" class="rounded-2xl bg-white dark:bg-stone-900/70 border border-stone-200 dark:border-stone-800 transition-colors duration-200 overflow-hidden">
@@ -713,7 +900,7 @@
             </div>
           </button>
 
-          <!-- Direct Full Content Drawer (No nested dropdowns) -->
+          <!-- Direct Full Content Drawer -->
           <div id="drawer-${p.id}" class="accordion-content">
             <div class="accordion-inner">
               <div class="px-5 sm:px-6 pb-6 pt-4 border-t border-stone-100 dark:border-stone-800/80 space-y-5">
@@ -733,10 +920,69 @@
                   `).join('')}
                 </div>
 
-                <!-- Schematic / Waveform Visual -->
-                <div class="schematic-grid rounded-xl border border-stone-200/80 dark:border-stone-800 p-4 bg-stone-50/60 dark:bg-stone-950/80">
-                  ${p.diagram}
-                </div>
+                <!-- Interactive Document / Presentation Preview or Schematic Visual -->
+                ${p.embedDocument ? `
+                  <div class="rounded-xl border border-stone-200/80 dark:border-stone-800 bg-stone-50/60 dark:bg-stone-950/80 overflow-hidden">
+                    <div class="px-4 py-2.5 border-b border-stone-200/80 dark:border-stone-800 flex flex-wrap items-center justify-between gap-2 bg-stone-100/70 dark:bg-stone-900/80">
+                      <span class="font-mono text-[11px] uppercase tracking-wider text-stone-600 dark:text-stone-300">PROJECT DOCUMENTATION PREVIEW</span>
+                      <div class="flex items-center gap-3">
+                        <a
+                          href="${p.embedDocument.downloadUrl}"
+                          download="${p.embedDocument.filename}"
+                          class="font-mono text-[11px] text-emerald-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-1"
+                        >
+                          <span>Download PDF ↓</span>
+                        </a>
+                        <a
+                          href="${p.embedDocument.externalUrl}"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="font-mono text-[11px] text-sky-600 dark:text-sky-400 hover:underline inline-flex items-center gap-1"
+                        >
+                          <span>Open PDF in New Tab ↗</span>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="relative w-full h-[480px] sm:h-[560px] bg-stone-900">
+                      <iframe
+                        src="${p.embedDocument.previewUrl}"
+                        title="${p.embedDocument.title}"
+                        class="w-full h-full border-0"
+                        allow="autoplay"
+                        loading="lazy"
+                      ></iframe>
+                    </div>
+                  </div>
+                ` : p.embedPresentation ? `
+                  <div class="rounded-xl border border-stone-200/80 dark:border-stone-800 bg-stone-50/60 dark:bg-stone-950/80 overflow-hidden">
+                    <div class="px-4 py-2.5 border-b border-stone-200/80 dark:border-stone-800 flex flex-wrap items-center justify-between gap-2 bg-stone-100/70 dark:bg-stone-900/80">
+                      <span class="font-mono text-[11px] uppercase tracking-wider text-stone-600 dark:text-stone-300">PROJECT PRESENTATION PREVIEW</span>
+                      <a
+                        href="${p.embedPresentation.externalUrl}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="font-mono text-[11px] text-sky-600 dark:text-sky-400 hover:underline inline-flex items-center gap-1"
+                      >
+                        <span>Open Slides in New Tab ↗</span>
+                      </a>
+                    </div>
+                    <div class="relative w-full aspect-video bg-stone-950">
+                      <iframe
+                        src="${p.embedPresentation.previewUrl}"
+                        title="${p.embedPresentation.title}"
+                        class="w-full h-full border-0"
+                        allowfullscreen="true"
+                        mozallowfullscreen="true"
+                        webkitallowfullscreen="true"
+                        loading="lazy"
+                      ></iframe>
+                    </div>
+                  </div>
+                ` : `
+                  <div class="schematic-grid rounded-xl border border-stone-200/80 dark:border-stone-800 p-4 bg-stone-50/60 dark:bg-stone-950/80">
+                    ${p.diagram}
+                  </div>
+                `}
 
                 <!-- Architecture & Troubleshooting Two-Column Layout -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -758,7 +1004,7 @@
       `).join('');
     }
 
-    // Expand or collapse a card (Background 1-6 or Project 1-6)
+    // Expand or collapse a card
     function setCardState(id, shouldOpen) {
       const drawer = document.getElementById(`drawer-${id}`);
       const chevron = document.getElementById(`chevron-${id}`);
@@ -776,17 +1022,6 @@
         chevron.style.transform = 'rotate(0deg)';
         btn.setAttribute('aria-expanded', 'false');
         card.classList.remove('border-stone-400', 'dark:border-stone-600');
-      }
-    }
-
-    function toggleMainCard(group, id) {
-      if (openCardState[group] === id) {
-        setCardState(id, false);
-        openCardState[group] = null;
-      } else {
-        if (openCardState[group]) setCardState(openCardState[group], false);
-        setCardState(id, true);
-        openCardState[group] = id;
       }
     }
 
@@ -844,14 +1079,15 @@
       }
     });
 
-    // Selecting any Background 1-6 or Project 1-6 from the navbar scrolls smoothly and opens the full card
+    // Selecting any Background or Project item from the navbar scrolls smoothly and opens the full card
     function selectCardFromNav(group, cardId) {
       closeAllNavDropdowns();
-      if (openCardState[group] && openCardState[group] !== cardId) {
+      if (openCardState[group] && openCardState[group] !== cardId && !allExpandedState[group]) {
         setCardState(openCardState[group], false);
       }
       setCardState(cardId, true);
       openCardState[group] = cardId;
+      syncExpandAllButton(group);
 
       const cardEl = document.getElementById(`card-${cardId}`);
       if (cardEl) {
@@ -873,7 +1109,7 @@
 
     // Copy Email Helper
     function copyEmail() {
-      const email = 'reachnoahberry@gmail.com'; // Update with your preferred email address
+      const email = 'reachnoahberry@gmail.com';
       const tempInput = document.createElement('input');
       tempInput.value = email;
       document.body.appendChild(tempInput);
