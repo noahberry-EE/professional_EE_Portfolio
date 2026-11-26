@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Noah Berry Central — Electrical Engineering Portfolio</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & JetBrains Mono for technical precision -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['JetBrains Mono', 'SF Mono', 'monospace'],
+          },
+          colors: {
+            stone: {
+              50: '#fafaf9',
+              100: '#f5f5f4',
+              200: '#e7e5e4',
+              300: '#d6d3d1',
+              400: '#a8a29e',
+              500: '#78716c',
+              600: '#57534e',
+              700: '#44403c',
+              800: '#292524',
+              900: '#1c1917',
+              950: '#0c0a09',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom minimalist scrollbar & subtle grid pattern for technical schematic previews */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #d6d3d1; border-radius: 9999px; }
+    .dark ::-webkit-scrollbar-thumb { background: #44403c; }
+
+    .schematic-grid {
+      background-size: 20px 20px;
+      background-image: 
+        linear-gradient(to right, rgba(120, 113, 108, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(120, 113, 108, 0.08) 1px, transparent 1px);
+    }
+    .dark .schematic-grid {
+      background-image: 
+        linear-gradient(to right, rgba(214, 211, 209, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(214, 211, 209, 0.06) 1px, transparent 1px);
+    }
+
+    /* Smooth accordion drawer transition using CSS Grid */
+    .accordion-content {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .accordion-content.is-open {
+      grid-template-rows: 1fr;
+    }
+    .accordion-inner {
+      overflow: hidden;
+    }
+
+    /* Dropdown transition */
+    .dropdown-menu {
+      transition: opacity 0.18s ease, transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.18s ease;
+    }
+
+    /* Hero Banner Styling for Google Drive Photo */
+    .hero-banner {
+      width: 100%;
+      max-height: 360px;
+      object-fit: cover;
+      object-position: center 25%;
+      border-radius: 12px;
+      border: 1px solid #e7e5e4;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+    .dark .hero-banner {
+      border-color: #292524;
+    }
+ @media (max-width: 650px) {
+      .hero-banner {
+        max-height: 220px;
+      }
+    }
+
+    @keyframes gentleBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+    .dark-mode-nudge {
+      animation: gentleBounce 1.8s ease-in-out infinite;
+      transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+    }
+  </style>
+</head>
+<body class="bg-stone-50 text-stone-900 dark:bg-stone-950 dark:text-stone-100 font-sans antialiased selection:bg-sky-500/20 selection:text-sky-700 dark:selection:text-sky-300 transition-colors duration-200">
+
+  <!-- Minimalist Sticky Top Navigation -->
+  <header class="sticky top-0 z-40 bg-stone-50/90 dark:bg-stone-950/90 backdrop-blur-md border-b border-stone-200/70 dark:border-stone-800/70">
+    <div class="max-w-[840px] mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-2">
+      <!-- Brand Name -->
+      <a href="#" class="font-semibold tracking-tight text-sm sm:text-base flex items-center gap-2.5 group shrink-0">
+<span class="w-1.5 h-1.5 rounded-full bg-[#3b82f6] shadow-[0_0_0_3px_rgba(59,130,246,0.2)] dark:bg-[#facc15] dark:shadow-[0_0_0_3px_rgba(250,204,21,0.2)] animate-pulse"></span>
+        <span>Noah Berry Central</span>
+      </a>
+
+      <!-- 4 Main Categories: Background (Dropdown) | Projects (Dropdown) | Skills | Contacts -->
+      <nav class="flex items-center gap-3 sm:gap-6 text-xs sm:text-sm text-stone-600 dark:text-stone-400">
+        <!-- Background Single-Level Dropdown -->
+        <div class="relative" id="backgroundDropdownContainer">
+          <button
+            id="backgroundDropdownBtn"
+            type="button"
+            aria-expanded="false"
+            aria-haspopup="true"
+            class="inline-flex items-center gap-1 hover:text-stone-900 dark:hover:text-stone-100 transition-colors cursor-pointer py-1.5"
+          >
+            <span>Background</span>
+            <svg id="bgNavChevron" class="w-3.5 h-3.5 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+
+          <div
+            id="backgroundDropdownMenu"
+            class="dropdown-menu invisible opacity-0 translate-y-1 absolute left-0 mt-2 w-64 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-xl py-1.5 z-50"
+          >
+            <div class="px-3.5 py-1.5 border-b border-stone-100 dark:border-stone-800/80 flex items-center justify-between">
+              <span class="font-mono text-[10px] uppercase tracking-wider text-stone-400">Education &amp; Experience</span>
+              <a href="#background" onclick="closeAllNavDropdowns()" class="font-mono text-[10px] text-emerald-600 dark:text-emerald-400 hover:underline">View All</a>
+            </div>
+            <div id="bgNavDropdownItems" class="py-1 max-h-72 overflow-y-auto">
+              <!-- Populated dynamically with Background entries -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Projects Single-Level Dropdown -->
+        <div class="relative" id="projectsDropdownContainer">
+          <button
+            id="projectsDropdownBtn"
+            type="button"
+            aria-expanded="false"
+            aria-haspopup="true"
+            class="inline-flex items-center gap-1 hover:text-stone-900 dark:hover:text-stone-100 transition-colors cursor-pointer py-1.5"
+          >
+            <span>Projects</span>
+            <svg id="navChevron" class="w-3.5 h-3.5 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+
+          <!-- Scrollable Dropdown List for Project 1 through Project 8+ -->
+          <div
+            id="projectsDropdownMenu"
+            class="dropdown-menu invisible opacity-0 translate-y-1 absolute right-0 sm:left-0 sm:right-auto mt-2 w-64 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-xl py-1.5 z-50"
+          >
+            <div class="px-3.5 py-1.5 border-b border-stone-100 dark:border-stone-800/80 flex items-center justify-between">
+              <span class="font-mono text-[10px] uppercase tracking-wider text-stone-400">Engineering Applications</span>
+              <a href="#projects" onclick="closeAllNavDropdowns()" class="font-mono text-[10px] text-sky-600 dark:text-sky-400 hover:underline">View All</a>
+            </div>
+            <div id="navDropdownItems" class="py-1 max-h-72 overflow-y-auto">
+              <!-- Populated dynamically for all Projects -->
+            </div>
+          </div>
+        </div>
+
+        <a href="#skills" class="hover:text-stone-900 dark:hover:text-stone-100 transition-colors">Skills</a>
+        <a href="#contacts" class="hover:text-stone-900 dark:hover:text-stone-100 transition-colors">Contacts</a>
+
+        <!-- Theme Toggle Button + Dark Mode Callout Popover -->
+        <div class="relative">
+          <button id="themeToggle" aria-label="Toggle dark mode" class="p-2 rounded-lg border border-stone-200 dark:border-stone-800 hover:bg-stone-100 dark:hover:bg-stone-900 text-stone-600 dark:text-stone-400 transition-colors cursor-pointer">
+            <svg id="sunIcon" class="w-4 h-4 hidden dark:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="5"></circle>
+              <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+            </svg>
+            <svg id="moonIcon" class="w-4 h-4 block dark:hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+
+        <!-- Floating Callout pointing up at #themeToggle -->
+          <div
+            id="darkModeHint"
+            role="status"
+            class="dark-mode-nudge hidden dark:hidden absolute -right-3 mt-3 w-40 px-3 py-2 rounded-xl bg-stone-900 text-stone-50 border border-stone-700 shadow-xl z-50 cursor-pointer"
+          >
+            <span class="absolute -top-1.5 right-6 w-3 h-3 rotate-45 bg-stone-900 border-l border-t border-stone-700"></span>
+            <p class="font-mono text-[11px] leading-snug text-stone-200">
+              Try <span class="text-emerald-400 font-semibold">Dark Mode</span> Here!
+            </p>
+          </div>
+        </div>
+      </nav>
+	  </div>
+  </header>
+
+  <!-- Main Single-Column Editorial Container -->
+  <main class="max-w-[840px] mx-auto px-5 sm:px-8 pt-12 sm:pt-16 pb-24">
+
+    <!-- Hero Section: Image -> Title -> Bachelor's Bubble -> Description -> Buttons -->
+    <section class="pb-14 border-b border-stone-200 dark:border-stone-800">
+      <!-- 1. Hero Photo from Google Drive with Automatic Fallback -->
+      <img
+        src="https://drive.google.com/thumbnail?id=1-EGqxZxSLFpPNmEYiFVdClKJUNyXEnri&sz=w1600"
+        onerror="if(!this.dataset.triedFallback){this.dataset.triedFallback='1';this.src='https://lh3.googleusercontent.com/d/1-EGqxZxSLFpPNmEYiFVdClKJUNyXEnri=w1600';}else{this.onerror=null;this.src='https://placehold.co/1200x480/1c1917/a8a29e?text=Noah+Berry+Engineering+Banner';}"
+        alt="Noah Berry operating a FANUC LR Mate 200iD industrial robot arm"
+        class="hero-banner"
+      />
+
+      <!-- 2. Main Title -->
+      <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight leading-[1.18] text-stone-900 dark:text-amber-200 mb-4">
+        Noah Berry - Electrical Engineering Professional Portfolio
+      </h1>
+
+      <!-- 3. Bachelor's Status Bubble Badge -->
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 font-mono text-xs sm:text-sm text-stone-600 dark:text-stone-400 mb-8">
+<span class="w-1.5 h-1.5 rounded-full bg-[#3b82f6] shadow-[0_0_0_3px_rgba(59,130,246,0.2)] dark:bg-[#facc15] dark:shadow-[0_0_0_3px_rgba(250,204,21,0.2)] animate-pulse"></span>      
+  <span>B.S. Electrical Engineering • George Fox University (May 2027)</span>
+      </div>
+
+      <!-- 4. Description Paragraph -->
+      <p class="text-base sm:text-lg text-stone-600 dark:text-stone-400 leading-relaxed max-w-2xl mb-8">
+        I am expected to finish with a Bachelor's in Electrical Engineering and a Minor in Mathematics in May 2027. Through my experiences both at school and in roles outside of school, I have been drawn to automated systems, power systems and electronics, signal response and complex circuit design, and above all working with teams! I value opportunities to expand my knowledge and contribute to my career by investing in my work environment and my peers. </p>
+
+      <!-- 5. Action Buttons: Copy Email & Download Resume (Solid Black #000000 with White Text #ffffff) -->
+      <div class="flex flex-wrap items-center gap-3 text-sm font-medium">
+        <button
+          onclick="copyEmail()"
+          id="copyEmailBtn"
+          type="button"
+          class="px-4 py-2.5 rounded-lg bg-[#000000] text-[#ffffff] border border-stone-800 hover:bg-stone-800 transition-colors inline-flex items-center gap-2 cursor-pointer"
+        >
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span id="emailBtnText">Copy Email</span>
+        </button>
+
+        <a
+          href="https://drive.google.com/uc?export=download&id=13YTadMBRpRYcOG3dZXyIFhOtypg3lSnw"
+          download="Noah_Berry_Resume_2026-27.pdf"
+          class="px-4 py-2.5 rounded-lg bg-[#000000] text-[#ffffff] border border-stone-800 hover:bg-stone-800 transition-colors inline-flex items-center gap-2"
+        >
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>Download Resume</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 1. BACKGROUND SECTION (Expandable Cards) -->
+    <section id="background" class="pt-14 pb-16 border-b border-stone-200 dark:border-stone-800 scroll-mt-20">
+      <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-3">
+        <h2 class="text-xl font-semibold tracking-tight">Background</h2>
+        <div class="flex items-center gap-3">
+          <span class="font-mono text-xs text-stone-400">01 / EDUCATION &amp; EXPERIENCE</span>
+          <button
+            type="button"
+            id="toggleAllBgBtn"
+            onclick="toggleAllGroup('background')"
+            class="px-2.5 py-1 rounded-md bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 font-mono text-[11px] text-stone-700 dark:text-stone-300 transition-colors cursor-pointer"
+          >
+            Expand All
+          </button>
+        </div>
+      </div>
+      <p class="text-sm text-stone-500 dark:text-stone-400 mb-8"></p>
+
+      <div id="backgroundAccordionList" class="space-y-4">
+        <!-- Injected cleanly via JS -->
+      </div>
+    </section>
+
+    <!-- 2. PROJECTS SECTION (Expandable Cards: Project 1 – Project 8+) -->
+    <section id="projects" class="pt-14 pb-16 border-b border-stone-200 dark:border-stone-800 scroll-mt-20">
+      <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-3">
+        <h2 class="text-xl font-semibold tracking-tight">Projects</h2>
+        <div class="flex items-center gap-3">
+          <span class="font-mono text-xs text-stone-400">02 / ENGINEERING APPLICATION</span>
+          <button
+            type="button"
+            id="toggleAllProjBtn"
+            onclick="toggleAllGroup('projects')"
+            class="px-2.5 py-1 rounded-md bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 font-mono text-[11px] text-stone-700 dark:text-stone-300 transition-colors cursor-pointer"
+          >
+            Expand All
+          </button>
+        </div>
+      </div>
+      <p class="text-sm text-stone-500 dark:text-stone-400 mb-8"></p>
+
+      <!-- Stacked Accordion Project Cards Container -->
+      <div id="projectsAccordionList" class="space-y-4">
+        <!-- Injected cleanly via JS -->
+      </div>
+    </section>
+
+    <!-- 3. SKILLS SECTION -->
+    <section id="skills" class="pt-14 pb-16 border-b border-stone-200 dark:border-stone-800 scroll-mt-20">
+      <div class="flex items-baseline justify-between mb-8">
+        <h2 class="text-xl font-semibold tracking-tight">Skills</h2>
+        <span class="font-mono text-xs text-stone-400">03 / TECHNICAL STACK</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="p-5 rounded-xl bg-white dark:bg-stone-900/60 border border-stone-200 dark:border-stone-800">
+          <div class="font-mono text-xs text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-3">Hardware &amp; Circuit Design</div>
+          <ul class="text-sm text-stone-600 dark:text-stone-400 space-y-2">
+		    <li>AC/DC &amp; DC/DC Switching Power Converters</li>
+            <li>Effective Use of Oscilloscopes, Multimeters, &amp; Logic Analyzers</li>
+            <li>Frequency &amp; Signal Filtering</li>
+            <li>Analog &amp; Digital Circuit Theory</li>
+            <li>Unique Component Assembly &amp; Utilization</li>
+            <li>Electromagnetics &amp; Signals</li>
+            <li>Application of Basic Components (Capacitors, Resistors, Inductors, etc.)</li>
+			<li>Schematic, Wire Trace, &amp; Blueprint Literacy</li>
+			<li>Simulation, Breadboard, &amp; Assembly Testing</li>
+            <li>Knowledge of Mathematics, Physics, Material &amp; Chemical Properties, &amp; Electrical Theory</li>
+            <li>Implementation &amp; Integration of Existing Solutions</li>
+            <li>Tracking Power Use &amp; Losses</li>
+            <li>Ability to Solder Both Surface Mount (Embedded) &amp; Through-Hole Boards </li>
+
+
+          </ul>
+        </div>
+
+        <div class="p-5 rounded-xl bg-white dark:bg-stone-900/60 border border-stone-200 dark:border-stone-800">
+          <div class="font-mono text-xs text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-3">Software &amp; Controls</div>
+          <ul class="text-sm text-stone-600 dark:text-stone-400 space-y-2">
+            <li>C, Java, Python, &amp; Assembly Coding</li>
+            <li>Utilizing Verilog HDL for FPGA &amp; ASIC Applications</li>
+            <li>Selection &amp; Application of Microcontroller Systems</li>
+            <li>PLC Ladder Logic, Sensor I/O, &amp; Embedded Communication Protocols</li>
+            <li>Creating Multisim &amp; MATLAB Simulations</li>
+            <li>Altium (PCB) &amp; SolidWorks CAD Designers</li>
+            <li>Proficiency in Integrated Development Environments (ArduinoIDE, Microchip Studio)</li>
+            <li>Knowledge of Closed-Loop Control Systems (PID, Feedback)</li>
+            <li>Proficiency in PCB Printer, Reflow Oven, Pick &amp; Place, &amp; Their Accompanying Software</li>
+
+          </ul>
+        </div>
+
+        <div class="p-5 rounded-xl bg-white dark:bg-stone-900/60 border border-stone-200 dark:border-stone-800">
+          <div class="font-mono text-xs text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-3">Operations &amp; Technical</div>
+          <ul class="text-sm text-stone-600 dark:text-stone-400 space-y-2">
+            <li>Utilization of Lab Instrumentation</li>
+            <li>Following Strict Lab Procedures &amp; Experimentation</li>
+            <li>Project Management &amp; Interdisciplinary Leadership</li>
+            <li>Data Analysis &amp; Result Interpretation</li>
+            <li>Consistent Reporting, Profiling, &amp; Documentation Management</li>
+            <li>Proficiency in Microsoft &amp; Google Workspaces</li>
+            <li>Ability to Produce Prototypes from Tools or Machine Fabrication</li>
+            <li>Bill of Material, Ordering, &amp; Financial Literacy</li>
+            <li>Coordination of Events, Trainings, Shifts, &amp; Meetings</li>
+			<li>Construction &amp; Delivery of Presentations or Designs to Varying Audiences</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. CONTACTS SECTION -->
+    <section id="contacts" class="pt-14 scroll-mt-20">
+      <div class="flex items-baseline justify-between mb-8">
+        <h2 class="text-xl font-semibold tracking-tight">Contacts</h2>
+        <span class="font-mono text-xs text-stone-400">04 / CREDENTIALS &amp; CONTACT</span>
+      </div>
+
+      <div class="p-6 sm:p-8 rounded-2xl bg-white dark:bg-stone-900/70 border border-stone-200 dark:border-stone-800 space-y-6">
+        <div class="border-b border-stone-200 dark:border-stone-800 pb-6">
+          <h3 class="text-lg font-semibold text-stone-900 dark:text-stone-100">Noah Berry Central</h3>
+          <p class="font-mono text-xs text-blue-600 dark:text-amber-300 mt-1">
+            B.S. Electrical Engineering Candidate • George Fox University (Graduating May 2027)
+          </p>
+		    <p class=" text-xs text-stone-600 dark:text-stone-400 mt-1">
+            Through my years of study and experiences, I find myself interested in a hands-on electrical engineering role within automated systems, power systems, signal response, and/or complex circuit applications. Other desirable opportunities are: project management, research and development, certifications, and further education. I value the ability to foster quality relationships in the workspace, and leave a positive impact on people and projects.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
+          <div>
+            <div class="font-mono text-xs uppercase tracking-wider text-stone-400 mb-2">Contact &amp; Location</div>
+            <p class="text-stone-600 dark:text-stone-400 leading-relaxed">
+
+              Newberg, OR (Open to relocation across the US)<br/>
+              Phone: 360-631-6788<br/>
+              Academic: nberry23@georgefox.edu<br/>
+              Personal: reachnoahberry@gmail.com
+            </p>
+          </div>
+          <div>
+            <div class="font-mono text-xs uppercase tracking-wider text-stone-400 mb-2">Direct Links</div>
+            <div class="flex flex-wrap gap-2.5 text-xs font-medium">
+              <button
+                type="button"
+                onclick="copyEmail()"
+                class="px-3.5 py-2 rounded-lg bg-[#000000] text-[#ffffff] border border-stone-800 hover:bg-stone-800 transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+              >
+                <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Email</span>
+              </button>
+              <a
+                href="https://drive.google.com/uc?export=download&id=13YTadMBRpRYcOG3dZXyIFhOtypg3lSnw"
+                download="Noah_Berry_Resume_2026-27.pdf"
+                class="px-3.5 py-2 rounded-lg bg-[#000000] text-[#ffffff] border border-stone-800 hover:bg-stone-800 transition-colors inline-flex items-center gap-1.5"
+              >
+                <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span>Download Resume</span>
+              </a>
+              <a
+                href="https://www.linkedin.com/in/noah-berry-electeng"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-3.5 py-2 rounded-lg bg-[#000000] text-[#ffffff] border border-stone-800 hover:bg-stone-800 transition-colors inline-flex items-center gap-1.5"
+              >
+                <span>LinkedIn ↗</span>
+              </a>
+              <a
+                href="https://github.com/noahberry-EE"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-3.5 py-2 rounded-lg bg-[#000000] text-[#ffffff] border border-stone-800 hover:bg-stone-800 transition-colors inline-flex items-center gap-1.5"
+              >
+                <svg class="w-3.5 h-3.5 shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+                </svg>
+                <span>GitHub ↗</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Minimal Footer -->
+  <footer id="siteFooter" class="border-t border-stone-200 dark:border-stone-800 py-8 text-center font-mono text-xs text-stone-500 dark:text-stone-400">
+    <div class="max-w-[840px] mx-auto px-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <span>© 2026 Noah Berry Central • EE Candidate</span>
+      <span class="flex items-center gap-3">
+        <a href="https://drive.google.com/uc?export=download&id=13YTadMBRpRYcOG3dZXyIFhOtypg3lSnw" download="Noah_Berry_Resume_2026-27.pdf" class="underline hover:text-stone-900 dark:hover:text-stone-200">Resume PDF</a>
+        <span>•</span>
+        <span id="exportWrapper"><button onclick="downloadSourceHTML()" class="underline hover:text-stone-900 dark:hover:text-stone-200 cursor-pointer">Export index.html</button></span>
+      </span>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 hidden px-4 py-2.5 rounded-lg bg-stone-900 text-stone-50 dark:bg-stone-100 dark:text-stone-950 font-mono text-xs shadow-lg">
+    Copied to clipboard
+  </div>
+
+  <script>
+    /* ==========================================================================
+       BACKGROUND DATA (Background 1 through Background n)
+       ========================================================================== */
+    const backgrounds = [
+      {
+        id: 'bg-1',
+        label: 'B.S. Electrical Engineering',
+        tag: '• George Fox University',
+        year: 'Aug. 2023 — May 2027',
+        summary: 'Pursuing a Bachelor of Science in Electrical Engineering with a Minor in Mathematics at George Fox University (Newberg, OR; expected graduation May 1, 2027). Graduated from Monroe High School in Monroe, WA (June 2023).',
+        highlights: [
+          'Core Electrical Engineering coursework with PCB design, circuit analysis & design, active filter design, power & control systems, effective programming, and signal analysis.',
+          'Hands-on laboratory proficiency with oscilloscopes, function generators, power supplies, DMM, MATLAB, Multisim, SolidWorks, and Altium PCB Designer.',
+          'Free-range projects, both individual and team, challenging creativity, complex problem solving, interdisciplinary work, and theoretical to technical application.',
+          'Participating in 4 full years of College Football, and Engineering Ambassadors; conducting engineering outreach lessons and programs.'
+
+		],
+        tools: [ 'B.S. Electrical Engineering', 'Mathematics Minor', 'Project Management & Collaboration', 'Theoretical & Simulation Design', 'Technical Application']
+      },
+      {
+        id: 'bg-2',
+        label: 'Capstone & Project Manager',
+        tag: '• Analog Devices Inc. (GFU)',
+        year: 'Aug. 2026 — May 2027',
+        summary: 'Leading a 5-engineer senior design team at George Fox University to design and build a stand-alone, fully automated silicon wafer box opener for Analog Devices Inc.\'s semiconductor manufacturing line.',
+        highlights: [
+          'Coordinate directly with Analog Devices Inc. representatives on technical specifications, safety interface, and milestone reviews.',
+          'Manage project schedules, task allocation, and system integration across a 5-person interdisciplinary engineering team.',
+          'Design and fabricate the electrical control, power distribution, and sensor subsystems of the automated opener.',
+          'Ensure cleanroom standards are met for all designs, testing potential failure points, and creating many iterations of solutions.'
+
+	 ],
+        tools: ['Project Manager', 'ISO Cleanroom Design', 'Automation & Controls', 'Electrical Hardware Design', 'Interdisciplinary Integration']
+      },
+      {
+        id: 'bg-3',
+        label: 'Lab Assistant & Tutoring',
+        tag: '• George Fox College of Engineering',
+        year: 'Jan. 2025 — May 2027',
+        summary: 'Serving as an Electrical Engineering and Mathematics Teaching Assistant and tutor at George Fox University, guiding students through lab procedures, bench equipment, and theoretical coursework.',
+        highlights: [
+          'Regularly instructed laboratory sections solo across core Electrical Engineering courses.',
+          'Mentored students with one on one and group tutoring sessions and additional lessons on hardware fundamentals, electrical theory, and mathematics.',
+          'Reinforced safe laboratory practices and systematic debugging habits on oscilloscopes, breadboards, and simulation tools.'
+        ],
+        tools: ['Lab Instruction', 'Hardware Troubleshooting', 'Bench Test Equipment', 'EE & Math Tutoring', 'Technical Mentorship']
+      },
+      {
+        id: 'bg-4',
+        label: 'Medication Technician',
+        tag: '• Arbor Oaks Terrace Memory Care',
+        year: 'Apr. 2025 — Oct. 2026',
+        summary: 'Managed shift operations, resident medication administration, and strict compliance in Newberg, OR, with critical attention to detail and high quality care.',
+        highlights: [
+          'Supervised shifts and managed staffing while coordinating daily resident medication and care needs in a high accountability clinical environment.',
+          'Maintained accurate records and compliance paperwork, proper virtual logs, and audited care documentation.',
+          'Coordinated external care communications with healthcare providers, pharmacies, and families.'
+        ],
+        tools: ['Shift Staff Management', 'Regulatory Documentation', 'Medication Administration', 'External Provider Coordination', 'Descriptive & Accurate Records']
+      },
+      {
+        id: 'bg-5',
+        label: 'Electrician Assistant',
+        tag: "• Scott's Electrical Service LLC",
+        year: 'May 2022 — Aug. 2022',
+        summary: 'Worked alongside licensed electricians in Seattle, WA on residential and commercial electrical installations, removing out-of-date equipment, and conduit/wire routing.',
+        highlights: [
+          'Shadowed master and journeyman electricians during equipment setup, upgrades, and out-of-date wiring demolition.',
+          'Routed new electrical wiring and conduit runs in compliance with electrical safety and engineered plans.',
+          'Developed foundational field knowledge of AC power distribution, equipment efficiency, and on-site electrical safety.'
+        ],
+        tools: ['Conduit & Wiring Routing', 'Electrical Safety', 'System Upgrades', 'Field Diagnostics', 'Technical Installation', 'Proper Electrical Demolition']
+      },
+      {
+        id: 'bg-6',
+        label: 'Pharmacy Assistant',
+        tag: '• Pharm-A-Save Pharmacy',
+        year: 'Aug. 2020 — Aug. 2023',
+        summary: 'Served as a licensed Pharmacy Assistant in Monroe, WA managing prescriptions, patient profiles, front counter operations.',
+        highlights: [
+          'Obtained Washington State Pharmacy Assistant license and managed prescription intake, filling workflows, and inventory.',
+          'Handled patient accounts, insurance coordination, and front counter customer operations in a fast paced retail pharmacy.',
+          'Upheld strict HIPAA privacy and pharmacy compliance standards with zero-error attention to detail.'
+        ],
+        tools: ['Licensed Pharmacy Assistant', 'Prescription Operations', 'Patient Profiles', 'Regulatory Compliance', 'Customer Service']
+      }
+    ];
+
+    /* ==========================================================================
+       PROJECTS DATA (Project 1 through Project 8 — add more objects anytime)
+       ========================================================================== */
+    const projects = [
+      {
+        id: 'project-1',
+        label: 'Stand-alone Box Opener',
+        tag: '• ADI Capstone',
+        year: '2026 — 2027',
+        summary: 'An electrical subsystem design for a silicon wafer manufacturing process that fully unlatches, opens, closes, and relatches a wafer box, integrating isolated DC-powered components, sensors, and fault protection on a control interface. All coming together to make a stand-alone automated robot that can go anywhere in an ISO4 cleanroom manufacturing process.',
+        specs: [
+          { label: 'Outputs', value: 'Opened or Closed box, Wafer Count (function of mass)' },
+          { label: 'Tools Used', value: 'ArduinoIDE, Bench Test Eq., SolidWorks, Altium Designer, Multisim' },
+          { label: 'Target Spec', value: '100% efficiency on Unlatching, Opening, closing, Latching, and Weighing boxes' },
+          { label: 'Process', value: 'Prototype Designs → Physical Assembly → Electrical Integration → Final Model → Cleanroom Integration ' }
+        ],
+        architecture: 'Utilizing Digital I/O and EthernetIP control systems to open the box as efficiently as possible. There is currently going to have two axes of rotation allowing the open close, one at the base of the arm and the other at the end. A separate mechanism (5 bar linkage system) will be powered by 2 motors to unlatch and latch the box.',
+        troubleshooting: 'The mechanical binding and limitations got us bogged down in the details early, but we persisted and designed a solution in variable rotation clamping. We hope to get a fully operational model that will not slip or bind at all when opening. This will then be translated to cleanroom ready materials and applied wherever necessary at ADI.',     embedDocument: '1JGklIHw_rotwIrtgsvqYTB_xgZnQKe4p',
+        diagram: `
+          <svg viewBox="0 0 640 130" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="20" y="32" width="130" height="66" rx="8" class="fill-white dark:fill-stone-900 stroke-stone-300 dark:stroke-stone-700" stroke-width="1.5"/>
+            <text x="85" y="62" text-anchor="middle" class="fill-stone-900 dark:fill-stone-100 font-mono text-[11px] font-semibold">INPUT STAGE</text>
+            <text x="85" y="79" text-anchor="middle" class="fill-stone-500 font-mono text-[9px]">Protection + Filter</text>
+            <path d="M150 65 H245" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="3 3"/>
+            <polygon points="245,61 253,65 245,69" fill="#0284c7"/>
+            <rect x="255" y="32" width="130" height="66" rx="8" class="fill-sky-500/10 stroke-sky-500" stroke-width="1.5"/>
+            <text x="320" y="62" text-anchor="middle" class="fill-sky-700 dark:fill-sky-300 font-mono text-[11px] font-semibold">CORE CIRCUIT</text>
+            <text x="320" y="79" text-anchor="middle" class="fill-stone-500 font-mono text-[9px]">Power / Control</text>
+            <path d="M385 65 H480" stroke="#10b981" stroke-width="1.5"/>
+            <polygon points="480,61 488,65 480,69" fill="#10b981"/>
+            <rect x="490" y="32" width="130" height="66" rx="8" class="fill-emerald-500/10 stroke-emerald-500" stroke-width="1.5"/>
+            <text x="555" y="62" text-anchor="middle" class="fill-emerald-700 dark:fill-emerald-300 font-mono text-[11px] font-semibold">LOAD / OUTPUT</text>
+            <text x="555" y="79" text-anchor="middle" class="fill-stone-500 font-mono text-[9px]">Validated Telemetry</text>
+          </svg>
+        `
+      },
+      {
+        id: 'project-2',
+        label: '4-Stage Audio Amplifier',
+        tag: '• Electronic Devices',
+        year: '2026',
+        summary: '4 stages of amplification; differential, gain, buffer, push pull (power), all assembled to create a custom full scale audio amplifier system.',
+        specs: [
+          { label: 'Topology', value: ' Differential, Gain, Buffer, Push-Pull (power)' },
+          { label: 'Simulation Tools', value: 'MATLAB & Multisim' },
+		  { label: 'Testing', value: 'Oscilloscopes, DMM, Mock Speakers' },
+
+          { label: 'Process', value: ' Custom Operational Bread Board Design → PCB Design → Full Assembly' }
+        ],
+        architecture: ' Utilizing a variety of BJT transistors, the audio amplifier is made up of 4 stages (differential, gain, buffer, and push pull), with the differential stage cleaning up the signal, the gain to amplify the signal, the buffer to isolate the next stage, and finally a push pull stage using stronger power transistors to increase current output. Also, the system includes a custom power rectifier source that I designed and produced for the input voltage.',
+        troubleshooting: 'The current mirror gave me trouble and the constant heat output of the power transistors due to the push pull was a challenging thing to balance. To approach this challenge and improve the output some losses on the power output were accepted. Some thermal runaway will always be expected in this case.',
+        embedDocument: '1afHbLUuFoSojwtB5Y3qLrPIm4CrwZG6h',
+        diagram: `
+          <svg viewBox="0 0 640 130" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="20" y="20" width="600" height="90" rx="8" class="fill-white dark:fill-stone-900 stroke-stone-300 dark:stroke-stone-700" stroke-width="1.2"/>
+            <text x="36" y="38" class="fill-sky-600 dark:fill-sky-400 font-mono text-[9px]">CH1: SWITCHING / GRID WAVEFORM</text>
+            <path d="M36 75 Q96 25 156 75 T276 75 T396 75 T516 75 T604 75" stroke="#0284c7" stroke-width="2" fill="none"/>
+          </svg>
+        `
+      },
+      {
+        id: 'project-3',
+        label: 'Semi-Autonomous Wheelchair',
+        tag: '• Servant Engineering',
+        year: '2025 - 2026',
+        summary: '24V DC Electrical Wheelchair that a client wanted to be self driving. The design utilizes sensors, memory, control interrupts, and user feedback to optimally avoid objects and protect user.',
+        specs: [
+		{ label: 'Control System', value: 'Original VR2 interrupted by a Pico 2W' },
+          { label: 'Components', value: '2x LiDAR sensors, 3x Ultrasonic sensors, Touchscreen' },
+          { label: 'Goal', value: 'Object avoidance & route correction → Memory mapping routes' },
+          { label: 'Tools', value: 'Standard bench equipment, Logic analyzer, C Programming' }
+        ],
+        architecture: 'The full system optimizes the 24V Battery source of the wheelchair to power sensors that matrix together to trigger an interrupt on the Pico controller that would stop the joystick commands from continuing. Then the obstructions would display on the screen. Locations of ground covered would be stored on an SD card for future mapping purposes.',
+		troubleshooting: 'Ideally the object avoidance would be used always and then the mapping would be implemented by the users "history" allowing self driving over previously driven routes with a user selecting locations on the screen.',
+        embedDocument: '1tKC5HgVgVH2NWXvlSwokGDS8npGwgg-Z',
+        diagram: `
+          <svg viewBox="0 0 640 130" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="50" y1="22" x2="50" y2="108" class="stroke-stone-400 dark:stroke-stone-600" stroke-width="2"/>
+            <line x1="590" y1="22" x2="590" y2="108" class="stroke-stone-400 dark:stroke-stone-600" stroke-width="2"/>
+            <line x1="50" y1="65" x2="210" y2="65" stroke="#0284c7" stroke-width="1.5"/>
+            <line x1="210" y1="53" x2="210" y2="77" stroke="#0284c7" stroke-width="2"/>
+            <line x1="232" y1="53" x2="232" y2="77" stroke="#0284c7" stroke-width="2"/>
+            <line x1="232" y1="65" x2="390" y2="65" stroke="#0284c7" stroke-width="1.5"/>
+            <rect x="390" y="50" width="90" height="30" rx="5" class="fill-emerald-500/10 stroke-emerald-500" stroke-width="1.5"/>
+            <text x="435" y="69" text-anchor="middle" class="fill-emerald-700 dark:fill-emerald-300 font-mono text-[10px] font-semibold">RELAY K1</text>
+            <line x1="480" y1="65" x2="590" y2="65" stroke="#0284c7" stroke-width="1.5"/>
+          </svg>
+        `
+      },
+      {
+        id: 'project-4',
+        label: 'Automated Sorting Machine',
+        tag: '• Embedded Systems',
+        year: '2026',
+        summary: 'An embedded system board that would allow an automated system to feed LEGOs or small objects 1 at a time identify and sort them based on multiple categories.',
+        specs: [
+          { label: 'Components', value: 'Load Cell & Amplifier, 2x Stepper Motors (conveyor belt), 1 Stepper Motor Actuation Arm, Servo (bin selector), Screen (touch), camera sensor' },
+          { label: 'Process', value: 'Select criteria (screen) → Conveyor 1 piece to load cell → weigh piece → color sensed from camera → bin selector → knock piece in bin → repeat' },
+          { label: 'Programming Tool', value: 'ESP32 Dev Kit w/ Arduino IDE (Embedded C)' },
+          { label: 'Other Essentials', value: 'Board power selection, 5V buck converters, Camera test module' }
+        ],
+        architecture: 'Multi-layer piece identification system, with the pins on the board strategically wired to optimize the I/O system with many components. Isolation of each step to funnel the logic down to accurate outputs.',
+        troubleshooting: 'The system correctly identified many LEGOs but as there are many types of LEGO it was hard to get exact results so it would be better integrated to find a range of pieces. Also, the load cell was very small and needed such little error to work theoretically so it would likely lead to inaccuracy over time.',
+        embedDocument: '1E6u3Kgp93MGAQwmCOaCBuC3n5-cfsCYu',
+        diagram: `
+          <svg viewBox="0 0 640 130" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="20" y="20" width="600" height="90" rx="8" class="fill-white dark:fill-stone-900 stroke-stone-300 dark:stroke-stone-700" stroke-width="1.2"/>
+            <text x="36" y="38" class="fill-emerald-600 dark:fill-emerald-400 font-mono text-[9px]">CH1: FILTERED BIOPOTENTIAL SIGNAL</text>
+            <path d="M36 72 L110 72 Q120 62 130 72 L150 72 L158 84 L168 34 L178 96 L186 72 L210 72 Q225 56 240 72 L330 72 Q340 62 350 72 L370 72 L378 84 L388 34 L398 96 L406 72 L430 72 Q445 56 460 72 L600 72" stroke="#10b981" stroke-width="2" fill="none"/>
+          </svg>
+        `
+      },
+      {
+        id: 'project-5',
+        label: 'Breakout! (Embedded C)',
+        tag: '• Microprocessor Architecture',
+        year: '2025',
+        summary: 'An implementation of the classic video game Breakout! Written in C programming, the game successfully plays out removing blocks. The code interface uses .h helper files to drive functions in the main.',
+        specs: [
+          { label: 'Main Features', value: 'Layered helper files called in main, utilizes helper functions and finite state machine ' },
+          { label: 'Programming Tool', value: 'Microchip Studio (Embedded C)' },
+          { label: 'Files', value: '.h files, .c files; main.c' },
+          { label: 'Interfaces', value: 'GPIO, SPI, ADC, PWM, TIMERS, INTERRUPTS, BUTTONS, VIDEO' }
+        ],
+        architecture: 'It is a complex finite state machine that runs many subroutines. It is event driven and triggers interrupts and helper functions based on the status of main where the main application layer can be seen. There is a very crucial timing model used to keep the system timing accurate.',
+        troubleshooting: 'The key for this program was the virtually instantaneous erase-and-draw of the ball and predicting the next spot the ball will be for the collision detection. Finding edge cases for things like the score and wall collisions to prevent overlapping print functions.',
+        embedVideo: '1-V7x1glyIq5aeLq2XNqPVowVT1q-EBlo',
+        diagram: `
+          <svg viewBox="0 0 640 130" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="170" y="22" width="300" height="86" rx="10" class="fill-emerald-500/10 stroke-emerald-500" stroke-width="1.5"/>
+            <rect x="275" y="42" width="90" height="46" rx="4" class="fill-white dark:fill-stone-900 stroke-stone-400 dark:stroke-stone-600" stroke-width="1.5"/>
+            <text x="320" y="69" text-anchor="middle" class="fill-stone-800 dark:fill-stone-200 font-mono text-[10px] font-semibold">MCU / IC</text>
+            <line x1="190" y1="50" x2="275" y2="50" stroke="#0284c7" stroke-width="1.5"/>
+            <line x1="190" y1="80" x2="275" y2="80" stroke="#0284c7" stroke-width="1.5"/>
+            <line x1="365" y1="50" x2="450" y2="50" stroke="#10b981" stroke-width="1.5"/>
+            <line x1="365" y1="80" x2="450" y2="80" stroke="#10b981" stroke-width="1.5"/>
+          </svg>
+        `
+      },
+      {
+        id: 'project-6',
+        label: 'Finger Pulse Oximeter',
+        tag: '• Circuit Analysis & Design',
+        year: '2025',
+		summary: 'This design utilizes basic circuit assembly components to accurately detect a heartbeat from a person and display it with LEDs or on an oscilloscope screen.',        
+		specs: [
+          { label: 'Hardware', value: 'Op-Amps, Light Dependent Resistor (LDR), Resistors, Capacitors, LEDs' },
+          { label: 'Operation', value: 'Two gain stages multiply together, resulting in large output gain, LDR feedback from a finger = fluctuation in signal' },
+          { label: 'Specs', value: 'V=9V,  Gain1=-10V/V,      Gain2=-100V/V,      Gaintotal=1000V/V' },
+          { label: 'Theory Applied', value: 'First-order Low-pass filtering, Cascading Op-Amps, AC coupling, Voltage division feedback' }
+        ],
+        architecture: 'The LED shines to get a max on the LDR, when a finger is blocking the light the changes in blood volume are reflected in the voltage division and amplified by the cascaded amplifier to indicate a heart rate.',
+        troubleshooting: 'Verified with the use of potentiometers to get exact values and feedback from the system, as the potentiometer is changed the voltage division sensitivity was changed to help increase or decrease the ranges to get better results.',
+        embedDocument: '1mDb3DbMFjd6eJIdeZlDtc9lbmfnmOTW0',
+        diagram: `
+          <svg viewBox="0 0 640 130" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="20" y="20" width="600" height="90" rx="8" class="fill-white dark:fill-stone-900 stroke-stone-300 dark:stroke-stone-700" stroke-width="1.2"/>
+            <text x="36" y="38" class="fill-amber-600 dark:fill-amber-400 font-mono text-[9px]">LOGIC ANALYZER: PWM &amp; SPI BUS TIMING</text>
+            <path d="M36 85 L36 55 L96 55 L96 85 L156 85 L156 55 L216 55 L216 85 L276 85 L276 55 L336 55 L336 85 L396 85 L396 55 L456 55 L456 85 L516 85 L516 55 L576 55 L576 85 L604 85" stroke="#d97706" stroke-width="1.8" fill="none"/>
+          </svg>
+        `
+      },
+      {
+        id: 'project-7',
+        label: 'Oscillating Air Engine',
+        tag: '• Mechanical Applications',
+        year: '2024',
+        summary: 'Precision-machined single-cylinder oscillating pneumatic engine built from CAD drawings, integrating CNC milling, lathe turning, tolerance verification, and compressed-air testing.',
+        specs: [
+          { label: 'Fabrication', value: 'Manual Lathe & CNC Mill' },
+          { label: 'Materials', value: '6061 Aluminum & Brass' },
+          { label: 'Tolerance', value: '±0.001 in Piston/Cylinder Fit' },
+          { label: 'Process', value: 'Air to intake → Piston extends out → Spins crank disc & flywheel → air exhausts → Return & repeat' }
+        ],
+        architecture: 'Using critical relationship equations of the system unique measurements were produced for the geometric and volumetric properties of the engine. Then all parts were produced in SolidWorks, then placed on blueprints for fabrication. I fabricated every piece individually by hand and assembled the engine in the GFU machine shop.',
+        troubleshooting: 'Through testing it was discovered that many components required alternative materials to optimally function, therefore many iterations of parts were fabricated and tested. Also it was discovered that although not optimum for the theoretical calculations, the design had room for larger intake/exhaust holes that made the extension and compression of the piston stronger.',
+        embedPresentation: '19nC6Lmy8Lt10XdAD2Oa5EDXSNkCV8u0UIYEF5Rc-qCw',
+        diagram: `
+          <svg viewBox="0 0 640 130" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="20" y="20" width="600" height="90" rx="8" class="fill-white dark:fill-stone-900 stroke-stone-300 dark:stroke-stone-700" stroke-width="1.2"/>
+            <circle cx="200" cy="65" r="28" stroke="#0284c7" stroke-width="1.8"/>
+            <circle cx="200" cy="65" r="4" fill="#0284c7"/>
+            <line x1="200" y1="45" x2="380" y2="65" stroke="#10b981" stroke-width="2.5"/>
+            <rect x="370" y="47" width="110" height="36" rx="6" class="fill-emerald-500/10 stroke-emerald-500" stroke-width="1.5"/>
+            <text x="425" y="69" text-anchor="middle" class="fill-emerald-700 dark:fill-emerald-300 font-mono text-[10px] font-semibold">CYLINDER</text>
+          </svg>
+        `
+      },
+      {
+        id: 'project-8',
+        label: 'Simon Memory Game',
+        tag: '• Verilog & C Programming',
+        year: '2024 - 2025',
+        summary: 'A classic memory game composed of light up buttons, victory and fail tones, and a display screen. The game produces a sequence of colors and a user must repeat that sequence. The game continues to go back and forth producing sequences and receiving user input until a user fails. There is also some additional cheat features that a user could take advantage of... if they are cool enough to find them!',
+        specs: [
+          { label: 'Languages', value: 'Verilog HDL & Embedded C' },
+          { label: 'Architecture', value: 'Finite State Machine' },
+          { label: 'Peripherals', value: 'Debounced I/O, LEDs, PWM, Speaker, Digital Display' },
+          { label: 'Cheat Modes', value: '2 external switches that; 1. Repeat: triggers a rerun. 2. Guide: a light will display the next color for the sequence.' }
+        ],
+        architecture: "Utilizing a pseudo-random number generator produces a sequence of colors n in size (such that n is the round number). That sequence is played for a user and the user must repeat the sequence. The game will indicate a failure if the user is incorrect, and will not stop going through rounds until a user fails. The 2 external switches would allow a user to use them to either repeat the game's sequence or light up the button of the next in sequence.",
+        troubleshooting: "When connecting the main game's routine to the cheat-modes subroutines there was a challenge in being able to access the current sequence without compromising the actual gameplay, this was solved using pointers and saved memory constants.",
+        embedDocumentsSideBySide: [
+          { title: 'C Programming Implementation', id: '1DLGfm5EbK9KxTwt_NfNIZGaZQJYvYkY-', type: 'video' },
+          { title: 'Verilog HDL Video Demo', id: '1XYhwVRye8-WMziQDXlBo5KoHnPPOIsuU', type: 'video' }
+        ],
+        diagram: `
+          <svg viewBox="0 0 640 130" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="40" y="38" width="115" height="54" rx="8" class="fill-white dark:fill-stone-900 stroke-stone-300 dark:stroke-stone-700" stroke-width="1.5"/>
+            <text x="97" y="69" text-anchor="middle" class="fill-stone-900 dark:fill-stone-100 font-mono text-[10px] font-semibold">LFSR SEED</text>
+            <path d="M155 65 H255" stroke="#0284c7" stroke-width="1.5"/>
+            <polygon points="255,61 263,65 255,69" fill="#0284c7"/>
+            <rect x="265" y="38" width="125" height="54" rx="8" class="fill-sky-500/10 stroke-sky-500" stroke-width="1.5"/>
+            <text x="327" y="69" text-anchor="middle" class="fill-sky-700 dark:fill-sky-300 font-mono text-[10px] font-semibold">FSM ENGINE</text>
+            <path d="M390 65 H485" stroke="#10b981" stroke-width="1.5"/>
+            <polygon points="485,61 493,65 485,69" fill="#10b981"/>
+            <rect x="495" y="38" width="105" height="54" rx="8" class="fill-emerald-500/10 stroke-emerald-500" stroke-width="1.5"/>
+            <text x="547" y="69" text-anchor="middle" class="fill-emerald-700 dark:fill-emerald-300 font-mono text-[10px] font-semibold">LED / AUDIO</text>
+          </svg>
+        `
+      }
+    ];
+
+    const accordionList = document.getElementById('projectsAccordionList');
+    const navDropdownItems = document.getElementById('navDropdownItems');
+    const bgAccordionList = document.getElementById('backgroundAccordionList');
+    const bgNavDropdownItems = document.getElementById('bgNavDropdownItems');
+
+    let openCardState = { background: null, projects: null };
+    let allExpandedState = { background: false, projects: false };
+    let activeMainDropdown = null; // 'background' | 'projects' | null
+
+    // 1. Render Top Navbar Dropdowns (All Backgrounds & All Projects)
+    function renderAllDropdownMenus() {
+      if (bgNavDropdownItems) {
+        bgNavDropdownItems.innerHTML = backgrounds.map(b => `
+          <button
+            type="button"
+            onclick="selectCardFromNav('background', '${b.id}')"
+            class="w-full text-left px-3.5 py-2 text-xs hover:bg-stone-100 dark:hover:bg-stone-800/80 transition-colors flex items-center justify-between gap-2 cursor-pointer"
+          >
+            <span class="font-medium text-stone-800 dark:text-stone-200 truncate">${b.label}</span>
+            <span class="font-mono text-[10px] text-stone-400 truncate max-w-[110px]">${b.tag.replace('•', '').trim()}</span>
+          </button>
+        `).join('');
+      }
+
+      if (navDropdownItems) {
+        navDropdownItems.innerHTML = projects.map(p => `
+          <button
+            type="button"
+            onclick="selectCardFromNav('projects', '${p.id}')"
+            class="w-full text-left px-3.5 py-2 text-xs hover:bg-stone-100 dark:hover:bg-stone-800/80 transition-colors flex items-center justify-between gap-2 cursor-pointer"
+          >
+            <span class="font-medium text-stone-800 dark:text-stone-200 truncate">${p.label}</span>
+            <span class="font-mono text-[10px] text-stone-400 truncate max-w-[110px]">${p.tag.replace('•', '').trim()}</span>
+          </button>
+        `).join('');
+      }
+    }
+
+    function toggleMainCard(group, id) {
+      if (openCardState[group] === id) {
+        setCardState(id, false);
+        openCardState[group] = null;
+      } else {
+        if (openCardState[group] && !allExpandedState[group]) {
+          setCardState(openCardState[group], false);
+        }
+        setCardState(id, true);
+        openCardState[group] = id;
+      }
+      syncExpandAllButton(group);
+    }
+
+    // Expand All or Collapse All cards in Background or Projects
+    function toggleAllGroup(group) {
+      const items = group === 'background' ? backgrounds : projects;
+      const nextState = !allExpandedState[group];
+      allExpandedState[group] = nextState;
+      items.forEach(item => setCardState(item.id, nextState));
+      openCardState[group] = nextState ? items[0].id : null;
+      syncExpandAllButton(group);
+    }
+
+    function syncExpandAllButton(group) {
+      const items = group === 'background' ? backgrounds : projects;
+      const btnId = group === 'background' ? 'toggleAllBgBtn' : 'toggleAllProjBtn';
+      const btn = document.getElementById(btnId);
+      if (!btn) return;
+      const anyClosed = items.some(item => {
+        const drawer = document.getElementById(`drawer-${item.id}`);
+        return drawer && !drawer.classList.contains('is-open');
+      });
+      allExpandedState[group] = !anyClosed;
+      btn.textContent = allExpandedState[group] ? 'Collapse All' : 'Expand All';
+    }
+
+    // 2A. Render Background Accordion Cards (Direct, Flat Content Inside)
+    function renderBackgroundCards() {
+      bgAccordionList.innerHTML = backgrounds.map(b => `
+        <div id="card-${b.id}" class="rounded-2xl bg-white dark:bg-stone-900/70 border border-stone-200 dark:border-stone-800 transition-colors duration-200 overflow-hidden">
+          <button
+            type="button"
+            onclick="toggleMainCard('background', '${b.id}')"
+            aria-expanded="false"
+            id="btn-${b.id}"
+            class="w-full text-left px-5 sm:px-6 py-4 sm:py-5 flex items-center justify-between gap-4 hover:bg-stone-50/80 dark:hover:bg-stone-800/40 transition-colors cursor-pointer"
+          >
+            <div class="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-4 min-w-0">
+              <span class="font-semibold text-base sm:text-lg text-stone-900 dark:text-stone-100 shrink-0">${b.label}</span>
+              <span class="font-mono text-xs text-emerald-600 dark:text-emerald-400 truncate">${b.tag}</span>
+            </div>
+
+            <div class="flex items-center gap-3 shrink-0">
+              <span class="hidden sm:inline font-mono text-xs text-stone-400">${b.year}</span>
+              <span class="w-7 h-7 rounded-lg bg-stone-100 dark:bg-stone-800 flex items-center justify-center text-stone-500 dark:text-stone-400">
+                <svg id="chevron-${b.id}" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </div>
+          </button>
+
+          <!-- Direct Full Content Drawer -->
+          <div id="drawer-${b.id}" class="accordion-content">
+            <div class="accordion-inner">
+              <div class="px-5 sm:px-6 pb-6 pt-4 border-t border-stone-100 dark:border-stone-800/80 space-y-5">
+                <p class="text-sm text-stone-600 dark:text-stone-400 leading-relaxed">
+                  ${b.summary}
+                </p>
+
+                <div>
+                  <div class="font-mono text-[11px] uppercase tracking-wider text-stone-400 mb-2.5">Responsibilities &amp; Experiences</div>
+                  <ul class="space-y-2 text-sm text-stone-600 dark:text-stone-400 list-disc pl-5">
+                    ${b.highlights.map(item => `<li>${item}</li>`).join('')}
+                  </ul>
+                </div>
+
+                <div>
+                  <div class="font-mono text-[11px] uppercase tracking-wider text-stone-400 mb-2"> Standards &amp; Focus Areas</div>
+                  <div class="flex flex-wrap gap-2">
+                    ${b.tools.map(t => `
+                      <span class="px-2.5 py-1 rounded-md bg-stone-100 dark:bg-stone-800/90 border border-stone-200/70 dark:border-stone-700/70 font-mono text-xs text-stone-700 dark:text-stone-300">${t}</span>
+                    `).join('')}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // 2B. Render Stacked Expandable Project Cards (Project 1 - Project 8+)
+    function renderAccordionCards() {
+      accordionList.innerHTML = projects.map(p => `
+        <div id="card-${p.id}" class="rounded-2xl bg-white dark:bg-stone-900/70 border border-stone-200 dark:border-stone-800 transition-colors duration-200 overflow-hidden">
+          <!-- Clickable Card Header (Always Visible) -->
+          <button
+            type="button"
+            onclick="toggleMainCard('projects', '${p.id}')"
+            aria-expanded="false"
+            id="btn-${p.id}"
+            class="w-full text-left px-5 sm:px-6 py-4 sm:py-5 flex items-center justify-between gap-4 hover:bg-stone-50/80 dark:hover:bg-stone-800/40 transition-colors cursor-pointer"
+          >
+            <div class="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-4 min-w-0">
+              <span class="font-semibold text-base sm:text-lg text-stone-900 dark:text-stone-100 shrink-0">${p.label}</span>
+              <span class="font-mono text-xs text-sky-600 dark:text-sky-400 truncate">${p.tag}</span>
+            </div>
+
+            <div class="flex items-center gap-3 shrink-0">
+              <span class="hidden sm:inline font-mono text-xs text-stone-400">${p.year}</span>
+              <span class="w-7 h-7 rounded-lg bg-stone-100 dark:bg-stone-800 flex items-center justify-center text-stone-500 dark:text-stone-400">
+                <svg id="chevron-${p.id}" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </div>
+          </button>
+
+          <!-- Direct Full Content Drawer -->
+          <div id="drawer-${p.id}" class="accordion-content">
+            <div class="accordion-inner">
+              <div class="px-5 sm:px-6 pb-6 pt-4 border-t border-stone-100 dark:border-stone-800/80 space-y-5">
+                
+                <!-- Summary -->
+                <p class="text-sm text-stone-600 dark:text-stone-400 leading-relaxed">
+                  ${p.summary}
+                </p>
+
+                <!-- Measured Specs Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+                  ${p.specs.map(s => `
+                    <div class="p-3 rounded-xl bg-stone-50 dark:bg-stone-950/70 border border-stone-200/80 dark:border-stone-800">
+                      <div class="font-mono text-[10px] uppercase tracking-wider text-stone-400">${s.label}</div>
+                      <div class="font-mono text-xs font-medium text-stone-800 dark:text-stone-200 mt-1">${s.value}</div>
+                    </div>
+                  `).join('')}
+                </div>
+
+                <!-- Interactive Document / Presentation Preview or Schematic Visual -->
+                ${p.embedDocumentsSideBySide ? `
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    ${p.embedDocumentsSideBySide.map(doc => `
+                      <div class="rounded-xl border border-stone-200/80 dark:border-stone-800 bg-stone-50/60 dark:bg-stone-950/80 overflow-hidden flex flex-col">
+                        <div class="px-4 py-2.5 border-b border-stone-200/80 dark:border-stone-800 flex flex-wrap items-center justify-between gap-2 bg-stone-100/70 dark:bg-stone-900/80">
+                          <span class="font-mono text-[11px] uppercase tracking-wider text-stone-600 dark:text-stone-300">${doc.title}</span>
+                          <div class="flex items-center gap-3">
+                            <a
+                              href="https://drive.google.com/uc?export=download&id=${doc.id}"
+                              class="font-mono text-[11px] text-emerald-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-1"
+                            >
+                              <span>${doc.type === 'video' ? '' : 'Download PDF ↓'}</span>
+                            </a>
+                            <a
+                              href="https://drive.google.com/file/d/${doc.id}/view"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              class="font-mono text-[11px] text-sky-600 dark:text-sky-400 hover:underline inline-flex items-center gap-1"
+                            >
+                              <span>${doc.type === 'video' ? 'Open Video ↗' : 'Open PDF ↗'}</span>
+                            </a>
+                          </div>
+                        </div>
+                        <iframe
+                          src="https://drive.google.com/file/d/${doc.id}/preview"
+                          title="${p.label} — ${doc.title}"
+                          class="w-full h-[560px] sm:h-[640px] border-0 bg-stone-950"
+                          allow="autoplay; fullscreen"
+                          allowfullscreen="true"
+                          loading="lazy"
+                        ></iframe>
+                      </div>
+                    `).join('')}
+                  </div>
+				` : p.embedVideo ? `
+                  <div class="rounded-xl border border-stone-200/80 dark:border-stone-800 bg-stone-50/60 dark:bg-stone-950/80 overflow-hidden">
+                    <div class="px-4 py-2.5 border-b border-stone-200/80 dark:border-stone-800 flex flex-wrap items-center justify-between gap-2 bg-stone-100/70 dark:bg-stone-900/80">
+                      <span class="font-mono text-[11px] uppercase tracking-wider text-stone-600 dark:text-stone-300">PROJECT VIDEO DEMO</span>
+                      <div class="flex items-center gap-3">
+                        <a
+                          href="https://drive.google.com/uc?export=download&id=${p.embedVideo}"
+                          class="font-mono text-[11px] text-emerald-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-1"
+                        >
+                        </a>
+                        <a
+                          href="https://drive.google.com/file/d/${p.embedVideo}/view?usp=sharing"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="font-mono text-[11px] text-sky-600 dark:text-sky-400 hover:underline inline-flex items-center gap-1"
+                        >
+                          <span>Open Video ↗</span>
+                        </a>
+                      </div>
+                    </div>
+                    <iframe
+                      src="https://drive.google.com/file/d/${p.embedVideo}/preview"
+                      title="${p.label} — Project Video Demo"
+                      class="w-full h-[480px] sm:h-[560px] border-0 bg-stone-950"
+                      allow="autoplay; fullscreen"
+                      allowfullscreen="true"
+                      loading="lazy"
+                    ></iframe>
+                  </div>
+                ` : p.embedDocument ? `
+                  <div class="rounded-xl border border-stone-200/80 dark:border-stone-800 bg-stone-50/60 dark:bg-stone-950/80 overflow-hidden">
+                    <div class="px-4 py-2.5 border-b border-stone-200/80 dark:border-stone-800 flex flex-wrap items-center justify-between gap-2 bg-stone-100/70 dark:bg-stone-900/80">
+                      <span class="font-mono text-[11px] uppercase tracking-wider text-stone-600 dark:text-stone-300">PROJECT DOCUMENTATION PREVIEW</span>
+                      <div class="flex items-center gap-3">
+                        <a
+                          href="https://drive.google.com/uc?export=download&id=${p.embedDocument}"
+                          class="font-mono text-[11px] text-emerald-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-1"
+                        >
+                          <span>Download PDF ↓</span>
+                        </a>
+                        <a
+                          href="https://drive.google.com/file/d/${p.embedDocument}/view?usp=sharing"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="font-mono text-[11px] text-sky-600 dark:text-sky-400 hover:underline inline-flex items-center gap-1"
+                        >
+                          <span>Open PDF in New Tab ↗</span>
+                        </a>
+                      </div>
+                    </div>
+                    <iframe
+                      src="https://drive.google.com/file/d/${p.embedDocument}/preview"
+                      title="${p.label} — Project Documentation"
+                      class="w-full h-[480px] sm:h-[560px] border-0 bg-white dark:bg-stone-950"
+                      allow="autoplay"
+                      loading="lazy"
+                    ></iframe>
+                  </div>
+                ` : p.embedPresentation ? `
+                  <div class="rounded-xl border border-stone-200/80 dark:border-stone-800 bg-stone-50/60 dark:bg-stone-950/80 overflow-hidden">
+                    <div class="px-4 py-2.5 border-b border-stone-200/80 dark:border-stone-800 flex flex-wrap items-center justify-between gap-2 bg-stone-100/70 dark:bg-stone-900/80">
+                      <span class="font-mono text-[11px] uppercase tracking-wider text-stone-600 dark:text-stone-300">PROJECT PRESENTATION PREVIEW</span>
+                      <a
+                        href="https://docs.google.com/presentation/d/${p.embedPresentation}/edit?usp=sharing"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="font-mono text-[11px] text-sky-600 dark:text-sky-400 hover:underline inline-flex items-center gap-1"
+                      >
+                        <span>Open Slides in New Tab ↗</span>
+                      </a>
+                    </div>
+                    <div class="aspect-video w-full bg-stone-950">
+                      <iframe
+                        src="https://docs.google.com/presentation/d/${p.embedPresentation}/preview"
+                        title="${p.label} — Project Presentation"
+                        class="w-full h-full border-0"
+                        allowfullscreen="true"
+                        loading="lazy"
+                      ></iframe>
+                    </div>
+                  </div>
+                ` : `
+                  <div class="schematic-grid rounded-xl border border-stone-200/80 dark:border-stone-800 p-4 bg-stone-50/60 dark:bg-stone-950/80">
+                    ${p.diagram}
+                  </div>
+                `}
+
+                <!-- Architecture & Troubleshooting Two-Column Layout -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div class="p-4 rounded-xl bg-stone-50/70 dark:bg-stone-950/50 border border-stone-200/70 dark:border-stone-800">
+                    <div class="font-mono text-[11px] uppercase tracking-wider text-sky-600 dark:text-sky-400 mb-1.5">System Architecture &amp; Design</div>
+                    <p class="text-xs sm:text-sm text-stone-600 dark:text-stone-400 leading-relaxed">${p.architecture}</p>
+                  </div>
+
+                  <div class="p-4 rounded-xl bg-amber-500/5 border border-amber-500/25">
+                    <div class="font-mono text-[11px] uppercase tracking-wider text-amber-700 dark:text-amber-400 mb-1.5">Bench Validation &amp; Troubleshooting</div>
+                    <p class="text-xs sm:text-sm text-stone-600 dark:text-stone-400 leading-relaxed">${p.troubleshooting}</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Expand or collapse a card
+    function setCardState(id, shouldOpen) {
+      const drawer = document.getElementById(`drawer-${id}`);
+      const chevron = document.getElementById(`chevron-${id}`);
+      const btn = document.getElementById(`btn-${id}`);
+      const card = document.getElementById(`card-${id}`);
+      if (!drawer || !chevron || !btn || !card) return;
+
+      if (shouldOpen) {
+        drawer.classList.add('is-open');
+        chevron.style.transform = 'rotate(180deg)';
+        btn.setAttribute('aria-expanded', 'true');
+        card.classList.add('border-stone-400', 'dark:border-stone-600');
+      } else {
+        drawer.classList.remove('is-open');
+        chevron.style.transform = 'rotate(0deg)';
+        btn.setAttribute('aria-expanded', 'false');
+        card.classList.remove('border-stone-400', 'dark:border-stone-600');
+      }
+    }
+
+    // Top Navbar Dropdowns Logic (Background & Projects)
+    const bgDropdownBtn = document.getElementById('backgroundDropdownBtn');
+    const bgDropdownMenu = document.getElementById('backgroundDropdownMenu');
+    const bgNavChevron = document.getElementById('bgNavChevron');
+
+    const projectsDropdownBtn = document.getElementById('projectsDropdownBtn');
+    const projectsDropdownMenu = document.getElementById('projectsDropdownMenu');
+    const navChevron = document.getElementById('navChevron');
+
+    function closeAllNavDropdowns() {
+      activeMainDropdown = null;
+      bgDropdownMenu.classList.add('invisible', 'opacity-0', 'translate-y-1');
+      bgNavChevron.style.transform = 'rotate(0deg)';
+      bgDropdownBtn.setAttribute('aria-expanded', 'false');
+
+      projectsDropdownMenu.classList.add('invisible', 'opacity-0', 'translate-y-1');
+      navChevron.style.transform = 'rotate(0deg)';
+      projectsDropdownBtn.setAttribute('aria-expanded', 'false');
+    }
+
+    function openMainNavDropdown(type) {
+      closeAllNavDropdowns();
+      activeMainDropdown = type;
+      if (type === 'background') {
+        bgDropdownMenu.classList.remove('invisible', 'opacity-0', 'translate-y-1');
+        bgNavChevron.style.transform = 'rotate(180deg)';
+        bgDropdownBtn.setAttribute('aria-expanded', 'true');
+      } else if (type === 'projects') {
+        projectsDropdownMenu.classList.remove('invisible', 'opacity-0', 'translate-y-1');
+        navChevron.style.transform = 'rotate(180deg)';
+        projectsDropdownBtn.setAttribute('aria-expanded', 'true');
+      }
+    }
+
+    bgDropdownBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      activeMainDropdown === 'background' ? closeAllNavDropdowns() : openMainNavDropdown('background');
+    });
+
+    projectsDropdownBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      activeMainDropdown === 'projects' ? closeAllNavDropdowns() : openMainNavDropdown('projects');
+    });
+
+    // Clicking outside closes any open navbar dropdown
+    document.addEventListener('click', (e) => {
+      if (!activeMainDropdown) return;
+      const inBg = document.getElementById('backgroundDropdownContainer').contains(e.target);
+      const inProj = document.getElementById('projectsDropdownContainer').contains(e.target);
+      if (!inBg && !inProj) {
+        closeAllNavDropdowns();
+      }
+    });
+
+    // Selecting any Background or Project item from the navbar scrolls smoothly and opens the full card
+    function selectCardFromNav(group, cardId) {
+      closeAllNavDropdowns();
+      if (openCardState[group] && openCardState[group] !== cardId && !allExpandedState[group]) {
+        setCardState(openCardState[group], false);
+      }
+      setCardState(cardId, true);
+      openCardState[group] = cardId;
+      syncExpandAllButton(group);
+
+      const cardEl = document.getElementById(`card-${cardId}`);
+      if (cardEl) {
+        const yOffset = -84;
+        const y = cardEl.getBoundingClientRect().top + window.scrollY + yOffset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    }
+
+// Dark / Light Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+    });
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
+
+	
+// Dark Mode Hint Popover (dismisses after 10s, or on any click anywhere including dropdowns)
+    const darkModeHint = document.getElementById('darkModeHint');
+    function dismissDarkModeHint() {
+      if (!darkModeHint || darkModeHint.classList.contains('hidden')) return;
+      darkModeHint.style.opacity = '0';
+      setTimeout(() => darkModeHint.classList.add('hidden'), 250);
+      document.removeEventListener('click', dismissDarkModeHint, true);
+    }
+
+    if (darkModeHint && !document.documentElement.classList.contains('dark')) {
+      darkModeHint.classList.remove('hidden');
+      setTimeout(dismissDarkModeHint, 25000);
+      document.addEventListener('click', dismissDarkModeHint, true);
+      darkModeHint.addEventListener('click', () => {
+        themeToggle.click();
+      });
+    }
+
+    // Copy Email Helper
+    function copyEmail() {
+      const email = 'reachnoahberry@gmail.com';
+      const tempInput = document.createElement('input');
+      tempInput.value = email;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+
+      const btnText = document.getElementById('emailBtnText');
+      if (btnText) {
+        btnText.textContent = 'Copied!';
+        setTimeout(() => {
+          btnText.textContent = 'Copy Email';
+        }, 2000);
+      }
+
+      const toast = document.getElementById('toast');
+      toast.textContent = `Copied: ${email}`;
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 2400);
+    }
+
+    // Export standalone index.html (without the export button) for GitHub Pages
+    function downloadSourceHTML() {
+      const clone = document.documentElement.cloneNode(true);
+      const exportEl = clone.querySelector('#exportWrapper');
+      if (exportEl) exportEl.textContent = 'Electrical Engineering Portfolio';
+      const htmlContent = '<!DOCTYPE html>\n' + clone.outerHTML;
+      const blob = new Blob([htmlContent], { type: 'text/html' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'index.html';
+      a.click();
+    }
+
+    // Initialize UI
+    renderAllDropdownMenus();
+    renderBackgroundCards();
+    renderAccordionCards();
+  </script>
+</body>
+</html>
