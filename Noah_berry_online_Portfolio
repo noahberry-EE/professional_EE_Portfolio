@@ -89,10 +89,19 @@
     .dark .hero-banner {
       border-color: #292524;
     }
-    @media (max-width: 650px) {
+ @media (max-width: 650px) {
       .hero-banner {
         max-height: 220px;
       }
+    }
+
+    @keyframes gentleBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+    .dark-mode-nudge {
+      animation: gentleBounce 1.8s ease-in-out infinite;
+      transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
     }
   </style>
 </head>
@@ -103,7 +112,7 @@
     <div class="max-w-[840px] mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-2">
       <!-- Brand Name -->
       <a href="#" class="font-semibold tracking-tight text-sm sm:text-base flex items-center gap-2.5 group shrink-0">
-        <span class="w-2.5 h-2.5 rounded-full bg-[#3b82f6] shadow-[0_0_0_3px_rgba(59,130,246,0.2)] inline-block group-hover:scale-110 transition-transform"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-[#3b82f6] shadow-[0_0_0_3px_rgba(59,130,246,0.2)] dark:bg-[#facc15] dark:shadow-[0_0_0_3px_rgba(250,204,21,0.2)] animate-pulse"></span>
         <span>Noah Berry Central</span>
       </a>
 
@@ -171,18 +180,32 @@
         <a href="#skills" class="hover:text-stone-900 dark:hover:text-stone-100 transition-colors">Skills</a>
         <a href="#contacts" class="hover:text-stone-900 dark:hover:text-stone-100 transition-colors">Contacts</a>
 
-        <!-- Theme Toggle Button -->
-        <button id="themeToggle" aria-label="Toggle dark mode" class="p-2 rounded-lg border border-stone-200 dark:border-stone-800 hover:bg-stone-100 dark:hover:bg-stone-900 text-stone-600 dark:text-stone-400 transition-colors cursor-pointer">
-          <svg id="sunIcon" class="w-4 h-4 hidden dark:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="5"></circle>
-            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
-          </svg>
-          <svg id="moonIcon" class="w-4 h-4 block dark:hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-          </svg>
-        </button>
+        <!-- Theme Toggle Button + Dark Mode Callout Popover -->
+        <div class="relative">
+          <button id="themeToggle" aria-label="Toggle dark mode" class="p-2 rounded-lg border border-stone-200 dark:border-stone-800 hover:bg-stone-100 dark:hover:bg-stone-900 text-stone-600 dark:text-stone-400 transition-colors cursor-pointer">
+            <svg id="sunIcon" class="w-4 h-4 hidden dark:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="5"></circle>
+              <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+            </svg>
+            <svg id="moonIcon" class="w-4 h-4 block dark:hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+
+        <!-- Floating Callout pointing up at #themeToggle -->
+          <div
+            id="darkModeHint"
+            role="status"
+            class="dark-mode-nudge hidden dark:hidden absolute -right-3 mt-3 w-40 px-3 py-2 rounded-xl bg-stone-900 text-stone-50 border border-stone-700 shadow-xl z-50 cursor-pointer"
+          >
+            <span class="absolute -top-1.5 right-6 w-3 h-3 rotate-45 bg-stone-900 border-l border-t border-stone-700"></span>
+            <p class="font-mono text-[11px] leading-snug text-stone-200">
+              Try <span class="text-emerald-400 font-semibold">Dark Mode</span> Here!
+            </p>
+          </div>
+        </div>
       </nav>
-    </div>
+	  </div>
   </header>
 
   <!-- Main Single-Column Editorial Container -->
@@ -199,20 +222,19 @@
       />
 
       <!-- 2. Main Title -->
-      <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight leading-[1.18] text-stone-900 dark:text-stone-100 mb-4">
+      <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight leading-[1.18] text-stone-900 dark:text-amber-200 mb-4">
         Noah Berry - Electrical Engineering Professional Portfolio
       </h1>
 
       <!-- 3. Bachelor's Status Bubble Badge -->
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 font-mono text-xs sm:text-sm text-stone-600 dark:text-stone-400 mb-8">
-        <span class="w-1.5 h-1.5 rounded-full bg-[#3b82f6] shadow-[0_0_0_3px_rgba(59,130,246,0.2)] animate-pulse"></span>
-        <span>B.S. Electrical Engineering • George Fox University (May 2027)</span>
+<span class="w-1.5 h-1.5 rounded-full bg-[#3b82f6] shadow-[0_0_0_3px_rgba(59,130,246,0.2)] dark:bg-[#facc15] dark:shadow-[0_0_0_3px_rgba(250,204,21,0.2)] animate-pulse"></span>      
+  <span>B.S. Electrical Engineering • George Fox University (May 2027)</span>
       </div>
 
       <!-- 4. Description Paragraph -->
       <p class="text-base sm:text-lg text-stone-600 dark:text-stone-400 leading-relaxed max-w-2xl mb-8">
-        Electrical Engineering senior at George Fox University with a Mathematics minor, currently leading the Analog Devices Inc. automated silicon wafer box opener senior capstone project. Experienced in industrial controls, robotics, custom PCB design, and power systems, and open to relocation across the US.
-      </p>
+        I am expected to finish with a Bachelor's in Electrical Engineering and a Minor in Mathematics in May 2027. Through my experiences both at school and in roles outside of school, I have been drawn to automated systems, power systems and electronics, signal response and complex circuit design, and above all working with teams! I value opportunities to expand my knowledge and contribute to my career by investing in my work environment and my peers. </p>
 
       <!-- 5. Action Buttons: Copy Email & Download Resume (Solid Black #000000 with White Text #ffffff) -->
       <div class="flex flex-wrap items-center gap-3 text-sm font-medium">
@@ -300,32 +322,55 @@
 
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div class="p-5 rounded-xl bg-white dark:bg-stone-900/60 border border-stone-200 dark:border-stone-800">
-          <div class="font-mono text-xs text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-3">Hardware &amp; PCB Design</div>
+          <div class="font-mono text-xs text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-3">Hardware &amp; Circuit Design</div>
           <ul class="text-sm text-stone-600 dark:text-stone-400 space-y-2">
-            <li>KiCad &amp; Altium Schematic Capture &amp; Layout</li>
-            <li>Multi-Layer Grounding, Decoupling &amp; EMI Control</li>
-            <li>SMD / Through-Hole Soldering &amp; Rework</li>
-            <li>Biomedical Op-Amp &amp; Active Filter Front-Ends</li>
+		    <li>AC/DC &amp; DC/DC Switching Power Converters</li>
+            <li>Effective Use of Oscilloscopes, Multimeters, &amp; Logic Analyzers</li>
+            <li>Frequency &amp; Signal Filtering</li>
+            <li>Analog &amp; Digital Circuit Theory</li>
+            <li>Unique Component Assembly &amp; Utilization</li>
+            <li>Electromagnetics &amp; Signals</li>
+            <li>Application of Basic Components (Capacitors, Resistors, Inductors, etc.)</li>
+			<li>Schematic, Wire Trace, &amp; Blueprint Literacy</li>
+			<li>Simulation, Breadboard, &amp; Assembly Testing</li>
+            <li>Knowledge of Mathematics, Physics, Material &amp; Chemical Properties, &amp; Electrical Theory</li>
+            <li>Implementation &amp; Integration of Existing Solutions</li>
+            <li>Tracking Power Use &amp; Losses</li>
+            <li>Ability to Solder Both Surface Mount (Embedded) &amp; Through-Hole Boards </li>
+
+
           </ul>
         </div>
 
         <div class="p-5 rounded-xl bg-white dark:bg-stone-900/60 border border-stone-200 dark:border-stone-800">
-          <div class="font-mono text-xs text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-3">Power &amp; Industrial Controls</div>
+          <div class="font-mono text-xs text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-3">Software &amp; Controls</div>
           <ul class="text-sm text-stone-600 dark:text-stone-400 space-y-2">
-            <li>AC/DC &amp; DC/DC Switching Power Converters</li>
-            <li>3-Phase Power, Contactors &amp; VFDs</li>
-            <li>Control Panel Wiring, Ferruling &amp; UL 508A</li>
-            <li>PLC Ladder Logic, Safety Relays &amp; Sensor I/O</li>
+            <li>C, Java, Python, &amp; Assembly Coding</li>
+            <li>Utilizing Verilog HDL for FPGA &amp; ASIC Applications</li>
+            <li>Selection &amp; Application of Microcontroller Systems</li>
+            <li>PLC Ladder Logic, Sensor I/O, &amp; Embedded Communication Protocols</li>
+            <li>Creating Multisim &amp; MATLAB Simulations</li>
+            <li>Altium (PCB) &amp; SolidWorks CAD Designers</li>
+            <li>Proficiency in Integrated Development Environments (ArduinoIDE, Microchip Studio)</li>
+            <li>Knowledge of Closed-Loop Control Systems (PID, Feedback)</li>
+            <li>Proficiency in PCB Printer, Reflow Oven, Pick &amp; Place, &amp; Their Accompanying Software</li>
+
           </ul>
         </div>
 
         <div class="p-5 rounded-xl bg-white dark:bg-stone-900/60 border border-stone-200 dark:border-stone-800">
-          <div class="font-mono text-xs text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-3">Test, Simulation &amp; Code</div>
+          <div class="font-mono text-xs text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-3">Operations &amp; Technical</div>
           <ul class="text-sm text-stone-600 dark:text-stone-400 space-y-2">
-            <li>Digital Oscilloscopes, Logic Analyzers &amp; DMMs</li>
-            <li>LTspice &amp; MATLAB / Simulink Modeling</li>
-            <li>Embedded C / C++ (STM32, ESP32) &amp; Python</li>
-            <li>Root-Cause Bench Hardware Diagnostics</li>
+            <li>Utilization of Lab Instrumentation</li>
+            <li>Following Strict Lab Procedures &amp; Experimentation</li>
+            <li>Project Management &amp; Interdisciplinary Leadership</li>
+            <li>Data Analysis &amp; Result Interpretation</li>
+            <li>Consistent Reporting, Profiling, &amp; Documentation Management</li>
+            <li>Proficiency in Microsoft &amp; Google Workspaces</li>
+            <li>Ability to Produce Prototypes from Tools or Machine Fabrication</li>
+            <li>Bill of Material, Ordering, &amp; Financial Literacy</li>
+            <li>Coordination of Events, Trainings, Shifts, &amp; Meetings</li>
+			<li>Construction &amp; Delivery of Presentations or Designs to Varying Audiences</li>
           </ul>
         </div>
       </div>
@@ -341,15 +386,19 @@
       <div class="p-6 sm:p-8 rounded-2xl bg-white dark:bg-stone-900/70 border border-stone-200 dark:border-stone-800 space-y-6">
         <div class="border-b border-stone-200 dark:border-stone-800 pb-6">
           <h3 class="text-lg font-semibold text-stone-900 dark:text-stone-100">Noah Berry Central</h3>
-          <p class="font-mono text-xs text-stone-500 dark:text-stone-400 mt-1">
+          <p class="font-mono text-xs text-blue-600 dark:text-amber-300 mt-1">
             B.S. Electrical Engineering Candidate • George Fox University (Graduating May 2027)
+          </p>
+		    <p class=" text-xs text-stone-600 dark:text-stone-400 mt-1">
+            Through my years of study and experiences, I find myself interested in a hands-on electrical engineering role within automated systems, power systems, signal response, and/or complex circuit applications. Other desirable opportunities are: project management, research and development, certifications, and further education. I value the ability to foster quality relationships in the workspace, and leave a positive impact on people and projects.
           </p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
           <div>
-            <div class="font-mono text-xs uppercase tracking-wider text-stone-400 mb-2">Contact &amp; Relocation</div>
+            <div class="font-mono text-xs uppercase tracking-wider text-stone-400 mb-2">Contact &amp; Location</div>
             <p class="text-stone-600 dark:text-stone-400 leading-relaxed">
+
               Newberg, OR (Open to relocation across the US)<br/>
               Phone: 360-631-6788<br/>
               Academic: nberry23@georgefox.edu<br/>
@@ -412,7 +461,7 @@
   <!-- Minimal Footer -->
   <footer id="siteFooter" class="border-t border-stone-200 dark:border-stone-800 py-8 text-center font-mono text-xs text-stone-500 dark:text-stone-400">
     <div class="max-w-[840px] mx-auto px-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-      <span>© 2026 Noah Berry Central • Newberg, OR</span>
+      <span>© 2026 Noah Berry Central • EE Candidate</span>
       <span class="flex items-center gap-3">
         <a href="https://drive.google.com/uc?export=download&id=13YTadMBRpRYcOG3dZXyIFhOtypg3lSnw" download="Noah_Berry_Resume_2026-27.pdf" class="underline hover:text-stone-900 dark:hover:text-stone-200">Resume PDF</a>
         <span>•</span>
@@ -438,11 +487,13 @@
         year: 'Aug. 2023 — May 2027',
         summary: 'Pursuing a Bachelor of Science in Electrical Engineering with a Minor in Mathematics at George Fox University (Newberg, OR; expected graduation May 1, 2027). Graduated from Monroe High School in Monroe, WA (June 2023).',
         highlights: [
-          'Core coursework in PCB design, circuit analysis & design, active filter design, power & control systems, and signal analysis.',
-          'Hands-on laboratory proficiency with oscilloscopes, function generators, power supplies, DMMs, MATLAB, Multisim, and Altium PCB Designer.',
-          'Committed to pursuing advanced technical excellence and community-driven engineering collaboration.'
-        ],
-        tools: ['George Fox University', 'B.S. Electrical Engineering', 'Mathematics Minor', 'Altium Designer', 'MATLAB & Multisim']
+          'Core Electrical Engineering coursework with PCB design, circuit analysis & design, active filter design, power & control systems, effective programming, and signal analysis.',
+          'Hands-on laboratory proficiency with oscilloscopes, function generators, power supplies, DMM, MATLAB, Multisim, SolidWorks, and Altium PCB Designer.',
+          'Free-range projects, both individual and team, challenging creativity, complex problem solving, interdisciplinary work, and theoretical to technical application.',
+          'Participating in 4 full years of College Football, and Engineering Ambassadors; conducting engineering outreach lessons and programs.'
+
+		],
+        tools: [ 'B.S. Electrical Engineering', 'Mathematics Minor', 'Project Management & Collaboration', 'Theoretical & Simulation Design', 'Technical Application']
       },
       {
         id: 'bg-2',
@@ -451,11 +502,13 @@
         year: 'Aug. 2026 — May 2027',
         summary: 'Leading a 5-engineer senior design team at George Fox University to design and build a stand-alone, fully automated silicon wafer box opener for Analog Devices Inc.\'s semiconductor manufacturing line.',
         highlights: [
-          'Coordinate directly with Analog Devices Inc. representatives on technical specifications, safety interlocks, and milestone reviews.',
-          'Manage project schedules, task allocation, and system integration across a 5-person multidisciplinary engineering team.',
-          'Architect, design, and fabricate the electrical control, power distribution, and sensor subsystems of the automated opener.'
-        ],
-        tools: ['Analog Devices Inc.', 'Team Lead (5 Engineers)', 'Automation & Controls', 'Electrical Hardware Design', 'System Integration']
+          'Coordinate directly with Analog Devices Inc. representatives on technical specifications, safety interface, and milestone reviews.',
+          'Manage project schedules, task allocation, and system integration across a 5-person interdisciplinary engineering team.',
+          'Design and fabricate the electrical control, power distribution, and sensor subsystems of the automated opener.',
+          'Ensure cleanroom standards are met for all designs, testing potential failure points, and creating many iterations of solutions.'
+
+	 ],
+        tools: ['Project Manager', 'ISO Cleanroom Design', 'Automation & Controls', 'Electrical Hardware Design', 'Interdisciplinary Integration']
       },
       {
         id: 'bg-3',
@@ -464,50 +517,50 @@
         year: 'Jan. 2025 — May 2027',
         summary: 'Serving as an Electrical Engineering and Mathematics Teaching Assistant and tutor at George Fox University, guiding students through lab procedures, bench equipment, and theoretical coursework.',
         highlights: [
-          'Regularly instructed entire laboratory and recitation sections solo across core Electrical Engineering courses.',
-          'Mentored students one-on-one and in group sessions on circuit troubleshooting, bench test equipment, and Mathematics.',
+          'Regularly instructed laboratory sections solo across core Electrical Engineering courses.',
+          'Mentored students with one on one and group tutoring sessions and additional lessons on hardware fundamentals, electrical theory, and mathematics.',
           'Reinforced safe laboratory practices and systematic debugging habits on oscilloscopes, breadboards, and simulation tools.'
         ],
-        tools: ['Solo Lab Instruction', 'Circuit Troubleshooting', 'Bench Test Equipment', 'EE & Math Tutoring', 'Technical Mentorship']
+        tools: ['Lab Instruction', 'Hardware Troubleshooting', 'Bench Test Equipment', 'EE & Math Tutoring', 'Technical Mentorship']
       },
       {
         id: 'bg-4',
         label: 'Medication Technician',
         tag: '• Arbor Oaks Terrace Memory Care',
         year: 'Apr. 2025 — Oct. 2026',
-        summary: 'Managed shift care operations, resident medication administration, and strict regulatory compliance in Newberg, OR with zero-error attention to detail.',
+        summary: 'Managed shift operations, resident medication administration, and strict compliance in Newberg, OR, with critical attention to detail and high quality care.',
         highlights: [
-          'Supervised shift care staff and coordinated daily resident medication passes in a high-accountability clinical environment.',
-          'Maintained accurate regulatory compliance paperwork, dosage logs, and audit-ready care documentation.',
+          'Supervised shifts and managed staffing while coordinating daily resident medication and care needs in a high accountability clinical environment.',
+          'Maintained accurate records and compliance paperwork, proper virtual logs, and audited care documentation.',
           'Coordinated external care communications with healthcare providers, pharmacies, and families.'
         ],
-        tools: ['Shift Staff Management', 'Regulatory Documentation', 'Medication Administration', 'External Care Coordination', 'Newberg, OR']
+        tools: ['Shift Staff Management', 'Regulatory Documentation', 'Medication Administration', 'External Provider Coordination', 'Descriptive & Accurate Records']
       },
       {
         id: 'bg-5',
         label: 'Electrician Assistant',
-        tag: '• Scotts Electrical Service LLC',
+        tag: "• Scott's Electrical Service LLC",
         year: 'May 2022 — Aug. 2022',
-        summary: 'Worked alongside licensed electricians in Seattle, WA on residential and commercial electrical installations, legacy system removal, and conduit routing.',
+        summary: 'Worked alongside licensed electricians in Seattle, WA on residential and commercial electrical installations, removing out-of-date equipment, and conduit/wire routing.',
         highlights: [
-          'Shadowed master and journeyman electricians during equipment setup, panel upgrades, and legacy wiring demolition.',
-          'Routed new electrical wiring and conduit runs in compliance with electrical safety and NEC code practices.',
-          'Developed foundational field knowledge of AC power distribution, grounding, and job-site electrical safety.'
+          'Shadowed master and journeyman electricians during equipment setup, upgrades, and out-of-date wiring demolition.',
+          'Routed new electrical wiring and conduit runs in compliance with electrical safety and engineered plans.',
+          'Developed foundational field knowledge of AC power distribution, equipment efficiency, and on-site electrical safety.'
         ],
-        tools: ['Conduit & Wiring Routing', 'Electrical Safety', 'System Upgrades', 'Field Diagnostics', 'Seattle, WA']
+        tools: ['Conduit & Wiring Routing', 'Electrical Safety', 'System Upgrades', 'Field Diagnostics', 'Technical Installation', 'Proper Electrical Demolition']
       },
       {
         id: 'bg-6',
         label: 'Pharmacy Assistant',
         tag: '• Pharm-A-Save Pharmacy',
         year: 'Aug. 2020 — Aug. 2023',
-        summary: 'Served as a licensed Pharmacy Assistant in Monroe, WA managing prescriptions, patient accounts, front-counter operations, and regulatory compliance.',
+        summary: 'Served as a licensed Pharmacy Assistant in Monroe, WA managing prescriptions, patient profiles, front counter operations.',
         highlights: [
           'Obtained Washington State Pharmacy Assistant license and managed prescription intake, filling workflows, and inventory.',
-          'Handled patient accounts, insurance coordination, and front-counter customer operations in a fast-paced retail pharmacy.',
+          'Handled patient accounts, insurance coordination, and front counter customer operations in a fast paced retail pharmacy.',
           'Upheld strict HIPAA privacy and pharmacy compliance standards with zero-error attention to detail.'
         ],
-        tools: ['Licensed Pharmacy Assistant', 'Prescription Operations', 'Patient Accounts', 'Regulatory Compliance', 'Monroe, WA']
+        tools: ['Licensed Pharmacy Assistant', 'Prescription Operations', 'Patient Profiles', 'Regulatory Compliance', 'Customer Service']
       }
     ];
 
@@ -520,15 +573,15 @@
         label: 'Stand-alone Box Opener',
         tag: '• ADI Capstone',
         year: '2026 — 2027',
-        summary: 'End-to-end electrical subsystem design for Senior Design Capstone, integrating isolated DC-DC power regulation, sensor acquisition, and fault protection on a custom PCB.',
+        summary: 'An electrical subsystem design for a silicon wafer manufacturing process that fully unlatches, opens, closes, and relatches a wafer box, integrating isolated DC-powered components, sensors, and fault protection on a control interface. All coming together to make a stand-alone automated robot that can go anywhere in an ISO4 cleanroom manufacturing process.',
         specs: [
-          { label: 'Input / Output', value: '48V DC → 24V / 5V Isolated' },
-          { label: 'Tools Used', value: 'KiCad, LTspice, Oscilloscope' },
-          { label: 'Target Spec', value: '< 40 mV Ripple @ Full Load' },
-          { label: 'Status', value: 'In Progress / Bench Testing' }
+          { label: 'Outputs', value: 'Opened or Closed box, Wafer Count (function of mass)' },
+          { label: 'Tools Used', value: 'ArduinoIDE, Bench Test Eq., SolidWorks, Altium Designer, Multisim' },
+          { label: 'Target Spec', value: '100% efficiency on Unlatching, Opening, closing, Latching, and Weighing boxes' },
+          { label: 'Process', value: 'Prototype Designs → Physical Assembly → Electrical Integration → Final Model → Cleanroom Integration ' }
         ],
-        architecture: 'Partitioned high-current switching rails from low-noise analog sensor front-ends using star-point grounding, TVS transient suppression, and dedicated LDO post-regulation.',
-        troubleshooting: 'Diagnosed high-frequency switching ringing on the 24V buck node using a short-ground-spring scope probe; added an RC snubber and relocated input ceramic decoupling caps to cut overshoot by 65%.',
+        architecture: 'Utilizing Digital I/O and EthernetIP control systems to open the box as efficiently as possible. There is currently going to have two axes of rotation allowing the open close, one at the base of the arm and the other at the end. A separate mechanism (5 bar linkage system) will be powered by 2 motors to unlatch and latch the box.',
+        troubleshooting: 'The mechanical binding and limitations got us bogged down in the details early, but we persisted and designed a solution in variable rotation clamping. We hope to get a fully operational model that will not slip or bind at all when opening. This will then be translated to cleanroom ready materials and applied wherever necessary at ADI.',     embedDocument: '1JGklIHw_rotwIrtgsvqYTB_xgZnQKe4p',
         diagram: `
           <svg viewBox="0 0 640 130" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="20" y="32" width="130" height="66" rx="8" class="fill-white dark:fill-stone-900 stroke-stone-300 dark:stroke-stone-700" stroke-width="1.5"/>
@@ -552,15 +605,17 @@
         label: '4-Stage Audio Amplifier',
         tag: '• Electronic Devices',
         year: '2026',
-        summary: 'Synchronous DC-DC power converter and 3-phase feeder voltage regulation study modeled in MATLAB/Simulink and validated on the hardware bench under step-load transients.',
+        summary: '4 stages of amplification; differential, gain, buffer, push pull (power), all assembled to create a custom full scale audio amplifier system.',
         specs: [
-          { label: 'Topology', value: '3-Phase / DC-DC Power Stage' },
-          { label: 'Simulation', value: 'MATLAB / Simulink & LTspice' },
-          { label: 'Efficiency', value: '93.5% Measured' },
-          { label: 'Validation', value: 'Power Analyzer & Scope' }
+          { label: 'Topology', value: ' Differential, Gain, Buffer, Push-Pull (power)' },
+          { label: 'Simulation Tools', value: 'MATLAB & Multisim' },
+		  { label: 'Testing', value: 'Oscilloscopes, DMM, Mock Speakers' },
+
+          { label: 'Process', value: ' Custom Operational Bread Board Design → PCB Design → Full Assembly' }
         ],
-        architecture: 'Designed Type-III voltage-mode compensation in LTspice to ensure >55° phase margin across 10%–100% load steps, paired with low-RDS(on) MOSFETs and shielded power inductors.',
-        troubleshooting: 'Resolved thermal rise on the freewheeling diode during sustained 100% load testing by optimizing dead-time control and adding thermal via stitching beneath the switching stage.',
+        architecture: ' Utilizing a variety of BJT transistors, the audio amplifier is made up of 4 stages (differential, gain, buffer, and push pull), with the differential stage cleaning up the signal, the gain to amplify the signal, the buffer to isolate the next stage, and finally a push pull stage using stronger power transistors to increase current output. Also, the system includes a custom power rectifier source that I designed and produced for the input voltage.',
+        troubleshooting: 'The current mirror gave me trouble and the constant heat output of the power transistors due to the push pull was a challenging thing to balance. To approach this challenge and improve the output some losses on the power output were accepted. Some thermal runaway will always be expected in this case.',
+        embedDocument: '1afHbLUuFoSojwtB5Y3qLrPIm4CrwZG6h',
         diagram: `
           <svg viewBox="0 0 640 130" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="20" y="20" width="600" height="90" rx="8" class="fill-white dark:fill-stone-900 stroke-stone-300 dark:stroke-stone-700" stroke-width="1.2"/>
@@ -574,22 +629,16 @@
         label: 'Semi-Autonomous Wheelchair',
         tag: '• Servant Engineering',
         year: '2025 - 2026',
-        summary: '24V DC industrial control panel and 3-phase motor starter assembly featuring dual-channel E-stop safety relay interlocks, VFD speed control, and DIN-rail terminal distribution.',
+        summary: '24V DC Electrical Wheelchair that a client wanted to be self driving. The design utilizes sensors, memory, control interrupts, and user feedback to optimally avoid objects and protect user.',
         specs: [
-          { label: 'Control Bus', value: '24V DC Class 2 / 480V 3-Phase' },
-          { label: 'Standards', value: 'NEC / UL 508A Panel Practices' },
-          { label: 'Interlocks', value: 'Dual-Channel E-Stop & Aux' },
-          { label: 'Testing', value: 'Point-to-Point Continuity' }
+		{ label: 'Control System', value: 'Original VR2 interrupted by a Pico 2W' },
+          { label: 'Components', value: '2x LiDAR sensors, 3x Ultrasonic sensors, Touchscreen' },
+          { label: 'Goal', value: 'Object avoidance & route correction → Memory mapping routes' },
+          { label: 'Tools', value: 'Standard bench equipment, Logic analyzer, C Programming' }
         ],
-        architecture: 'Separated 480V AC power conductors from 24V DC control and analog 4–20 mA sensor wiring using dedicated panduit raceways, color-coded ferrules, and clear schematic wire tags.',
-        troubleshooting: 'Traced an intermittent safety relay reset fault during commissioning to a loose auxiliary contact jumper; verified dual-channel redundancy across all E-stop states.',
-        embedDocument: {
-          title: 'Semi-Autonomous Wheelchair — Project Documentation',
-          previewUrl: 'https://drive.google.com/file/d/1tKC5HgVgVH2NWXvlSwokGDS8npGwgg-Z/preview',
-          downloadUrl: 'https://drive.google.com/uc?export=download&id=1tKC5HgVgVH2NWXvlSwokGDS8npGwgg-Z',
-          externalUrl: 'https://drive.google.com/file/d/1tKC5HgVgVH2NWXvlSwokGDS8npGwgg-Z/view?usp=drive_link',
-          filename: 'Noah_Berry_Semi_Autonomous_Wheelchair.pdf'
-        },
+        architecture: 'The full system optimizes the 24V Battery source of the wheelchair to power sensors that matrix together to trigger an interrupt on the Pico controller that would stop the joystick commands from continuing. Then the obstructions would display on the screen. Locations of ground covered would be stored on an SD card for future mapping purposes.',
+		troubleshooting: 'Ideally the object avoidance would be used always and then the mapping would be implemented by the users "history" allowing self driving over previously driven routes with a user selecting locations on the screen.',
+        embedDocument: '1tKC5HgVgVH2NWXvlSwokGDS8npGwgg-Z',
         diagram: `
           <svg viewBox="0 0 640 130" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
             <line x1="50" y1="22" x2="50" y2="108" class="stroke-stone-400 dark:stroke-stone-600" stroke-width="2"/>
@@ -609,15 +658,16 @@
         label: 'Automated Sorting Machine',
         tag: '• Embedded Systems',
         year: '2026',
-        summary: 'Low-noise ECG/EMG biopotential acquisition front-end combining an instrumentation amplifier, Driven-Right-Leg (DRL) common-mode cancellation, and active Sallen-Key bandpass filtering.',
+        summary: 'An embedded system board that would allow an automated system to feed LEGOs or small objects 1 at a time identify and sort them based on multiple categories.',
         specs: [
-          { label: 'Gain & Band', value: '60 dB Gain | 0.5 Hz – 150 Hz' },
-          { label: 'Front-End', value: 'Instrumentation Amp + DRL' },
-          { label: 'CMRR', value: '> 100 dB @ 60 Hz' },
-          { label: 'Power', value: 'Isolated ±5V Battery Supply' }
+          { label: 'Components', value: 'Load Cell & Amplifier, 2x Stepper Motors (conveyor belt), 1 Stepper Motor Actuation Arm, Servo (bin selector), Screen (touch), camera sensor' },
+          { label: 'Process', value: 'Select criteria (screen) → Conveyor 1 piece to load cell → weigh piece → color sensed from camera → bin selector → knock piece in bin → repeat' },
+          { label: 'Programming Tool', value: 'ESP32 Dev Kit w/ Arduino IDE (Embedded C)' },
+          { label: 'Other Essentials', value: 'Board power selection, 5V buck converters, Camera test module' }
         ],
-        architecture: 'Cascaded a high-input-impedance instrumentation amplifier (G = 20) with a 0.5 Hz passive high-pass AC-coupling stage and a 4th-order Butterworth low-pass filter (G = 50).',
-        troubleshooting: 'Suppressed dominant 60 Hz power-line hum by matching input bridge resistors to 0.1% tolerance and tuning the DRL feedback loop phase margin.',
+        architecture: 'Multi-layer piece identification system, with the pins on the board strategically wired to optimize the I/O system with many components. Isolation of each step to funnel the logic down to accurate outputs.',
+        troubleshooting: 'The system correctly identified many LEGOs but as there are many types of LEGO it was hard to get exact results so it would be better integrated to find a range of pieces. Also, the load cell was very small and needed such little error to work theoretically so it would likely lead to inaccuracy over time.',
+        embedDocument: '1E6u3Kgp93MGAQwmCOaCBuC3n5-cfsCYu',
         diagram: `
           <svg viewBox="0 0 640 130" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="20" y="20" width="600" height="90" rx="8" class="fill-white dark:fill-stone-900 stroke-stone-300 dark:stroke-stone-700" stroke-width="1.2"/>
@@ -628,18 +678,19 @@
       },
       {
         id: 'project-5',
-        label: 'Breakout! (C Program)',
+        label: 'Breakout! (Embedded C)',
         tag: '• Microprocessor Architecture',
         year: '2025',
-        summary: 'Custom 2-layer FR-4 mixed-signal sensor and actuator interface board designed in KiCad 8, featuring reverse-polarity protection, ESD clamping, and modular terminal headers.',
+        summary: 'An implementation of the classic video game Breakout! Written in C programming, the game successfully plays out removing blocks. The code interface uses .h helper files to drive functions in the main.',
         specs: [
-          { label: 'CAD Tool', value: 'KiCad 8 Schematic & Layout' },
-          { label: 'Board Stack', value: '2-Layer FR-4, 2 oz Copper' },
-          { label: 'Assembly', value: 'SMD Reflow & Hand Rework' },
-          { label: 'Interfaces', value: 'SPI / I2C / Protected GPIO' }
+          { label: 'Main Features', value: 'Layered helper files called in main, utilizes helper functions and finite state machine ' },
+          { label: 'Programming Tool', value: 'Microchip Studio (Embedded C)' },
+          { label: 'Files', value: '.h files, .c files; main.c' },
+          { label: 'Interfaces', value: 'GPIO, SPI, ADC, PWM, TIMERS, INTERRUPTS, BUTTONS, VIDEO' }
         ],
-        architecture: 'Routed continuous bottom-layer ground plane with via stitching around high-speed SPI lines, sized 2 oz copper power traces for <10°C temperature rise, and placed 0.1 µF/10 µF decoupling pairs at every IC supply pin.',
-        troubleshooting: 'Caught an inverted footprint pinout on an external I2C connector during pre-power continuity checks; reworked cleanly with Kynar jumper wire and updated the KiCad library footprint for Rev B.',
+        architecture: 'It is a complex finite state machine that runs many subroutines. It is event driven and triggers interrupts and helper functions based on the status of main where the main application layer can be seen. There is a very crucial timing model used to keep the system timing accurate.',
+        troubleshooting: 'The key for this program was the virtually instantaneous erase-and-draw of the ball and predicting the next spot the ball will be for the collision detection. Finding edge cases for things like the score and wall collisions to prevent overlapping print functions.',
+        embedVideo: '1-V7x1glyIq5aeLq2XNqPVowVT1q-EBlo',
         diagram: `
           <svg viewBox="0 0 640 130" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="170" y="22" width="300" height="86" rx="10" class="fill-emerald-500/10 stroke-emerald-500" stroke-width="1.5"/>
@@ -657,22 +708,16 @@
         label: 'Finger Pulse Oximeter',
         tag: '• Circuit Analysis & Design',
         year: '2025',
-        summary: 'Deterministic embedded data acquisition and closed-loop PWM motor speed controller written in C/C++ on STM32/ESP32 with real-time UART telemetry streaming.',
-        specs: [
-          { label: 'Controller', value: 'STM32 / ESP32 (C / C++)' },
-          { label: 'Peripherals', value: '12-bit ADC, Timer PWM, UART' },
-          { label: 'Sample Rate', value: '1 kHz Deterministic Loop' },
-          { label: 'Validation', value: 'Logic Analyzer & Serial Plot' }
+		summary: 'This design utilizes basic circuit assembly components to accurately detect a heartbeat from a person and display it with LEDs or on an oscilloscope screen.',        
+		specs: [
+          { label: 'Hardware', value: 'Op-Amps, Light Dependent Resistor (LDR), Resistors, Capacitors, LEDs' },
+          { label: 'Operation', value: 'Two gain stages multiply together, resulting in large output gain, LDR feedback from a finger = fluctuation in signal' },
+          { label: 'Specs', value: 'V=9V,  Gain1=-10V/V,      Gain2=-100V/V,      Gaintotal=1000V/V' },
+          { label: 'Theory Applied', value: 'First-order Low-pass filtering, Cascading Op-Amps, AC coupling, Voltage division feedback' }
         ],
-        architecture: 'Implemented hardware timer interrupts at 1 kHz to trigger DMA-backed 12-bit ADC conversions, compute discrete PI control updates, and modulate 20 kHz complementary PWM outputs.',
-        troubleshooting: 'Eliminated ADC jitter caused by asynchronous serial print blocking by moving telemetry transmission to a non-blocking ring buffer verified on a logic analyzer.',
-        embedDocument: {
-          title: 'Finger Pulse Oximeter — Project Documentation',
-          previewUrl: 'https://drive.google.com/file/d/1mDb3DbMFjd6eJIdeZlDtc9lbmfnmOTW0/preview',
-          downloadUrl: 'https://drive.google.com/uc?export=download&id=1mDb3DbMFjd6eJIdeZlDtc9lbmfnmOTW0',
-          externalUrl: 'https://drive.google.com/file/d/1mDb3DbMFjd6eJIdeZlDtc9lbmfnmOTW0/view?usp=sharing',
-          filename: 'Noah_Berry_Finger_Pulse_Oximeter.pdf'
-        },
+        architecture: 'The LED shines to get a max on the LDR, when a finger is blocking the light the changes in blood volume are reflected in the voltage division and amplified by the cascaded amplifier to indicate a heart rate.',
+        troubleshooting: 'Verified with the use of potentiometers to get exact values and feedback from the system, as the potentiometer is changed the voltage division sensitivity was changed to help increase or decrease the ranges to get better results.',
+        embedDocument: '1mDb3DbMFjd6eJIdeZlDtc9lbmfnmOTW0',
         diagram: `
           <svg viewBox="0 0 640 130" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="20" y="20" width="600" height="90" rx="8" class="fill-white dark:fill-stone-900 stroke-stone-300 dark:stroke-stone-700" stroke-width="1.2"/>
@@ -690,16 +735,12 @@
         specs: [
           { label: 'Fabrication', value: 'Manual Lathe & CNC Mill' },
           { label: 'Materials', value: '6061 Aluminum & Brass' },
-          { label: 'Tolerances', value: '±0.001 in Piston/Cylinder Fit' },
-          { label: 'Validation', value: 'Pneumatic Bench Run-In' }
+          { label: 'Tolerance', value: '±0.001 in Piston/Cylinder Fit' },
+          { label: 'Process', value: 'Air to intake → Piston extends out → Spins crank disc & flywheel → air exhausts → Return & repeat' }
         ],
-        architecture: 'Designed crank-throw geometry, port timing alignment, and balanced flywheel inertia to minimize dead-center stalling and sustain smooth low-pressure rotation.',
-        troubleshooting: 'Reduced cylinder-to-port air leakage during initial compressed-air trials by lapping the mating valve face flat and refining spring tension on the pivot axle.',
-        embedPresentation: {
-          title: 'Oscillating Air Engine — Project Presentation',
-          previewUrl: 'https://docs.google.com/presentation/d/19nC6Lmy8Lt10XdAD2Oa5EDXSNkCV8u0UIYEF5Rc-qCw/preview',
-          externalUrl: 'https://docs.google.com/presentation/d/19nC6Lmy8Lt10XdAD2Oa5EDXSNkCV8u0UIYEF5Rc-qCw/edit?usp=drive_link'
-        },
+        architecture: 'Using critical relationship equations of the system unique measurements were produced for the geometric and volumetric properties of the engine. Then all parts were produced in SolidWorks, then placed on blueprints for fabrication. I fabricated every piece individually by hand and assembled the engine in the GFU machine shop.',
+        troubleshooting: 'Through testing it was discovered that many components required alternative materials to optimally function, therefore many iterations of parts were fabricated and tested. Also it was discovered that although not optimum for the theoretical calculations, the design had room for larger intake/exhaust holes that made the extension and compression of the piston stronger.',
+        embedPresentation: '19nC6Lmy8Lt10XdAD2Oa5EDXSNkCV8u0UIYEF5Rc-qCw',
         diagram: `
           <svg viewBox="0 0 640 130" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="20" y="20" width="600" height="90" rx="8" class="fill-white dark:fill-stone-900 stroke-stone-300 dark:stroke-stone-700" stroke-width="1.2"/>
@@ -716,15 +757,19 @@
         label: 'Simon Memory Game',
         tag: '• Verilog & C Programming',
         year: '2024 - 2025',
-        summary: 'Hardware-software state-machine implementation of the classic Simon sequence memory game written in Verilog HDL and embedded C with debounced pushbuttons, LEDs, and audio tones.',
+        summary: 'A classic memory game composed of light up buttons, victory and fail tones, and a display screen. The game produces a sequence of colors and a user must repeat that sequence. The game continues to go back and forth producing sequences and receiving user input until a user fails. There is also some additional cheat features that a user could take advantage of... if they are cool enough to find them!',
         specs: [
           { label: 'Languages', value: 'Verilog HDL & Embedded C' },
-          { label: 'Architecture', value: 'Finite State Machine (FSM)' },
-          { label: 'Peripherals', value: 'Debounced I/O, LEDs, PWM Buzzer' },
-          { label: 'Verification', value: 'Testbench Sim & Board Demo' }
+          { label: 'Architecture', value: 'Finite State Machine' },
+          { label: 'Peripherals', value: 'Debounced I/O, LEDs, PWM, Speaker, Digital Display' },
+          { label: 'Cheat Modes', value: '2 external switches that; 1. Repeat: triggers a rerun. 2. Guide: a light will display the next color for the sequence.' }
         ],
-        architecture: 'Structured a deterministic multi-state FSM (Idle, Generate Sequence, Playback, Player Input, Verify, Win/Loss) driven by a hardware LFSR pseudo-random generator and millisecond timer counters.',
-        troubleshooting: 'Resolved double-registered button presses during fast player input sequences by implementing a synchronous 20 ms shift-register debouncer and edge-detection pulse generator.',
+        architecture: "Utilizing a pseudo-random number generator produces a sequence of colors n in size (such that n is the round number). That sequence is played for a user and the user must repeat the sequence. The game will indicate a failure if the user is incorrect, and will not stop going through rounds until a user fails. The 2 external switches would allow a user to use them to either repeat the game's sequence or light up the button of the next in sequence.",
+        troubleshooting: "When connecting the main game's routine to the cheat-modes subroutines there was a challenge in being able to access the current sequence without compromising the actual gameplay, this was solved using pointers and saved memory constants.",
+        embedDocumentsSideBySide: [
+          { title: 'C Programming Implementation', id: '1DLGfm5EbK9KxTwt_NfNIZGaZQJYvYkY-', type: 'video' },
+          { title: 'Verilog HDL Video Demo', id: '1XYhwVRye8-WMziQDXlBo5KoHnPPOIsuU', type: 'video' }
+        ],
         diagram: `
           <svg viewBox="0 0 640 130" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="40" y="38" width="115" height="54" rx="8" class="fill-white dark:fill-stone-900 stroke-stone-300 dark:stroke-stone-700" stroke-width="1.5"/>
@@ -852,14 +897,14 @@
                 </p>
 
                 <div>
-                  <div class="font-mono text-[11px] uppercase tracking-wider text-stone-400 mb-2.5">Key Responsibilities &amp; Highlights</div>
+                  <div class="font-mono text-[11px] uppercase tracking-wider text-stone-400 mb-2.5">Responsibilities &amp; Experiences</div>
                   <ul class="space-y-2 text-sm text-stone-600 dark:text-stone-400 list-disc pl-5">
                     ${b.highlights.map(item => `<li>${item}</li>`).join('')}
                   </ul>
                 </div>
 
                 <div>
-                  <div class="font-mono text-[11px] uppercase tracking-wider text-stone-400 mb-2">Tools, Standards &amp; Focus Areas</div>
+                  <div class="font-mono text-[11px] uppercase tracking-wider text-stone-400 mb-2"> Standards &amp; Focus Areas</div>
                   <div class="flex flex-wrap gap-2">
                     ${b.tools.map(t => `
                       <span class="px-2.5 py-1 rounded-md bg-stone-100 dark:bg-stone-800/90 border border-stone-200/70 dark:border-stone-700/70 font-mono text-xs text-stone-700 dark:text-stone-300">${t}</span>
@@ -921,20 +966,82 @@
                 </div>
 
                 <!-- Interactive Document / Presentation Preview or Schematic Visual -->
-                ${p.embedDocument ? `
+                ${p.embedDocumentsSideBySide ? `
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    ${p.embedDocumentsSideBySide.map(doc => `
+                      <div class="rounded-xl border border-stone-200/80 dark:border-stone-800 bg-stone-50/60 dark:bg-stone-950/80 overflow-hidden flex flex-col">
+                        <div class="px-4 py-2.5 border-b border-stone-200/80 dark:border-stone-800 flex flex-wrap items-center justify-between gap-2 bg-stone-100/70 dark:bg-stone-900/80">
+                          <span class="font-mono text-[11px] uppercase tracking-wider text-stone-600 dark:text-stone-300">${doc.title}</span>
+                          <div class="flex items-center gap-3">
+                            <a
+                              href="https://drive.google.com/uc?export=download&id=${doc.id}"
+                              class="font-mono text-[11px] text-emerald-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-1"
+                            >
+                              <span>${doc.type === 'video' ? '' : 'Download PDF ↓'}</span>
+                            </a>
+                            <a
+                              href="https://drive.google.com/file/d/${doc.id}/view"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              class="font-mono text-[11px] text-sky-600 dark:text-sky-400 hover:underline inline-flex items-center gap-1"
+                            >
+                              <span>${doc.type === 'video' ? 'Open Video ↗' : 'Open PDF ↗'}</span>
+                            </a>
+                          </div>
+                        </div>
+                        <iframe
+                          src="https://drive.google.com/file/d/${doc.id}/preview"
+                          title="${p.label} — ${doc.title}"
+                          class="w-full h-[560px] sm:h-[640px] border-0 bg-stone-950"
+                          allow="autoplay; fullscreen"
+                          allowfullscreen="true"
+                          loading="lazy"
+                        ></iframe>
+                      </div>
+                    `).join('')}
+                  </div>
+				` : p.embedVideo ? `
+                  <div class="rounded-xl border border-stone-200/80 dark:border-stone-800 bg-stone-50/60 dark:bg-stone-950/80 overflow-hidden">
+                    <div class="px-4 py-2.5 border-b border-stone-200/80 dark:border-stone-800 flex flex-wrap items-center justify-between gap-2 bg-stone-100/70 dark:bg-stone-900/80">
+                      <span class="font-mono text-[11px] uppercase tracking-wider text-stone-600 dark:text-stone-300">PROJECT VIDEO DEMO</span>
+                      <div class="flex items-center gap-3">
+                        <a
+                          href="https://drive.google.com/uc?export=download&id=${p.embedVideo}"
+                          class="font-mono text-[11px] text-emerald-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-1"
+                        >
+                        </a>
+                        <a
+                          href="https://drive.google.com/file/d/${p.embedVideo}/view?usp=sharing"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="font-mono text-[11px] text-sky-600 dark:text-sky-400 hover:underline inline-flex items-center gap-1"
+                        >
+                          <span>Open Video ↗</span>
+                        </a>
+                      </div>
+                    </div>
+                    <iframe
+                      src="https://drive.google.com/file/d/${p.embedVideo}/preview"
+                      title="${p.label} — Project Video Demo"
+                      class="w-full h-[480px] sm:h-[560px] border-0 bg-stone-950"
+                      allow="autoplay; fullscreen"
+                      allowfullscreen="true"
+                      loading="lazy"
+                    ></iframe>
+                  </div>
+                ` : p.embedDocument ? `
                   <div class="rounded-xl border border-stone-200/80 dark:border-stone-800 bg-stone-50/60 dark:bg-stone-950/80 overflow-hidden">
                     <div class="px-4 py-2.5 border-b border-stone-200/80 dark:border-stone-800 flex flex-wrap items-center justify-between gap-2 bg-stone-100/70 dark:bg-stone-900/80">
                       <span class="font-mono text-[11px] uppercase tracking-wider text-stone-600 dark:text-stone-300">PROJECT DOCUMENTATION PREVIEW</span>
                       <div class="flex items-center gap-3">
                         <a
-                          href="${p.embedDocument.downloadUrl}"
-                          download="${p.embedDocument.filename}"
+                          href="https://drive.google.com/uc?export=download&id=${p.embedDocument}"
                           class="font-mono text-[11px] text-emerald-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-1"
                         >
                           <span>Download PDF ↓</span>
                         </a>
                         <a
-                          href="${p.embedDocument.externalUrl}"
+                          href="https://drive.google.com/file/d/${p.embedDocument}/view?usp=sharing"
                           target="_blank"
                           rel="noopener noreferrer"
                           class="font-mono text-[11px] text-sky-600 dark:text-sky-400 hover:underline inline-flex items-center gap-1"
@@ -943,22 +1050,20 @@
                         </a>
                       </div>
                     </div>
-                    <div class="relative w-full h-[480px] sm:h-[560px] bg-stone-900">
-                      <iframe
-                        src="${p.embedDocument.previewUrl}"
-                        title="${p.embedDocument.title}"
-                        class="w-full h-full border-0"
-                        allow="autoplay"
-                        loading="lazy"
-                      ></iframe>
-                    </div>
+                    <iframe
+                      src="https://drive.google.com/file/d/${p.embedDocument}/preview"
+                      title="${p.label} — Project Documentation"
+                      class="w-full h-[480px] sm:h-[560px] border-0 bg-white dark:bg-stone-950"
+                      allow="autoplay"
+                      loading="lazy"
+                    ></iframe>
                   </div>
                 ` : p.embedPresentation ? `
                   <div class="rounded-xl border border-stone-200/80 dark:border-stone-800 bg-stone-50/60 dark:bg-stone-950/80 overflow-hidden">
                     <div class="px-4 py-2.5 border-b border-stone-200/80 dark:border-stone-800 flex flex-wrap items-center justify-between gap-2 bg-stone-100/70 dark:bg-stone-900/80">
                       <span class="font-mono text-[11px] uppercase tracking-wider text-stone-600 dark:text-stone-300">PROJECT PRESENTATION PREVIEW</span>
                       <a
-                        href="${p.embedPresentation.externalUrl}"
+                        href="https://docs.google.com/presentation/d/${p.embedPresentation}/edit?usp=sharing"
                         target="_blank"
                         rel="noopener noreferrer"
                         class="font-mono text-[11px] text-sky-600 dark:text-sky-400 hover:underline inline-flex items-center gap-1"
@@ -966,14 +1071,12 @@
                         <span>Open Slides in New Tab ↗</span>
                       </a>
                     </div>
-                    <div class="relative w-full aspect-video bg-stone-950">
+                    <div class="aspect-video w-full bg-stone-950">
                       <iframe
-                        src="${p.embedPresentation.previewUrl}"
-                        title="${p.embedPresentation.title}"
+                        src="https://docs.google.com/presentation/d/${p.embedPresentation}/preview"
+                        title="${p.label} — Project Presentation"
                         class="w-full h-full border-0"
                         allowfullscreen="true"
-                        mozallowfullscreen="true"
-                        webkitallowfullscreen="true"
                         loading="lazy"
                       ></iframe>
                     </div>
@@ -1097,7 +1200,7 @@
       }
     }
 
-    // Dark / Light Theme Toggle
+// Dark / Light Theme Toggle
     const themeToggle = document.getElementById('themeToggle');
     themeToggle.addEventListener('click', () => {
       document.documentElement.classList.toggle('dark');
@@ -1105,6 +1208,25 @@
     });
     if (localStorage.getItem('theme') === 'dark') {
       document.documentElement.classList.add('dark');
+    }
+
+	
+// Dark Mode Hint Popover (dismisses after 10s, or on any click anywhere including dropdowns)
+    const darkModeHint = document.getElementById('darkModeHint');
+    function dismissDarkModeHint() {
+      if (!darkModeHint || darkModeHint.classList.contains('hidden')) return;
+      darkModeHint.style.opacity = '0';
+      setTimeout(() => darkModeHint.classList.add('hidden'), 250);
+      document.removeEventListener('click', dismissDarkModeHint, true);
+    }
+
+    if (darkModeHint && !document.documentElement.classList.contains('dark')) {
+      darkModeHint.classList.remove('hidden');
+      setTimeout(dismissDarkModeHint, 25000);
+      document.addEventListener('click', dismissDarkModeHint, true);
+      darkModeHint.addEventListener('click', () => {
+        themeToggle.click();
+      });
     }
 
     // Copy Email Helper
