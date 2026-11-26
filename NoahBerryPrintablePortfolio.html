@@ -89,7 +89,7 @@
     .dark .hero-banner {
       border-color: #292524;
     }
- @media (max-width: 650px) {
+    @media (max-width: 650px) {
       .hero-banner {
         max-height: 220px;
       }
@@ -103,6 +103,49 @@
       animation: gentleBounce 1.8s ease-in-out infinite;
       transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
     }
+
+    /* Print / Save-as-PDF Stylesheet: expands all drawers and formats images cleanly */
+    @media print {
+      header,
+      button,
+      #darkModeHint,
+      #toggleAllBgBtn,
+      #toggleAllProjBtn,
+      #toast,
+      #exportWrapper {
+        display: none !important;
+      }
+      body {
+        background: #ffffff !important;
+        color: #1c1917 !important;
+      }
+      main {
+        max-width: 100% !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+      }
+      .accordion-content {
+        grid-template-rows: 1fr !important;
+      }
+      .accordion-inner {
+        overflow: visible !important;
+      }
+      #backgroundAccordionList > div,
+      #projectsAccordionList > div,
+      #skills .grid > div,
+      #contacts > div {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        border-color: #d6d3d1 !important;
+        background: #ffffff !important;
+      }
+      .project-gallery-figure,
+      .project-gallery-img {
+        max-height: none !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+    }
   </style>
 </head>
 <body class="bg-stone-50 text-stone-900 dark:bg-stone-950 dark:text-stone-100 font-sans antialiased selection:bg-sky-500/20 selection:text-sky-700 dark:selection:text-sky-300 transition-colors duration-200">
@@ -112,7 +155,7 @@
     <div class="max-w-[840px] mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-2">
       <!-- Brand Name -->
       <a href="#" class="font-semibold tracking-tight text-sm sm:text-base flex items-center gap-2.5 group shrink-0">
-<span class="w-1.5 h-1.5 rounded-full bg-[#3b82f6] shadow-[0_0_0_3px_rgba(59,130,246,0.2)] dark:bg-[#facc15] dark:shadow-[0_0_0_3px_rgba(250,204,21,0.2)] animate-pulse"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-[#3b82f6] shadow-[0_0_0_3px_rgba(59,130,246,0.2)] dark:bg-[#facc15] dark:shadow-[0_0_0_3px_rgba(250,204,21,0.2)] animate-pulse"></span>
         <span>Noah Berry Central</span>
       </a>
 
@@ -192,7 +235,7 @@
             </svg>
           </button>
 
-        <!-- Floating Callout pointing up at #themeToggle -->
+          <!-- Floating Callout pointing up at #themeToggle -->
           <div
             id="darkModeHint"
             role="status"
@@ -205,7 +248,7 @@
           </div>
         </div>
       </nav>
-	  </div>
+    </div>
   </header>
 
   <!-- Main Single-Column Editorial Container -->
@@ -228,8 +271,8 @@
 
       <!-- 3. Bachelor's Status Bubble Badge -->
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 font-mono text-xs sm:text-sm text-stone-600 dark:text-stone-400 mb-8">
-<span class="w-1.5 h-1.5 rounded-full bg-[#3b82f6] shadow-[0_0_0_3px_rgba(59,130,246,0.2)] dark:bg-[#facc15] dark:shadow-[0_0_0_3px_rgba(250,204,21,0.2)] animate-pulse"></span>      
-  <span>B.S. Electrical Engineering • George Fox University (May 2027)</span>
+        <span class="w-1.5 h-1.5 rounded-full bg-[#3b82f6] shadow-[0_0_0_3px_rgba(59,130,246,0.2)] dark:bg-[#facc15] dark:shadow-[0_0_0_3px_rgba(250,204,21,0.2)] animate-pulse"></span>      
+        <span>B.S. Electrical Engineering • George Fox University (May 2027)</span>
       </div>
 
       <!-- 4. Description Paragraph -->
@@ -324,21 +367,19 @@
         <div class="p-5 rounded-xl bg-white dark:bg-stone-900/60 border border-stone-200 dark:border-stone-800">
           <div class="font-mono text-xs text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-3">Hardware &amp; Circuit Design</div>
           <ul class="text-sm text-stone-600 dark:text-stone-400 space-y-2">
-		    <li>AC/DC &amp; DC/DC Switching Power Converters</li>
+            <li>AC/DC &amp; DC/DC Switching Power Converters</li>
             <li>Effective Use of Oscilloscopes, Multimeters, &amp; Logic Analyzers</li>
             <li>Frequency &amp; Signal Filtering</li>
             <li>Analog &amp; Digital Circuit Theory</li>
             <li>Unique Component Assembly &amp; Utilization</li>
             <li>Electromagnetics &amp; Signals</li>
             <li>Application of Basic Components (Capacitors, Resistors, Inductors, etc.)</li>
-			<li>Schematic, Wire Trace, &amp; Blueprint Literacy</li>
-			<li>Simulation, Breadboard, &amp; Assembly Testing</li>
+            <li>Schematic, Wire Trace, &amp; Blueprint Literacy</li>
+            <li>Simulation, Breadboard, &amp; Assembly Testing</li>
             <li>Knowledge of Mathematics, Physics, Material &amp; Chemical Properties, &amp; Electrical Theory</li>
             <li>Implementation &amp; Integration of Existing Solutions</li>
             <li>Tracking Power Use &amp; Losses</li>
             <li>Ability to Solder Both Surface Mount (Embedded) &amp; Through-Hole Boards </li>
-
-
           </ul>
         </div>
 
@@ -354,7 +395,6 @@
             <li>Proficiency in Integrated Development Environments (ArduinoIDE, Microchip Studio)</li>
             <li>Knowledge of Closed-Loop Control Systems (PID, Feedback)</li>
             <li>Proficiency in PCB Printer, Reflow Oven, Pick &amp; Place, &amp; Their Accompanying Software</li>
-
           </ul>
         </div>
 
@@ -370,7 +410,7 @@
             <li>Ability to Produce Prototypes from Tools or Machine Fabrication</li>
             <li>Bill of Material, Ordering, &amp; Financial Literacy</li>
             <li>Coordination of Events, Trainings, Shifts, &amp; Meetings</li>
-			<li>Construction &amp; Delivery of Presentations or Designs to Varying Audiences</li>
+            <li>Construction &amp; Delivery of Presentations or Designs to Varying Audiences</li>
           </ul>
         </div>
       </div>
@@ -389,7 +429,7 @@
           <p class="font-mono text-xs text-blue-600 dark:text-amber-300 mt-1">
             B.S. Electrical Engineering Candidate • George Fox University (Graduating May 2027)
           </p>
-		    <p class=" text-xs text-stone-600 dark:text-stone-400 mt-1">
+          <p class=" text-xs text-stone-600 dark:text-stone-400 mt-1">
             Through my years of study and experiences, I find myself interested in a hands-on electrical engineering role within automated systems, power systems, signal response, and/or complex circuit applications. Other desirable opportunities are: project management, research and development, certifications, and further education. I value the ability to foster quality relationships in the workspace, and leave a positive impact on people and projects.
           </p>
         </div>
@@ -398,7 +438,6 @@
           <div>
             <div class="font-mono text-xs uppercase tracking-wider text-stone-400 mb-2">Contact &amp; Location</div>
             <p class="text-stone-600 dark:text-stone-400 leading-relaxed">
-
               Newberg, OR (Open to relocation across the US)<br/>
               Phone: 360-631-6788<br/>
               Academic: nberry23@georgefox.edu<br/>
@@ -491,9 +530,8 @@
           'Hands-on laboratory proficiency with oscilloscopes, function generators, power supplies, DMM, MATLAB, Multisim, SolidWorks, and Altium PCB Designer.',
           'Free-range projects, both individual and team, challenging creativity, complex problem solving, interdisciplinary work, and theoretical to technical application.',
           'Participating in 4 full years of College Football, and Engineering Ambassadors; conducting engineering outreach lessons and programs.'
-
-		],
-        tools: [ 'B.S. Electrical Engineering', 'Mathematics Minor', 'Project Management & Collaboration', 'Theoretical & Simulation Design', 'Technical Application']
+        ],
+        tools: ['B.S. Electrical Engineering', 'Mathematics Minor', 'Project Management & Collaboration', 'Theoretical & Simulation Design', 'Technical Application']
       },
       {
         id: 'bg-2',
@@ -506,8 +544,7 @@
           'Manage project schedules, task allocation, and system integration across a 5-person interdisciplinary engineering team.',
           'Design and fabricate the electrical control, power distribution, and sensor subsystems of the automated opener.',
           'Ensure cleanroom standards are met for all designs, testing potential failure points, and creating many iterations of solutions.'
-
-	 ],
+        ],
         tools: ['Project Manager', 'ISO Cleanroom Design', 'Automation & Controls', 'Electrical Hardware Design', 'Interdisciplinary Integration']
       },
       {
@@ -569,6 +606,34 @@
        ========================================================================== */
     const projects = [
       {
+        id: 'project-2',
+        label: '4-Stage Audio Amplifier',
+        tag: '• Electronic Devices',
+        year: '2026',
+        summary: '4 stages of amplification; differential, gain, buffer, push pull (power), all assembled to create a custom full scale audio amplifier system.',
+        specs: [
+          { label: 'Topology', value: ' Differential, Gain, Buffer, Push-Pull (power)' },
+          { label: 'Simulation Tools', value: 'MATLAB & Multisim' },
+          { label: 'Testing', value: 'Oscilloscopes, DMM, Mock Speakers' },
+          { label: 'Process', value: ' Custom Operational Bread Board Design → PCB Design → Full Assembly' }
+        ],
+        architecture: ' Utilizing a variety of BJT transistors, the audio amplifier is made up of 4 stages (differential, gain, buffer, and push pull), with the differential stage cleaning up the signal, the gain to amplify the signal, the buffer to isolate the next stage, and finally a push pull stage using stronger power transistors to increase current output. Also, the system includes a custom power rectifier source that I designed and produced for the input voltage.',
+        troubleshooting: 'The current mirror gave me trouble and the constant heat output of the power transistors due to the push pull was a challenging thing to balance. To approach this challenge and improve the output some losses on the power output were accepted. Some thermal runaway will always be expected in this case.',
+        imageLayout: 'two-top-one-bottom',
+        embedImages: [
+          '18tGDWbjgzPkizRlrSnifIIWEmr73mTm8',
+          '1hlQsQVyDPJwFcdsGcXh1HXNcIezH2gNN',
+          '1YJYHbCclj0kb0YErKafec8ZUM-aT4kuy'
+        ],
+        diagram: `
+          <svg viewBox="0 0 640 130" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="20" y="20" width="600" height="90" rx="8" class="fill-white dark:fill-stone-900 stroke-stone-300 dark:stroke-stone-700" stroke-width="1.2"/>
+            <text x="36" y="38" class="fill-sky-600 dark:fill-sky-400 font-mono text-[9px]">CH1: SWITCHING / GRID WAVEFORM</text>
+            <path d="M36 75 Q96 25 156 75 T276 75 T396 75 T516 75 T604 75" stroke="#0284c7" stroke-width="2" fill="none"/>
+          </svg>
+        `
+      },
+      {
         id: 'project-1',
         label: 'Stand-alone Box Opener',
         tag: '• ADI Capstone',
@@ -581,7 +646,11 @@
           { label: 'Process', value: 'Prototype Designs → Physical Assembly → Electrical Integration → Final Model → Cleanroom Integration ' }
         ],
         architecture: 'Utilizing Digital I/O and EthernetIP control systems to open the box as efficiently as possible. There is currently going to have two axes of rotation allowing the open close, one at the base of the arm and the other at the end. A separate mechanism (5 bar linkage system) will be powered by 2 motors to unlatch and latch the box.',
-        troubleshooting: 'The mechanical binding and limitations got us bogged down in the details early, but we persisted and designed a solution in variable rotation clamping. We hope to get a fully operational model that will not slip or bind at all when opening. This will then be translated to cleanroom ready materials and applied wherever necessary at ADI.',     embedDocument: '1JGklIHw_rotwIrtgsvqYTB_xgZnQKe4p',
+        troubleshooting: 'The mechanical binding and limitations got us bogged down in the details early, but we persisted and designed a solution in variable rotation clamping. We hope to get a fully operational model that will not slip or bind at all when opening. This will then be translated to cleanroom ready materials and applied wherever necessary at ADI.',
+        embedImages: [
+          '134dTQlLkzJ6Jf9Y-XO34GJ-iE8MxBXlY',
+          '1j13a1sIVNDfaAPigfFRUXs-40TnWdyT7'
+        ],
         diagram: `
           <svg viewBox="0 0 640 130" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="20" y="32" width="130" height="66" rx="8" class="fill-white dark:fill-stone-900 stroke-stone-300 dark:stroke-stone-700" stroke-width="1.5"/>
@@ -601,44 +670,22 @@
         `
       },
       {
-        id: 'project-2',
-        label: '4-Stage Audio Amplifier',
-        tag: '• Electronic Devices',
-        year: '2026',
-        summary: '4 stages of amplification; differential, gain, buffer, push pull (power), all assembled to create a custom full scale audio amplifier system.',
-        specs: [
-          { label: 'Topology', value: ' Differential, Gain, Buffer, Push-Pull (power)' },
-          { label: 'Simulation Tools', value: 'MATLAB & Multisim' },
-		  { label: 'Testing', value: 'Oscilloscopes, DMM, Mock Speakers' },
-
-          { label: 'Process', value: ' Custom Operational Bread Board Design → PCB Design → Full Assembly' }
-        ],
-        architecture: ' Utilizing a variety of BJT transistors, the audio amplifier is made up of 4 stages (differential, gain, buffer, and push pull), with the differential stage cleaning up the signal, the gain to amplify the signal, the buffer to isolate the next stage, and finally a push pull stage using stronger power transistors to increase current output. Also, the system includes a custom power rectifier source that I designed and produced for the input voltage.',
-        troubleshooting: 'The current mirror gave me trouble and the constant heat output of the power transistors due to the push pull was a challenging thing to balance. To approach this challenge and improve the output some losses on the power output were accepted. Some thermal runaway will always be expected in this case.',
-        embedDocument: '1afHbLUuFoSojwtB5Y3qLrPIm4CrwZG6h',
-        diagram: `
-          <svg viewBox="0 0 640 130" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="20" y="20" width="600" height="90" rx="8" class="fill-white dark:fill-stone-900 stroke-stone-300 dark:stroke-stone-700" stroke-width="1.2"/>
-            <text x="36" y="38" class="fill-sky-600 dark:fill-sky-400 font-mono text-[9px]">CH1: SWITCHING / GRID WAVEFORM</text>
-            <path d="M36 75 Q96 25 156 75 T276 75 T396 75 T516 75 T604 75" stroke="#0284c7" stroke-width="2" fill="none"/>
-          </svg>
-        `
-      },
-      {
         id: 'project-3',
         label: 'Semi-Autonomous Wheelchair',
         tag: '• Servant Engineering',
         year: '2025 - 2026',
         summary: '24V DC Electrical Wheelchair that a client wanted to be self driving. The design utilizes sensors, memory, control interrupts, and user feedback to optimally avoid objects and protect user.',
         specs: [
-		{ label: 'Control System', value: 'Original VR2 interrupted by a Pico 2W' },
+          { label: 'Control System', value: 'Original VR2 interrupted by a Pico 2W' },
           { label: 'Components', value: '2x LiDAR sensors, 3x Ultrasonic sensors, Touchscreen' },
           { label: 'Goal', value: 'Object avoidance & route correction → Memory mapping routes' },
           { label: 'Tools', value: 'Standard bench equipment, Logic analyzer, C Programming' }
         ],
         architecture: 'The full system optimizes the 24V Battery source of the wheelchair to power sensors that matrix together to trigger an interrupt on the Pico controller that would stop the joystick commands from continuing. Then the obstructions would display on the screen. Locations of ground covered would be stored on an SD card for future mapping purposes.',
-		troubleshooting: 'Ideally the object avoidance would be used always and then the mapping would be implemented by the users "history" allowing self driving over previously driven routes with a user selecting locations on the screen.',
-        embedDocument: '1tKC5HgVgVH2NWXvlSwokGDS8npGwgg-Z',
+        troubleshooting: 'Ideally the object avoidance would be used always and then the mapping would be implemented by the users "history" allowing self driving over previously driven routes with a user selecting locations on the screen.',
+        embedImages: [
+          '1eTVU-vARatgAzTmaCZUY0z_EC9Fu0oUy'
+        ],
         diagram: `
           <svg viewBox="0 0 640 130" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
             <line x1="50" y1="22" x2="50" y2="108" class="stroke-stone-400 dark:stroke-stone-600" stroke-width="2"/>
@@ -667,7 +714,11 @@
         ],
         architecture: 'Multi-layer piece identification system, with the pins on the board strategically wired to optimize the I/O system with many components. Isolation of each step to funnel the logic down to accurate outputs.',
         troubleshooting: 'The system correctly identified many LEGOs but as there are many types of LEGO it was hard to get exact results so it would be better integrated to find a range of pieces. Also, the load cell was very small and needed such little error to work theoretically so it would likely lead to inaccuracy over time.',
-        embedDocument: '1E6u3Kgp93MGAQwmCOaCBuC3n5-cfsCYu',
+        imageLayout: 'side-by-side',
+        embedImages: [
+          '1WeF0uSjdBva_bx6eHSZz_Es0W3LdMLxZ',
+          '1Ntga8ICPCrrebUVWswCD2yBf44wc3U1g'
+        ],
         diagram: `
           <svg viewBox="0 0 640 130" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="20" y="20" width="600" height="90" rx="8" class="fill-white dark:fill-stone-900 stroke-stone-300 dark:stroke-stone-700" stroke-width="1.2"/>
@@ -690,7 +741,12 @@
         ],
         architecture: 'It is a complex finite state machine that runs many subroutines. It is event driven and triggers interrupts and helper functions based on the status of main where the main application layer can be seen. There is a very crucial timing model used to keep the system timing accurate.',
         troubleshooting: 'The key for this program was the virtually instantaneous erase-and-draw of the ball and predicting the next spot the ball will be for the collision detection. Finding edge cases for things like the score and wall collisions to prevent overlapping print functions.',
-        embedVideo: '1-V7x1glyIq5aeLq2XNqPVowVT1q-EBlo',
+        imageLayout: 'side-by-side',
+        embedImages: [
+          '13MsB2b72ZD-90H2biAzoG2dWoYKSR8po',
+          '1UNLmwLGi50oSd4TibTxLoysSISoJxVlf',
+          '1LGzFFD_B8oS45WFz1i2vPpL3x3WcCLks'
+        ],
         diagram: `
           <svg viewBox="0 0 640 130" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="170" y="22" width="300" height="86" rx="10" class="fill-emerald-500/10 stroke-emerald-500" stroke-width="1.5"/>
@@ -708,8 +764,8 @@
         label: 'Finger Pulse Oximeter',
         tag: '• Circuit Analysis & Design',
         year: '2025',
-		summary: 'This design utilizes basic circuit assembly components to accurately detect a heartbeat from a person and display it with LEDs or on an oscilloscope screen.',        
-		specs: [
+        summary: 'This design utilizes basic circuit assembly components to accurately detect a heartbeat from a person and display it with LEDs or on an oscilloscope screen.',        
+        specs: [
           { label: 'Hardware', value: 'Op-Amps, Light Dependent Resistor (LDR), Resistors, Capacitors, LEDs' },
           { label: 'Operation', value: 'Two gain stages multiply together, resulting in large output gain, LDR feedback from a finger = fluctuation in signal' },
           { label: 'Specs', value: 'V=9V,  Gain1=-10V/V,      Gain2=-100V/V,      Gaintotal=1000V/V' },
@@ -717,7 +773,10 @@
         ],
         architecture: 'The LED shines to get a max on the LDR, when a finger is blocking the light the changes in blood volume are reflected in the voltage division and amplified by the cascaded amplifier to indicate a heart rate.',
         troubleshooting: 'Verified with the use of potentiometers to get exact values and feedback from the system, as the potentiometer is changed the voltage division sensitivity was changed to help increase or decrease the ranges to get better results.',
-        embedDocument: '1mDb3DbMFjd6eJIdeZlDtc9lbmfnmOTW0',
+        embedImages: [
+          '1zeY7-E6gXYGN-pu7BGpLVWVvYeXVmo4E',
+          '1XQP8JMNSAUkT3-XGMgxrIC1M1JYdf7T2'
+        ],
         diagram: `
           <svg viewBox="0 0 640 130" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="20" y="20" width="600" height="90" rx="8" class="fill-white dark:fill-stone-900 stroke-stone-300 dark:stroke-stone-700" stroke-width="1.2"/>
@@ -740,7 +799,11 @@
         ],
         architecture: 'Using critical relationship equations of the system unique measurements were produced for the geometric and volumetric properties of the engine. Then all parts were produced in SolidWorks, then placed on blueprints for fabrication. I fabricated every piece individually by hand and assembled the engine in the GFU machine shop.',
         troubleshooting: 'Through testing it was discovered that many components required alternative materials to optimally function, therefore many iterations of parts were fabricated and tested. Also it was discovered that although not optimum for the theoretical calculations, the design had room for larger intake/exhaust holes that made the extension and compression of the piston stronger.',
-        embedPresentation: '19nC6Lmy8Lt10XdAD2Oa5EDXSNkCV8u0UIYEF5Rc-qCw',
+        imageLayout: 'side-by-side',
+        embedImages: [
+          '1HXsSqAMmFCwbhaM8E3ql9_r0UVZ-KXwJ',
+          '1lD-70FcTgdVfGJvnkL0K7AYXsKMP2VMt'
+        ],
         diagram: `
           <svg viewBox="0 0 640 130" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="20" y="20" width="600" height="90" rx="8" class="fill-white dark:fill-stone-900 stroke-stone-300 dark:stroke-stone-700" stroke-width="1.2"/>
@@ -766,9 +829,9 @@
         ],
         architecture: "Utilizing a pseudo-random number generator produces a sequence of colors n in size (such that n is the round number). That sequence is played for a user and the user must repeat the sequence. The game will indicate a failure if the user is incorrect, and will not stop going through rounds until a user fails. The 2 external switches would allow a user to use them to either repeat the game's sequence or light up the button of the next in sequence.",
         troubleshooting: "When connecting the main game's routine to the cheat-modes subroutines there was a challenge in being able to access the current sequence without compromising the actual gameplay, this was solved using pointers and saved memory constants.",
-        embedDocumentsSideBySide: [
-          { title: 'C Programming Implementation', id: '1DLGfm5EbK9KxTwt_NfNIZGaZQJYvYkY-', type: 'video' },
-          { title: 'Verilog HDL Video Demo', id: '1XYhwVRye8-WMziQDXlBo5KoHnPPOIsuU', type: 'video' }
+        embedImages: [
+          '1GMn9SPhYVSn0IMCxN03kve3cI02kwur1',
+          '1aKHl3LW8V7VJ6NIO0Y_OeDbR5D7ePj30'
         ],
         diagram: `
           <svg viewBox="0 0 640 130" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -892,6 +955,14 @@
           <div id="drawer-${b.id}" class="accordion-content">
             <div class="accordion-inner">
               <div class="px-5 sm:px-6 pb-6 pt-4 border-t border-stone-100 dark:border-stone-800/80 space-y-5">
+                <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-stone-100 dark:border-stone-800/70">
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="font-semibold text-sm text-stone-900 dark:text-stone-100">${b.label}</span>
+                    <span class="font-mono text-xs text-emerald-600 dark:text-emerald-400">${b.tag}</span>
+                  </div>
+                  <span class="font-mono text-xs text-stone-500 dark:text-stone-400">${b.year}</span>
+                </div>
+
                 <p class="text-sm text-stone-600 dark:text-stone-400 leading-relaxed">
                   ${b.summary}
                 </p>
@@ -949,6 +1020,13 @@
           <div id="drawer-${p.id}" class="accordion-content">
             <div class="accordion-inner">
               <div class="px-5 sm:px-6 pb-6 pt-4 border-t border-stone-100 dark:border-stone-800/80 space-y-5">
+                <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-stone-100 dark:border-stone-800/70">
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="font-semibold text-sm text-stone-900 dark:text-stone-100">${p.label}</span>
+                    <span class="font-mono text-xs text-sky-600 dark:text-sky-400">${p.tag}</span>
+                  </div>
+                  <span class="font-mono text-xs text-stone-500 dark:text-stone-400">${p.year}</span>
+                </div>
                 
                 <!-- Summary -->
                 <p class="text-sm text-stone-600 dark:text-stone-400 leading-relaxed">
@@ -965,123 +1043,55 @@
                   `).join('')}
                 </div>
 
-                <!-- Interactive Document / Presentation Preview or Schematic Visual -->
-                ${p.embedDocumentsSideBySide ? `
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    ${p.embedDocumentsSideBySide.map(doc => `
-                      <div class="rounded-xl border border-stone-200/80 dark:border-stone-800 bg-stone-50/60 dark:bg-stone-950/80 overflow-hidden flex flex-col">
-                        <div class="px-4 py-2.5 border-b border-stone-200/80 dark:border-stone-800 flex flex-wrap items-center justify-between gap-2 bg-stone-100/70 dark:bg-stone-900/80">
-                          <span class="font-mono text-[11px] uppercase tracking-wider text-stone-600 dark:text-stone-300">${doc.title}</span>
-                          <div class="flex items-center gap-3">
-                            <a
-                              href="https://drive.google.com/uc?export=download&id=${doc.id}"
-                              class="font-mono text-[11px] text-emerald-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-1"
-                            >
-                              <span>${doc.type === 'video' ? '' : 'Download PDF ↓'}</span>
-                            </a>
-                            <a
-                              href="https://drive.google.com/file/d/${doc.id}/view"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              class="font-mono text-[11px] text-sky-600 dark:text-sky-400 hover:underline inline-flex items-center gap-1"
-                            >
-                              <span>${doc.type === 'video' ? 'Open Video ↗' : 'Open PDF ↗'}</span>
-                            </a>
-                          </div>
-                        </div>
-                        <iframe
-                          src="https://drive.google.com/file/d/${doc.id}/preview"
-                          title="${p.label} — ${doc.title}"
-                          class="w-full h-[560px] sm:h-[640px] border-0 bg-stone-950"
-                          allow="autoplay; fullscreen"
-                          allowfullscreen="true"
-                          loading="lazy"
-                        ></iframe>
+                <!-- Embedded Project Images (Full-Width, Side-by-Side, or Two-Top-One-Bottom) -->
+                ${p.embedImages && p.embedImages.length ? (
+                  p.imageLayout === 'two-top-one-bottom' && p.embedImages.length === 3 ? `
+                    <div class="space-y-4">
+                      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        ${p.embedImages.slice(0, 2).map((imgId, idx) => `
+                          <img
+                            src="https://drive.google.com/thumbnail?id=${imgId}&sz=w1600"
+                            onerror="if(!this.dataset.triedFallback){this.dataset.triedFallback='1';this.src='https://lh3.googleusercontent.com/d/${imgId}=w1600';}"
+                            alt="${p.label} — Image ${idx + 1}"
+                            loading="lazy"
+                            class="project-gallery-img w-full h-auto sm:h-[340px] object-cover object-center block rounded-xl"
+                          />
+                        `).join('')}
                       </div>
-                    `).join('')}
-                  </div>
-				` : p.embedVideo ? `
-                  <div class="rounded-xl border border-stone-200/80 dark:border-stone-800 bg-stone-50/60 dark:bg-stone-950/80 overflow-hidden">
-                    <div class="px-4 py-2.5 border-b border-stone-200/80 dark:border-stone-800 flex flex-wrap items-center justify-between gap-2 bg-stone-100/70 dark:bg-stone-900/80">
-                      <span class="font-mono text-[11px] uppercase tracking-wider text-stone-600 dark:text-stone-300">PROJECT VIDEO DEMO</span>
-                      <div class="flex items-center gap-3">
-                        <a
-                          href="https://drive.google.com/uc?export=download&id=${p.embedVideo}"
-                          class="font-mono text-[11px] text-emerald-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-1"
-                        >
-                        </a>
-                        <a
-                          href="https://drive.google.com/file/d/${p.embedVideo}/view?usp=sharing"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          class="font-mono text-[11px] text-sky-600 dark:text-sky-400 hover:underline inline-flex items-center gap-1"
-                        >
-                          <span>Open Video ↗</span>
-                        </a>
-                      </div>
-                    </div>
-                    <iframe
-                      src="https://drive.google.com/file/d/${p.embedVideo}/preview"
-                      title="${p.label} — Project Video Demo"
-                      class="w-full h-[480px] sm:h-[560px] border-0 bg-stone-950"
-                      allow="autoplay; fullscreen"
-                      allowfullscreen="true"
-                      loading="lazy"
-                    ></iframe>
-                  </div>
-                ` : p.embedDocument ? `
-                  <div class="rounded-xl border border-stone-200/80 dark:border-stone-800 bg-stone-50/60 dark:bg-stone-950/80 overflow-hidden">
-                    <div class="px-4 py-2.5 border-b border-stone-200/80 dark:border-stone-800 flex flex-wrap items-center justify-between gap-2 bg-stone-100/70 dark:bg-stone-900/80">
-                      <span class="font-mono text-[11px] uppercase tracking-wider text-stone-600 dark:text-stone-300">PROJECT DOCUMENTATION PREVIEW</span>
-                      <div class="flex items-center gap-3">
-                        <a
-                          href="https://drive.google.com/uc?export=download&id=${p.embedDocument}"
-                          class="font-mono text-[11px] text-emerald-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-1"
-                        >
-                          <span>Download PDF ↓</span>
-                        </a>
-                        <a
-                          href="https://drive.google.com/file/d/${p.embedDocument}/view?usp=sharing"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          class="font-mono text-[11px] text-sky-600 dark:text-sky-400 hover:underline inline-flex items-center gap-1"
-                        >
-                          <span>Open PDF in New Tab ↗</span>
-                        </a>
-                      </div>
-                    </div>
-                    <iframe
-                      src="https://drive.google.com/file/d/${p.embedDocument}/preview"
-                      title="${p.label} — Project Documentation"
-                      class="w-full h-[480px] sm:h-[560px] border-0 bg-white dark:bg-stone-950"
-                      allow="autoplay"
-                      loading="lazy"
-                    ></iframe>
-                  </div>
-                ` : p.embedPresentation ? `
-                  <div class="rounded-xl border border-stone-200/80 dark:border-stone-800 bg-stone-50/60 dark:bg-stone-950/80 overflow-hidden">
-                    <div class="px-4 py-2.5 border-b border-stone-200/80 dark:border-stone-800 flex flex-wrap items-center justify-between gap-2 bg-stone-100/70 dark:bg-stone-900/80">
-                      <span class="font-mono text-[11px] uppercase tracking-wider text-stone-600 dark:text-stone-300">PROJECT PRESENTATION PREVIEW</span>
-                      <a
-                        href="https://docs.google.com/presentation/d/${p.embedPresentation}/edit?usp=sharing"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="font-mono text-[11px] text-sky-600 dark:text-sky-400 hover:underline inline-flex items-center gap-1"
-                      >
-                        <span>Open Slides in New Tab ↗</span>
-                      </a>
-                    </div>
-                    <div class="aspect-video w-full bg-stone-950">
-                      <iframe
-                        src="https://docs.google.com/presentation/d/${p.embedPresentation}/preview"
-                        title="${p.label} — Project Presentation"
-                        class="w-full h-full border-0"
-                        allowfullscreen="true"
+                      <img
+                        src="https://drive.google.com/thumbnail?id=${p.embedImages[2]}&sz=w1600"
+                        onerror="if(!this.dataset.triedFallback){this.dataset.triedFallback='1';this.src='https://lh3.googleusercontent.com/d/${p.embedImages[2]}=w1600';}"
+                        alt="${p.label} — Image 3"
                         loading="lazy"
-                      ></iframe>
+                        class="project-gallery-img w-full h-auto block rounded-xl"
+                      />
                     </div>
-                  </div>
-                ` : `
+                  ` : `
+                    <div class="${p.imageLayout === 'side-by-side' ? (p.embedImages.length === 3 ? 'grid grid-cols-1 sm:grid-cols-3 gap-4 items-stretch' : p.id === 'project-7' ? 'flex flex-col sm:flex-row gap-0 items-center justify-center w-full overflow-hidden rounded-xl' : 'grid grid-cols-1 sm:grid-cols-2 gap-4 items-start') : 'space-y-4'}">
+                      ${p.embedImages.map((imgId, idx) => `
+                        ${p.id === 'project-6' && idx === 1 ? `
+                          <div class="w-full aspect-[16/9] flex items-center justify-center overflow-hidden rounded-xl">
+                            <img
+                              src="https://drive.google.com/thumbnail?id=${imgId}&sz=w1600"
+                              onerror="if(!this.dataset.triedFallback){this.dataset.triedFallback='1';this.src='https://lh3.googleusercontent.com/d/${imgId}=w1600';}"
+                              alt="${p.label} — Image ${idx + 1}"
+                              loading="lazy"
+                              class="project-gallery-img w-[75%] h-auto object-contain -rotate-90 translate-y-[12.5%] rounded-xl"
+                            />
+                          </div>
+                        ` : `
+                          <img
+                            src="https://drive.google.com/thumbnail?id=${imgId}&sz=w1600"
+                            onerror="if(!this.dataset.triedFallback){this.dataset.triedFallback='1';this.src='https://lh3.googleusercontent.com/d/${imgId}=w1600';}"
+                            alt="${p.label} — Image ${idx + 1}"
+                            loading="lazy"
+                            class="project-gallery-img ${p.id === 'project-7' ? 'w-full sm:w-auto sm:h-[365px] object-contain rounded-none' : p.id === 'project-5' ? 'w-full h-auto sm:h-[220px] object-cover object-center rounded-xl' : 'w-full h-auto rounded-xl'} block"
+                          />
+                        `}
+                      `).join('')}
+                    </div>
+                  `
+                ) : `
                   <div class="schematic-grid rounded-xl border border-stone-200/80 dark:border-stone-800 p-4 bg-stone-50/60 dark:bg-stone-950/80">
                     ${p.diagram}
                   </div>
@@ -1200,7 +1210,7 @@
       }
     }
 
-// Dark / Light Theme Toggle
+    // Dark / Light Theme Toggle
     const themeToggle = document.getElementById('themeToggle');
     themeToggle.addEventListener('click', () => {
       document.documentElement.classList.toggle('dark');
@@ -1210,8 +1220,7 @@
       document.documentElement.classList.add('dark');
     }
 
-	
-// Dark Mode Hint Popover (dismisses after 10s, or on any click anywhere including dropdowns)
+    // Dark Mode Hint Popover (dismisses after 25s, or on any click anywhere including dropdowns)
     const darkModeHint = document.getElementById('darkModeHint');
     function dismissDarkModeHint() {
       if (!darkModeHint || darkModeHint.classList.contains('hidden')) return;
